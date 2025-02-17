@@ -340,15 +340,20 @@ Demon {
 <p><img src="./images/havoc_interact1.jpg" alt="Screenshot" /></p>
 <p><img src="./images/havoc_interact2.jpg" alt="Screenshot" /></p>
 <h1><a class="header" href="#havoc-modules" id="havoc-modules">Havoc Modules</a></h1>
-<p>dotnet
+<p><em><strong>dotnet</strong></em>
 inline-execute
 execute</p>
-<p>Inline - execute (BOF Loader!!!)</p>
+<p><em><strong>Inline - execute (BOF Loader!!!)</strong></em></p>
 <blockquote>
 <p>OPSEC Hint : When running the shell command, the process hosting your beacon/implant will spawn a child process, run the command and exit the child process. This is quite noisy compared to running everything in memory in the same process. Also command-line logging (eventlogs, sysmon and EDR's will log the commands.)</p>
 </blockquote>
 <p><em><strong>shell</strong></em></p>
+<p><em><strong>shellcode</strong></em> </p>
+<pre><code class="language-code">shellcode inject x64 6556 /opt/havoc/payloads/demon.x64.bin
+</code></pre>
+<blockquote>
 <p>Explain sacrificial process - advatages/disadvantages (command line logging, stability, patching, not touching other processes)</p>
+</blockquote>
 
                     </main>
 

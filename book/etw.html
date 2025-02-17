@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ETW - </title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.2.</strong> Metasploit Basics</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.3.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.3.1.</strong> Functions Overview</a></li><li><ol class="section"><li class="expanded "><a href="lab1.1.html"><strong aria-hidden="true">1.3.1.1.</strong> Lab - Payloads</a></li><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.3.1.2.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab1.3.html"><strong aria-hidden="true">1.3.1.3.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab1.4.html"><strong aria-hidden="true">1.3.1.4.</strong> Lab - Remote Loader</a></li></ol></li></ol></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.4.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="powershell.html"><strong aria-hidden="true">1.4.1.</strong> Powershell</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.4.2.</strong> UAC</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.4.3.</strong> AMSI</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.4.4.</strong> Hooks</a></li><li class="expanded "><a href="etw.html" class="active"><strong aria-hidden="true">1.4.5.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.4.6.</strong> SYSCALLS</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.5.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.5.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Chapter 2 </a></li><li><ol class="section"><li class="expanded "><a href="lsassdump.html"><strong aria-hidden="true">2.1.</strong> LSASS Dumping</a></li><li class="expanded "><a href="chapter_2.1.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="expanded "><a href="chapter_2.2.html"><strong aria-hidden="true">2.3.</strong> Kerberoasting</a></li><li class="expanded "><a href="chapter_2.3.html"><strong aria-hidden="true">2.4.</strong> Spraying</a></li><li class="expanded "><a href="chapter_2.4.html"><strong aria-hidden="true">2.5.</strong> Relaying</a></li><li class="expanded "><a href="chapter_2.5.html"><strong aria-hidden="true">2.6.</strong> Golden Ticket</a></li><li class="expanded "><a href="chapter_2.6.html"><strong aria-hidden="true">2.7.</strong> DC Sync</a></li><li class="expanded "><a href="chapter_2.7.html"><strong aria-hidden="true">2.8.</strong> Pass the Hash</a></li><li class="expanded "><a href="chapter_2.8.html"><strong aria-hidden="true">2.9.</strong> Evil-WinRM</a></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">3.</strong> Chapter Extra </a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#etw---event-tracing-for-windows-kernel-mode" id="etw---event-tracing-for-windows-kernel-mode">ETW - Event Tracing for Windows (Kernel mode)</a></h1>
+<blockquote>
+<p><strong>TL;DR</strong> ETW basically is  a kernel level debug logging mechanism in Windows - it allows to gather advanced telemetry about functions being called. Windows Even Logs contain a subset of ETW events. Typically used by application developers to debug programs, but has found its way as a telemetry source for EDR's. </p>
+</blockquote>
+<p>Event Tracing for Windows (ETW) is a high speed tracing facility built into Windows. Using a buffering and logging mechanism implemented in the operating system kernel, ETW provides an infrastructure for events raised by both user mode (apps) and kernel mode components (drivers). ETW can be used for system and app diagnosis, troubleshooting, and performance monitoring.</p>
+<p><img src="./images/etwarch.jpg" alt="Screenshot" />
+https://learn.microsoft.com/en-us/windows-hardware/test/weg/instrumenting-your-code-with-etw</p>
+<p><em><strong>Provider</strong></em>
+A provider is an instrumented component that generates events. A provider can be a user mode app, a kernel mode driver, or the Windows kernel itself. In addition to fixed event data (header), an event can carry user data.</p>
+<p>An event is an event-based representation of data. The data can be used for in-depth analysis. An event can also be used to produce counters. Counters provide a sample-based view of data. They typically contain a small set of data to show current state, for example I/O bytes per second and interrupts per second.</p>
+<p>A provider must register with ETW and send events by calling the ETW Logging APIs. Providers register a callback function for enable and disable notifications so that tracing can be enabled and disabled dynamically.</p>
+<p><em><strong>Session</strong></em>
+The ETW session infrastructure works as an intermediate broker that relays the events from one or more providers to the consumer. A session is a kernel object that collects events into kernel buffer and sends them to a specified file or real-time consumer process. Multiple providers can be mapped to a single session, which allows users to collect data from multiple sources.</p>
+<p><em><strong>Controller</strong></em>
+A controller starts, stops, or updates a trace session. A session is a unit for tracing. Providers are mapped (or enabled) to a specific session. A controller enables and disables providers so that they can start sending events to ETW. Controller functionalities can be invoked with tools provided by Microsoft or you can write your own app.</p>
+<p>Logman.exe is an in-box controller app. Windows Performance Recorder (WPR) in the Windows Performance Toolkit is the recommended controller process.</p>
+<p><em><strong>Consumer</strong></em>
+A consumer is an app that reads a logged trace file (ETL file) or captures events in an active trace session in real time, and processes events. Event Viewer and Resource Monitor are in-box ETW consumer apps.</p>
+<p>Windows Performance Analyzer (WPA) in the Windows Performance Toolkit is the recommended consumer process.</p>
+<p>To see which ETW providers are running on the system</p>
+<pre><code class="language-code">logman query -ets
+</code></pre>
+<p>logman  query providers | select-string &quot;defender&quot;</p>
+<p>Notice sysmon, Windows Defender...</p>
+<pre><code class="language-code">logman query providers Microsoft-Windows-Kernel-Process
+</code></pre>
+<table><thead><tr><th>Provider</th><th>GUID</th></tr></thead><tbody>
+<tr><td>Microsoft-Windows-Kernel-Process</td><td>{22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716}</td></tr>
+</tbody></table>
+<pre><code class="language-code">logman start mysession -p {22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716} -o mytest.etl -ets
+logman start mysession -p Microsoft-Windows-Kernel-Process -o mytest.etl -ets
+logman stop mysession -ets
+tracerpt mytest.etl
+</code></pre>
+<p>https://github.com/Microsoft/perfview/releases</p>
+<p>logman create trace MyETWSession -p &quot;Microsoft-Windows-Kernel-Process&quot; 0x8 -o &quot;C:\temp\kernel-process.etl&quot; -ets</p>
+<p>.\filebeat.exe -e -c filebeat.yml -d &quot;*&quot;</p>
+<hr />
+<pre><code class="language-powershell">logman start Microsoft-Windows-Kernel-Memory -p Microsoft-Windows-Kernel-Memory 0xffffffffffffffff win:informational -ets
+logman stop Microsoft-Windows-Kernel-Memory -ets 
+</code></pre>
+<p>tracerpt .\Microsoft-Windows-Kernel-Memory.etl -o Microsoft-Windows-Kernel-Memory.evtx -of evtx -lr</p>
+<p>Microsoft-Windows-DotNETRuntime
+Microsoft-Windows-Threat-Intelligence</p>
+<h2><a class="header" href="#provider---------------------------------guid" id="provider---------------------------------guid">Provider                                 GUID</a></h2>
+<p>Microsoft-Windows-Threat-Intelligence    {F4E1897C-BB5D-5668-F1D8-040F4D8DD344}</p>
+<hr />
+<table><thead><tr><th>Value</th><th>Keyword</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x0000000000000001</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL</td><td>Allocates virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000000002</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL_KERNEL_CALLER</td><td>Allocates virtual memory in the local process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000004</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE</td><td>Allocates virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000000008</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE_KERNEL_CALLER</td><td>Allocates virtual memory in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000010</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL</td><td>Changes the protection on a region of virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000000020</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL_KERNEL_CALLER</td><td>Changes the protection on a region of virtual memory in the local process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000040</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE</td><td>Changes the protection on a region of virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000000080</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE_KERNEL_CALLER</td><td>Changes the protection on a region of virtual memory in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000100</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL</td><td>Maps a view of a file mapping into the address space of the local process.</td></tr>
+<tr><td>0x0000000000000200</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL_KERNEL_CALLER</td><td>Maps a view of a file mapping into the address space of the local process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000400</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE</td><td>Maps a view of a file mapping into the address space of a remote process.</td></tr>
+<tr><td>0x0000000000000800</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE_KERNEL_CALLER</td><td>Maps a view of a file mapping into the address space of a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000001000</td><td>KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE</td><td>Queues an asynchronous procedure call (APC) to a thread in a remote process.</td></tr>
+<tr><td>0x0000000000002000</td><td>KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE_KERNEL_CALLER</td><td>Queues an asynchronous procedure call (APC) to a thread in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000004000</td><td>KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE</td><td>Sets the context of a thread in a remote process.</td></tr>
+<tr><td>0x0000000000008000</td><td>KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE_KERNEL_CALLER</td><td>Sets the context of a thread in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000010000</td><td>KERNEL_THREATINT_KEYWORD_READVM_LOCAL</td><td>Reads virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000020000</td><td>KERNEL_THREATINT_KEYWORD_READVM_REMOTE</td><td>Reads virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000040000</td><td>KERNEL_THREATINT_KEYWORD_WRITEVM_LOCAL</td><td>Writes to virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000080000</td><td>KERNEL_THREATINT_KEYWORD_WRITEVM_REMOTE</td><td>Writes to virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000100000</td><td>KERNEL_THREATINT_KEYWORD_SUSPEND_THREAD</td><td>Suspends a thread.</td></tr>
+<tr><td>0x0000000000200000</td><td>KERNEL_THREATINT_KEYWORD_RESUME_THREAD</td><td>Resumes a suspended thread.</td></tr>
+<tr><td>0x0000000000400000</td><td>KERNEL_THREATINT_KEYWORD_SUSPEND_PROCESS</td><td>Suspends all threads in a process.</td></tr>
+<tr><td>0x0000000000800000</td><td>KERNEL_THREATINT_KEYWORD_RESUME_PROCESS</td><td>Resumes all threads in a suspended process.</td></tr>
+<tr><td>0x0000000001000000</td><td>KERNEL_THREATINT_KEYWORD_FREEZE_PROCESS</td><td>Freezes a process, preventing it from executing.</td></tr>
+<tr><td>0x0000000002000000</td><td>KERNEL_THREATINT_KEYWORD_THAW_PROCESS</td><td>Thaws a frozen process, allowing it to execute.</td></tr>
+<tr><td>0x0000000004000000</td><td>KERNEL_THREATINT_KEYWORD_CONTEXT_PARSE</td><td>Parses the context of a process or thread.</td></tr>
+<tr><td>0x0000000008000000</td><td>KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_VAD_PROBE</td><td>Probes the virtual address descriptor (VAD) for an execution address.</td></tr>
+<tr><td>0x0000000010000000</td><td>KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_MMF_NAME_PROBE</td><td>Probes the memory-mapped file (MMF) name for an execution address.</td></tr>
+<tr><td>0x0000000020000000</td><td>KERNEL_THREATINT_KEYWORD_READWRITEVM_NO_SIGNATURE_RESTRICTION</td><td>Reads or writes virtual memory without signature restrictions.</td></tr>
+<tr><td>0x0000000040000000</td><td>KERNEL_THREATINT_KEYWORD_DRIVER_EVENTS</td><td>Logs events related to kernel-mode drivers.</td></tr>
+<tr><td>0x0000000080000000</td><td>KERNEL_THREATINT_KEYWORD_DEVICE_EVENTS</td><td>Logs events related to device operations.</td></tr>
+<tr><td>0x8000000000000000</td><td>Microsoft-Windows-Threat-Intelligence/Analytic</td><td>Logs analytic events for threat intelligence.</td></tr>
+</tbody></table>
+<table><thead><tr><th>Value</th><th>Level</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04</td><td>win:Informational</td><td>Information</td></tr>
+</tbody></table>
+<table><thead><tr><th>PID</th><th>Image</th></tr></thead><tbody>
+<tr><td>0x00000000</td><td></td></tr>
+</tbody></table>
+<p>https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haunt/agent_code/etw.ps1
+https://github.com/MHaggis/PowerShell-Hunter</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="hooks.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="syscalls.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="hooks.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="syscalls.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

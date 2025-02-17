@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>LSASS Dumping - </title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.2.</strong> Metasploit Basics</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.3.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.3.1.</strong> Functions Overview</a></li><li><ol class="section"><li class="expanded "><a href="lab1.1.html"><strong aria-hidden="true">1.3.1.1.</strong> Lab - Payloads</a></li><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.3.1.2.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab1.3.html"><strong aria-hidden="true">1.3.1.3.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab1.4.html"><strong aria-hidden="true">1.3.1.4.</strong> Lab - Remote Loader</a></li></ol></li></ol></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.4.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="powershell.html"><strong aria-hidden="true">1.4.1.</strong> Powershell</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.4.2.</strong> UAC</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.4.3.</strong> AMSI</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.4.4.</strong> Hooks</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.4.5.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.4.6.</strong> SYSCALLS</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.5.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.5.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Chapter 2 </a></li><li><ol class="section"><li class="expanded "><a href="lsassdump.html" class="active"><strong aria-hidden="true">2.1.</strong> LSASS Dumping</a></li><li class="expanded "><a href="chapter_2.1.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="expanded "><a href="chapter_2.2.html"><strong aria-hidden="true">2.3.</strong> Kerberoasting</a></li><li class="expanded "><a href="chapter_2.3.html"><strong aria-hidden="true">2.4.</strong> Spraying</a></li><li class="expanded "><a href="chapter_2.4.html"><strong aria-hidden="true">2.5.</strong> Relaying</a></li><li class="expanded "><a href="chapter_2.5.html"><strong aria-hidden="true">2.6.</strong> Golden Ticket</a></li><li class="expanded "><a href="chapter_2.6.html"><strong aria-hidden="true">2.7.</strong> DC Sync</a></li><li class="expanded "><a href="chapter_2.7.html"><strong aria-hidden="true">2.8.</strong> Pass the Hash</a></li><li class="expanded "><a href="chapter_2.8.html"><strong aria-hidden="true">2.9.</strong> Evil-WinRM</a></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">3.</strong> Chapter Extra </a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-00---lsass-dumping" id="chapter-00---lsass-dumping">Chapter 0.0 - LSASS Dumping</a></h1>
+<p>One of the most common techniques used by adversaries is LSASS dumping, blahblah</p>
+<p>Local Security Authority (LSA) is protected subsystem that authenticates and logs users onto the local system. In previous versions of Windows (before Windows 10 and Server 2016), LSA stored secrets used by the operating system in its process memory. As discussed above, when hackers compromise operating system, they can get access to process memory leading to credential theft and lateral theft.</p>
+<h2><a class="header" href="#mitre-t1003001---os-credential-dumping-lsass-memory" id="mitre-t1003001---os-credential-dumping-lsass-memory">Mitre: T1003.001 - &quot;OS Credential Dumping: LSASS Memory&quot;</a></h2>
+<ul>
+<li>source: <em><strong><a href="https://attack.mitre.org/techniques/T1003/">https://attack.mitre.org/techniques/T1003/</a></strong></em></li>
+</ul>
+<blockquote>
+<p>Credential dumping is the process of obtaining account login and password information, normally in the form of a hash or a clear text password, from the operating system and software. Credentials can then be used to perform Lateral Movement and access restricted information.</p>
+</blockquote>
+<p><img src="./images/mitre_text_lsass.jpg" alt="image" /></p>
+<p><img src="./images/mitrelsass.jpg" alt="image" /></p>
+<h1><a class="header" href="#credentialguard" id="credentialguard">CredentialGuard</a></h1>
+<p>Credential guard uses virtualization-based security and creates a new component LSA Isolated to store all secrets that the operating system cannot access directly so that even if hackers compromise the system, they cannot do credential theft. Once Credential guard is configured,  LSA process (LSASS) runs in the operating system, and additional instance of LSA (LSAIso – which stands for LSA Isolated) is created. LSA connects to LSA Isolated using RPC. This is to allow all of the standard calls to LSA to still succeed, offering backwards compatibility for services or applications that require direct communication with LSA.</p>
+<p><img src="./images/credguard.jpg" alt="Screenshot" /></p>
+<h1><a class="header" href="#credentialguard---things-to-know" id="credentialguard---things-to-know">CredentialGuard - things to know</a></h1>
+<p>Credential Guard requirement</p>
+<p>Operating System – Windows 10 Enterprise, Windows 10 Education, Windows Server 2016, and Windows 10 IoT Enterprise.</p>
+<p>Credential Guard is supported for Hyper-V virtual machine.</p>
+<p>Enabling Credential Guard on <code>domain controllers</code> is <em><strong>not supported</strong></em>.</p>
+<h1><a class="header" href="#mimikatzsharpkatz" id="mimikatzsharpkatz">Mimikatz/SharpKatz</a></h1>
+<p>Most heavily signatured binary in the world.</p>
+<p>https://github.com/gentilkiwi/</p>
+<p><img src="./images/mimigit.jpg" alt="Screenshot" /></p>
+<blockquote>
+<p><strong>LSASS</strong> [Memory] : The Local Security Authority Subsystem Service (LSASS) handles the enforcement of security policy in a Windows host. In Windows environments from 2000 to Server 2008 the memory of the LSASS process was storing passwords in clear-text to support WDigest and SSP authentication. </p>
+</blockquote>
+<p>Credentials are stored in LSASS when:</p>
+<ol>
+<li>a user logs on locally to the system</li>
+<li>you use runas and provide credentials</li>
+<li>an RDP connection is established</li>
+</ol>
+<p>Microsoft from Windows 8.1 and Windows Server 2012 enhanced security by <strong>preventing LSASS from storing passwords in clear-text</strong>. However in a system that has been already compromised with elevated credentials a minor registry modification can instruct LSASS process to store clear-text passwords in its memory in the next login of the user</p>
+<p><img src="./images/reg_wdigest.jpg" alt="WDIGEST" /></p>
+<pre><code class="language-code">reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest&quot; /v UseLogonCredential /t REG_DWORD /d 00000001 /f
+</code></pre>
+<blockquote>
+<p>Don't forget to log out and in again.</p>
+</blockquote>
+<p><img src="./images/reg_wdigest_clear.jpg" alt="WDIGEST" /> </p>
+<p>If you now run Mimikatz.exe, you'll see clear-text credentials in memory again. Even on Windows 10 - maybe that's a registry key we want to keep an eye on with Sysmon ;-) ?</p>
+<p><img src="./images/mimi_clear.jpg" alt="WDIGEST" /> </p>
+<p><em><strong>SHARPKATZ</strong></em></p>
+<p>.net implementation of Mimikatz.</p>
+<p><img src="./images/sharpkatzgit.jpg" alt="Screenshot" /></p>
+<p>strings
+lazysign
+yara
+threatcheck (clamav/MS Defender) folder exceptions (AMSI?)
+KleenScan
+IAT (pebear?)
+DNSpy netpeek</p>
+<p>Hexview/Visual Studio</p>
+<p>NativeDump</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_2.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="chapter_2.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

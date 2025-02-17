@@ -1,0 +1,6 @@
+C:\Git\code\Base64\Base64\bin\x64\Release\Base64.exe
+C:\Git\code\Base64\Base64\bin\x64\Release\Base64.pdb
+C:\Git\code\Base64\Base64\obj\x64\Release\Base64.csproj.AssemblyReference.cache
+C:\Git\code\Base64\Base64\obj\x64\Release\Base64.csproj.CoreCompileInputs.cache
+C:\Git\code\Base64\Base64\obj\x64\Release\Base64.exe
+C:\Git\code\Base64\Base64\obj\x64\Release\Base64.pdb

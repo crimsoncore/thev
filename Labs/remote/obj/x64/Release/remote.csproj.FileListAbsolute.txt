@@ -1,0 +1,6 @@
+C:\Git\code\remote\bin\x64\Release\remote.exe
+C:\Git\code\remote\bin\x64\Release\remote.pdb
+C:\Git\code\remote\obj\x64\Release\remote.csproj.AssemblyReference.cache
+C:\Git\code\remote\obj\x64\Release\remote.csproj.CoreCompileInputs.cache
+C:\Git\code\remote\obj\x64\Release\remote.exe
+C:\Git\code\remote\obj\x64\Release\remote.pdb

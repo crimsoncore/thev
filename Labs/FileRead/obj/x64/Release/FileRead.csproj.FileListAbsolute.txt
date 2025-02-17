@@ -1,0 +1,6 @@
+C:\Git\code\FileRead\bin\x64\Release\FileRead.exe
+C:\Git\code\FileRead\bin\x64\Release\FileRead.pdb
+C:\Git\code\FileRead\obj\x64\Release\FileRead.csproj.AssemblyReference.cache
+C:\Git\code\FileRead\obj\x64\Release\FileRead.csproj.CoreCompileInputs.cache
+C:\Git\code\FileRead\obj\x64\Release\FileRead.exe
+C:\Git\code\FileRead\obj\x64\Release\FileRead.pdb

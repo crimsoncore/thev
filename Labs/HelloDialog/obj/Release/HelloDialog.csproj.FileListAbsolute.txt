@@ -1,0 +1,7 @@
+C:\Git\code\HelloDialog\bin\Release\HelloDialog.exe
+C:\Git\code\HelloDialog\bin\Release\HelloDialog.pdb
+C:\Git\code\HelloDialog\obj\Release\HelloDialog.csprojResolveAssemblyReference.cache
+C:\Git\code\HelloDialog\obj\Release\HelloDialog.Properties.Resources.resources
+C:\Git\code\HelloDialog\obj\Release\HelloDialog.csproj.GenerateResource.Cache
+C:\Git\code\HelloDialog\obj\Release\HelloDialog.exe
+C:\Git\code\HelloDialog\obj\Release\HelloDialog.pdb

@@ -1,0 +1,19 @@
+filebeat.inputs:
+- type: etw
+  enabled: true
+  provider.name: "Microsoft-Windows-Kernel-Process"
+  trace_level: information
+setup.kibana:
+  host: "https://10.0.0.4:5601"
+
+output.elasticsearch:
+  hosts: ["https://10.0.0.4:9200"]
+  protocol: "https"
+  username: "elastic"
+  password: "elastic"
+  ssl.verification_mode: none
+  index: "filebeat-etw-%{+yyyy.MM.dd}"
+
+setup.template.enabled: true
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat-etw-*"

@@ -1,0 +1,7 @@
+C:\thev\Labs\LocalLoader\LocalLoader\bin\x64\Release\LocalLoader.exe.config
+C:\thev\Labs\LocalLoader\LocalLoader\bin\x64\Release\LocalLoader.exe
+C:\thev\Labs\LocalLoader\LocalLoader\bin\x64\Release\LocalLoader.pdb
+C:\thev\Labs\LocalLoader\LocalLoader\obj\x64\Release\LocalLoader.csproj.AssemblyReference.cache
+C:\thev\Labs\LocalLoader\LocalLoader\obj\x64\Release\LocalLoader.csproj.CoreCompileInputs.cache
+C:\thev\Labs\LocalLoader\LocalLoader\obj\x64\Release\LocalLoader.exe
+C:\thev\Labs\LocalLoader\LocalLoader\obj\x64\Release\LocalLoader.pdb

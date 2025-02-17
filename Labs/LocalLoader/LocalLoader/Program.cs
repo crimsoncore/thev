@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 
 namespace ShellcodePayload
@@ -18,7 +18,7 @@ namespace ShellcodePayload
         {
             // (1) insert our shellcode
             byte[] shellCode = new byte[] { /* insert shellcode here */ };
-            
+
             // Print the shellcode to the screen
             Console.WriteLine("Shellcode: " + BitConverter.ToString(shellCode));
 

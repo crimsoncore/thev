@@ -452,13 +452,12 @@ ClamAV
     strings -n 5
 </code></pre>
 <p>Shelcode formats (shellcode formatter etc)</p>
-<p>On Windows:</p>
+<p>On Windows (requires SDK):</p>
 <h2><a class="header" href="#cscexe-csharpdotnet" id="cscexe-csharpdotnet"><em><strong>csc.exe (CSharp/dotnet)</strong></em></a></h2>
 <pre><code class="language-code">c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loader.cs
 csc.exe /t:exe /out:$utilName /unsafe $katzPath
 </code></pre>
-<p>``csharp
-// AssemblyInfo.cs
+<pre><code class="language-csharp">// AssemblyInfo.cs
 [assembly: AssemblyTitle(&quot;YourProductName&quot;)]
 [assembly: AssemblyDescription(&quot;Some description&quot;)]
 [assembly: AssemblyConfiguration(&quot;&quot;)]
@@ -468,10 +467,9 @@ csc.exe /t:exe /out:$utilName /unsafe $katzPath
 [assembly: AssemblyTrademark(&quot;&quot;)]
 [assembly: AssemblyCulture(&quot;&quot;)]
 [assembly: AssemblyVersion(&quot;1.0.0.0&quot;)]
-[assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]</p>
-<pre><code>
-```powershell
-csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
+[assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]
+</code></pre>
+<pre><code class="language-powershell">csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
 </code></pre>
 <h2><a class="header" href="#msbuildexe-csharp-c" id="msbuildexe-csharp-c"><em><strong>msbuild.exe (CSharp, C++)</strong></em></a></h2>
 <pre><code class="language-code">msbuild buildapp.csproj -t:HelloWorld
@@ -483,7 +481,8 @@ set solutionsFile=&quot;C:\TestProject\mySln.sln&quot;
 rem Build the solutions:  
 %msBuildExe% /t:Build /p:Configuration=Release /p:Platform=x64 %solutionsFile%
 </code></pre>
-<h2><a class="header" href="#clexe-c" id="clexe-c"><em><strong>CL.exe (C)</strong></em></a></h2>
+<hr />
+<h2><a class="header" href="#clexe-c-visual-studio" id="clexe-c-visual-studio"><em><strong>CL.exe (C)</strong></em> Visual Studio</a></h2>
 <pre><code class="language-code">Developer Prompt Visual Studio
 cl.exe hello.c /out:hello.exe /exe
 

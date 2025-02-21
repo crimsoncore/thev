@@ -15,7 +15,7 @@
 
 Shelcode formats (shellcode formatter etc)
 
-On Windows:
+On Windows (requires SDK):
 
 ***csc.exe (CSharp/dotnet)***
 ---
@@ -24,7 +24,7 @@ c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loade
 csc.exe /t:exe /out:$utilName /unsafe $katzPath
 ```
 
-``csharp
+```csharp
 // AssemblyInfo.cs
 [assembly: AssemblyTitle("YourProductName")]
 [assembly: AssemblyDescription("Some description")]
@@ -58,8 +58,8 @@ set solutionsFile="C:\TestProject\mySln.sln"
 rem Build the solutions:  
 %msBuildExe% /t:Build /p:Configuration=Release /p:Platform=x64 %solutionsFile%
 ```
-
-***CL.exe (C)***
+--- 
+***CL.exe (C)*** Visual Studio
 ---
 ```code
 Developer Prompt Visual Studio

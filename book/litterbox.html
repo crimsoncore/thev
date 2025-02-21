@@ -172,7 +172,9 @@ pip install  -r requirements.txt
 C:\Users\threatadmin\AppData\Local\Programs\Python\Python312\python.exe
 C:\Users\threatadmin\AppData\Local\Microsoft\WindowsApps\python.exe
 </code></pre>
-<pre><code class="language-powershell">nssm.exe install AvredTest python &quot;C:\git\avred-server\avred_server.py&quot;
+<pre><code class="language-powershell">nssm install AvredServer&quot;C:\\Users\\threatadmin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe&quot; &quot;C:\\git\\avred-server\\avred_server.py&quot;
+nssm set AvredTest AppDirectory &quot;C:\\git\\avred-server\\&quot;
+
 nssm.exe start AvredServer
 </code></pre>
 <p><em><strong>On Kali</strong></em></p>

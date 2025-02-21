@@ -41,7 +41,9 @@ C:\Users\threatadmin\AppData\Local\Microsoft\WindowsApps\python.exe
 ```
 
 ```powershell
-nssm.exe install AvredTest python "C:\git\avred-server\avred_server.py"
+nssm install AvredServer"C:\\Users\\threatadmin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" "C:\\git\\avred-server\\avred_server.py"
+nssm set AvredTest AppDirectory "C:\\git\\avred-server\\"
+
 nssm.exe start AvredServer
 ```
 

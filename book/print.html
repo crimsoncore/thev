@@ -232,10 +232,39 @@ Demon {
 <p><img src="./images/havoc_team.jpg" alt="Screenshot" /></p>
 <pre><code class="language-bash">havoc server --profile /opt/Havoc/profiles/custom.yoatl -v --debug
 </code></pre>
-<h1><a class="header" href="#running-the-client" id="running-the-client">Running the client</a></h1>
-<p><img src="./images/havoc_newtab.jpg" alt="Screenshot" /></p>
-<p>In your terminal open a new tab, then run the following command:</p>
-<pre><code class="language-code">havoc client
+<p>Let's set thsis up as a service:</p>
+<pre><code class="language-bash">sudo nano /lib/systemd/system/havocservice.service
+</code></pre>
+<pre><code class="language-yaml">[Unit]
+Description=HavocServer
+After=network.target
+
+[Service]
+Type=idle
+Restart=on-failure
+User=root
+ExecStart=&quot;/usr/bin/havoc&quot; &quot;server&quot; &quot;--profile&quot; &quot;/opt/havoc/profiles/https.yaotl&quot;
+
+[Install]
+
+</code></pre>
+<p>Change the file permisions, enable and start the service:</p>
+<pre><code>sudo chmod 644 /lib/systemd/system/
+sudo systemctl daemon-reload
+enable havocserver.service
+sudo systemctl start havocserver.service 
+systemctl status havocserver.service
+&quot;
+
+# Running the client
+
+![Screenshot](./images/havoc_newtab.jpg)
+
+In your terminal open a new tab, then run the following command:
+
+
+```code
+havoc client
 </code></pre>
 <p>We can now log in to our teamserver using the user <code>Threatadmin</code> and the password whcih we defined in the custom Havoc C2 profile.</p>
 <p><img src="./images/havoc_login.jpg" alt="Screenshot" /></p>

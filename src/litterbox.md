@@ -43,9 +43,46 @@ C:\Users\threatadmin\AppData\Local\Microsoft\WindowsApps\python.exe
 ```powershell
 nssm install AvredServer"C:\\Users\\threatadmin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" "C:\\git\\avred-server\\avred_server.py"
 nssm set AvredTest AppDirectory "C:\\git\\avred-server\\"
-
 nssm.exe start AvredServer
 ```
+
+Download and install Radare2 on windows and add it to the path
+
+```powershell
+cd git
+git clone https://github.com/dobin/avred.git
+pip install -R requirements.txt
+```
+
+Edit the config.yaml
+
+```yaml
+server:
+  Amsi: "http://10.0.0.8:8001/"
+password: ""
+hashCache: True
+WebMaxFileSizeMb: 50
+```
+
+run a scan from commandline
+```powershell
+python3 avred.py -f app/upload/meterpreter.exe 
+```
+
+
+
+Run the (GUI) server (this is running on your KALI machine)
+```bash
+python3 avredweb.py
+```
+
+Browse to the server GUI (from windows or Kali)
+http:\\10.0.0.7:5000
+
+Install as a service with NSSM
+
+
+-----
 
 ***On Kali***
 

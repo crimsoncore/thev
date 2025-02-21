@@ -163,6 +163,9 @@ ClamAV
     strings -n 5
 </code></pre>
 <p>Shelcode formats (shellcode formatter etc)</p>
+<blockquote>
+<p>OPSEC HINT: Make sure your binaries loog legit, add metadata and and icon to the file!</p>
+</blockquote>
 <p>On Windows (requires SDK):</p>
 <h2><a class="header" href="#cscexe-csharpdotnet" id="cscexe-csharpdotnet"><em><strong>csc.exe (CSharp/dotnet)</strong></em></a></h2>
 <pre><code class="language-code">c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loader.cs
@@ -181,6 +184,97 @@ csc.exe /t:exe /out:$utilName /unsafe $katzPath
 [assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]
 </code></pre>
 <pre><code class="language-powershell">csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
+</code></pre>
+<p>You can extract metadata from any binary with this simple program.</p>
+<pre><code class="language-powershell">dotnet new console -n AssemblyInfoExtractor
+cd AssemblyInfoExtractor
+</code></pre>
+<p>Create a &quot;Program.cs&quot; file here</p>
+<pre><code class="language-csharp">using System;
+using System.Reflection;
+
+namespace AssemblyInfoExtractor
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Console.WriteLine(&quot;Please provide the path to the assembly.&quot;);
+                return;
+            }
+
+            string assemblyPath = args[0];
+            try
+            {
+                var assembly = Assembly.LoadFile(assemblyPath);
+                var assemblyName = assembly.GetName();
+
+                Console.WriteLine($&quot;Assembly Full Name: {assemblyName.FullName}&quot;);
+                Console.WriteLine($&quot;Version: {assemblyName.Version}&quot;);
+
+                var attributes = assembly.GetCustomAttributesData();
+                foreach (var attr in attributes)
+                {
+                    if (attr.AttributeType == typeof(AssemblyCompanyAttribute))
+                    {
+                        Console.WriteLine($&quot;Company: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyProductAttribute))
+                    {
+                        Console.WriteLine($&quot;Product: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyCopyrightAttribute))
+                    {
+                        Console.WriteLine($&quot;Copyright: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyTitleAttribute))
+                    {
+                        Console.WriteLine($&quot;Title: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyDescriptionAttribute))
+                    {
+                        Console.WriteLine($&quot;Description: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+            }
+        }
+    }
+}
+</code></pre>
+<pre><code class="language-powershell">dotnet build
+dotnet run --project C:\Temp\AssemblyInfoExtractor\AssemblyInfoExtractor.csproj C:\Temp\LocalLoader.exe
+</code></pre>
+<p>or run the exe:</p>
+<pre><code class="language-powershell">C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0&gt;dir
+ Volume in drive C is Windows
+ Volume Serial Number is 368D-BFAA
+
+ Directory of C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0
+
+02/21/2025  04:35 PM    &lt;DIR&gt;          .
+02/21/2025  04:35 PM    &lt;DIR&gt;          ..
+02/21/2025  04:31 PM               455 AssemblyInfoExtractor.deps.json
+02/21/2025  04:35 PM             6,656 AssemblyInfoExtractor.dll
+02/21/2025  04:35 PM           145,408 AssemblyInfoExtractor.exe
+02/21/2025  04:35 PM            11,080 AssemblyInfoExtractor.pdb
+02/21/2025  04:31 PM               268 AssemblyInfoExtractor.runtimeconfig.json
+               5 File(s)        163,867 bytes
+               2 Dir(s)   2,280,939,520 bytes free
+
+C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0&gt;AssemblyInfoExtractor.exe C:\Temp\LocalLoader.exe
+Assembly Full Name: LocalLoader, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Version: 1.0.0.0
+Title: LocalLoader
+Description:
+Company:
+Product: LocalLoader
+Copyright: Copyright ©  2025
 </code></pre>
 <h2><a class="header" href="#msbuildexe-csharp-c" id="msbuildexe-csharp-c"><em><strong>msbuild.exe (CSharp, C++)</strong></em></a></h2>
 <pre><code class="language-code">msbuild buildapp.csproj -t:HelloWorld

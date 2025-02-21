@@ -457,6 +457,22 @@ ClamAV
 <pre><code class="language-code">c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loader.cs
 csc.exe /t:exe /out:$utilName /unsafe $katzPath
 </code></pre>
+<p>``csharp
+// AssemblyInfo.cs
+[assembly: AssemblyTitle(&quot;YourProductName&quot;)]
+[assembly: AssemblyDescription(&quot;Some description&quot;)]
+[assembly: AssemblyConfiguration(&quot;&quot;)]
+[assembly: AssemblyCompany(&quot;YourCompanyName&quot;)]
+[assembly: AssemblyProduct(&quot;YourProductName&quot;)]
+[assembly: AssemblyCopyright(&quot;© YourCompanyName&quot;)]
+[assembly: AssemblyTrademark(&quot;&quot;)]
+[assembly: AssemblyCulture(&quot;&quot;)]
+[assembly: AssemblyVersion(&quot;1.0.0.0&quot;)]
+[assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]</p>
+<pre><code>
+```powershell
+csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
+</code></pre>
 <h2><a class="header" href="#msbuildexe-csharp-c" id="msbuildexe-csharp-c"><em><strong>msbuild.exe (CSharp, C++)</strong></em></a></h2>
 <pre><code class="language-code">msbuild buildapp.csproj -t:HelloWorld
 msbuild mimidogz.sln /t:Build /p:Configuration=Release /p:Platform=x64

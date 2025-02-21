@@ -24,6 +24,23 @@ c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loade
 csc.exe /t:exe /out:$utilName /unsafe $katzPath
 ```
 
+``csharp
+// AssemblyInfo.cs
+[assembly: AssemblyTitle("YourProductName")]
+[assembly: AssemblyDescription("Some description")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("YourCompanyName")]
+[assembly: AssemblyProduct("YourProductName")]
+[assembly: AssemblyCopyright("© YourCompanyName")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
+```
+
+```powershell
+csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
+```
 
 
 

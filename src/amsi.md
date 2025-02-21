@@ -162,3 +162,6 @@ And finally AMSI.FAIL
 
 ConfuserEx
 Babel
+
+----
+https://github.com/pracsec/AmsiScanner/tree/main/src

@@ -1086,7 +1086,71 @@ Add some options to evade AV -&gt; SetLastError, ExactSpelling</p>
 <h1><a class="header" href="#array-reversing" id="array-reversing">Array Reversing</a></h1>
 <h1><a class="header" href="#syscalls" id="syscalls">Syscalls</a></h1>
 <h1><a class="header" href="#unhooking" id="unhooking">Unhooking</a></h1>
-<h1><a class="header" href="#litterbox-forensics" id="litterbox-forensics">Litterbox (Forensics)</a></h1>
+<h1><a class="header" href="#litterbox--avred-forensics" id="litterbox--avred-forensics">Litterbox / Avred (Forensics)</a></h1>
+<h1><a class="header" href="#avred-server" id="avred-server">AVRed-Server</a></h1>
+<p><em><strong>On windows:</strong></em></p>
+<pre><code class="language-powershell">cd c:\git
+git clone hhttps://github.com/dobin/avred-server.git
+cd avred-server
+pip install  -r requirements.txt
+</code></pre>
+<p>Edit the config.yaml file</p>
+<pre><code class="language-yaml">{
+	&quot;bind_ip&quot;: &quot;0.0.0.&quot;,
+	&quot;port&quot;: 8001,
+	&quot;engine&quot;: &quot;Amsi&quot;
+}
+</code></pre>
+<p><img src="./images/avred_server.jpg" alt="image" /></p>
+<p>On your windows machine browse to the linke:</p>
+<p><img src="./images/avred_server_chrome.jpg" alt="image" /></p>
+<p>OPTIONALLY - Install as service with NSSM</p>
+<p><a href="https://nssm.cc/ci/nssm-2.24-103-gdee49fc.zip">https://nssm.cc/ci/nssm-2.24-103-gdee49fc.zip</a></p>
+<pre><code class="language-powershell">where python.exe
+C:\Users\threatadmin\AppData\Local\Programs\Python\Python312\python.exe
+C:\Users\threatadmin\AppData\Local\Microsoft\WindowsApps\python.exe
+</code></pre>
+<pre><code class="language-powershell">nssm.exe install AvredTest python &quot;C:\git\avred-server\avred_server.py&quot;
+nssm.exe start AvredServer
+</code></pre>
+<p><em><strong>On Kali</strong></em></p>
+<ol>
+<li>Install <em>Radare</em></li>
+</ol>
+<pre><code class="language-bash">sudo apt install radare2
+</code></pre>
+<ol start="2">
+<li>Install <em>AVRed</em></li>
+</ol>
+<pre><code class="language-bash">cd ~/Desktop
+git clone https://github.com/dobin/avred.git
+sudo chown -R Threatadmin:Threatadmin avred
+
+</code></pre>
+<p>edit the config.yaml and point it to the windows avred_server</p>
+<pre><code class="language-bash">cd ~/Desktop/avred
+nano config.yaml
+</code></pre>
+<pre><code class="language-yaml">server:
+  Amsi: &quot;http://10.0.0.8:8001/&quot;
+password: &quot;&quot;
+hashCache: True
+WebMaxFileSizeMb: 50
+</code></pre>
+<p>build AVRed</p>
+<pre><code class="language-bash">pip install setuptools
+udo apt-get install python3-magic   
+pip3 install --upgrade Flask-SQLAlchemy --break-system-ackages
+pip3 install --upgrade -r requirements.txt --break-system-packages
+</code></pre>
+<p>run a scan from commandline</p>
+<pre><code class="language-bash">python3 avred.py -f app/upload/meterpreter.exe 
+</code></pre>
+<p>Run the (GUI) server (this is running on your KALI machine)</p>
+<pre><code class="language-bash">python3 avredweb.py
+</code></pre>
+<p>Browse to the server GUI (from windows or Kali)
+http:\10.0.0.7:5000</p>
 <h1><a class="header" href="#chapter-2---credential-attacks" id="chapter-2---credential-attacks">Chapter 2 - Credential Attacks</a></h1>
 <ol>
 <li>Harvesting Credentials from Memory</li>

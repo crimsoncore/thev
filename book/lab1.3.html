@@ -149,6 +149,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#lab-13---basic-loader" id="lab-13---basic-loader">Lab 1.3 - Basic Loader</a></h1>
+<p>Generate havoc shellcode</p>
+<p>Convert the shellcode to a CSharp array:</p>
+<pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
+$fileContent = [IO.File]::ReadAllBytes($fileName)
+#$fileContent
+$csharpformat = '0x' + (($fileContent | ForEach-Object ToString x2 | ForEach-Object { $_ + ',' }) -join '0x')
+$csharpformat = $csharpformat.SubString(0, $csharpformat.Length-1)
+Write-Output &quot;[+] Shellcode length: $($csharpformat.Length) bytes&quot;
+$csharpformat | add-content ($fileName + &quot;.cs&quot;)
+Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
+</code></pre>
+<p>Load this shellcode into you basic loader template:</p>
+<pre><code class="language-CSHARP">
+</code></pre>
 
                     </main>
 

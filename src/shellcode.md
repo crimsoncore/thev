@@ -18,6 +18,7 @@ Shelcode formats (shellcode formatter etc)
 > OPSEC HINT: Make sure your binaries loog legit, add metadata and and icon to the file!
 
 On Windows (requires SDK):
+<https://dotnet.microsoft.com/en-us/>
 
 ***csc.exe (CSharp/dotnet)***
 ---

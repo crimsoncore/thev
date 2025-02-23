@@ -2,6 +2,7 @@
 
 - [ **Chapter 1 : Intro** ](./intro.md)
   - [Havoc C2](./havoc.md)
+    - [Static Analysis](./static.md)
   - [Metasploit Basics](./chapter_1.1.md)
   - [Shellcode](./shellcode.md)
      - [Functions Overview](./functions.md)

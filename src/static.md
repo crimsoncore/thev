@@ -1,6 +1,20 @@
 # Static Analysis
 
-strings, threatcheck
+Let's take a common attack tool "Rubeus", compile it and see what Defender thinks of it.
+
+<https://www.youtube.com/watch?v=sP2XH8YI20c&t=1042s>
+
+<https://github.com/GhostPack/Rubeus.git>
+
+https://github.com/gatariee/gocheck/releases
+
+Open Visual studio and replace `ticket` by `token`
+
+
+strings, threatcheck, gocheck, floss, yara
+
+C:\Temp>gocheck64.exe C:\Git\Rubeus\Rubeus\bin\x64\Release\Rubeus.exe --defender
+c:\Git\ThreatCheck\ThreatCheck\bin\x64\Release>ThreatCheck.exe -f C:\Git\Rubeus\Rubeus\bin\x64\Release\Rubeus.exe
 
 # YARA
 

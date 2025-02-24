@@ -117,7 +117,8 @@ Tadaa!!!! Victory!!! No more detections, we can now drop the clean rubeus file t
 ![Screenshot](./images/rubeus_defender_clean.jpg)
 ------
 
-
+https://github.com/Matthew-IE/XObfuscator.git
+add to Havoc C2
 
 
 

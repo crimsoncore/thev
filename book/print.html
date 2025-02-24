@@ -1192,16 +1192,42 @@ public class AmsiBypass
         }
     }
 }
-
------
-# dotnet packing
-
-ConfuserEx
-Babel
-
-----
-https://github.com/pracsec/AmsiScanner/tree/main/src
 </code></pre>
+<h2><a class="header" href="#key-considerations" id="key-considerations">Key Considerations:</a></h2>
+<ul>
+<li><strong>Assembly Loading:</strong>
+<ul>
+<li>If your .NET binary doesn't already have <code>System.Management.Automation.dll</code> loaded, you may need to load it explicitly using <code>Assembly.Load()</code> or related methods.</li>
+</ul>
+</li>
+<li><strong>.NET Version Compatibility:</strong>
+<ul>
+<li>Ensure that the reflection code is compatible with the .NET Framework or .NET Core/.NET 5+ version that the target binary is using.</li>
+</ul>
+</li>
+<li><strong>Security Implications:</strong>
+<ul>
+<li>AMSI bypass techniques can be used for malicious purposes. Use them responsibly and ethically.</li>
+</ul>
+</li>
+<li><strong>EDR Detection:</strong>
+<ul>
+<li>Modern EDR solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior.</li>
+</ul>
+</li>
+<li><strong>Finding the correct assembly:</strong>
+<ul>
+<li>In some .net applications, the <code>System.Management.Automation.dll</code> may not be loaded. If this is the case, you will need to load it.</li>
+</ul>
+</li>
+</ul>
+<p><strong>In summary:</strong> The AMSI bypass technique using reflection is not limited to PowerShell and can be successfully implemented in .NET binaries.</p>
+<hr />
+<h1><a class="header" href="#dotnet-packing" id="dotnet-packing">dotnet packing</a></h1>
+<p>ConfuserEx
+Babel</p>
+<hr />
+<p>https://github.com/pracsec/AmsiScanner/tree/main/src</p>
 <h1><a class="header" href="#hooks-user-land" id="hooks-user-land">Hooks (User land)</a></h1>
 <p><img src="./images/hooking.jpg" alt="Screenshot" /></p>
 <p>HookChecker mr. Un1c0d3r</p>

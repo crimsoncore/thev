@@ -227,6 +227,21 @@ public class AmsiBypass
         }
     }
 }
+```
+## Key Considerations:
+
+* **Assembly Loading:**
+    * If your .NET binary doesn't already have `System.Management.Automation.dll` loaded, you may need to load it explicitly using `Assembly.Load()` or related methods.
+* **.NET Version Compatibility:**
+    * Ensure that the reflection code is compatible with the .NET Framework or .NET Core/.NET 5+ version that the target binary is using.
+* **Security Implications:**
+    * AMSI bypass techniques can be used for malicious purposes. Use them responsibly and ethically.
+* **EDR Detection:**
+    * Modern EDR solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior.
+* **Finding the correct assembly:**
+    * In some .net applications, the `System.Management.Automation.dll` may not be loaded. If this is the case, you will need to load it.
+
+**In summary:** The AMSI bypass technique using reflection is not limited to PowerShell and can be successfully implemented in .NET binaries.
 
 -----
 # dotnet packing

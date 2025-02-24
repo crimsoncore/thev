@@ -382,6 +382,13 @@ public class EtwBypass
 </li>
 </ul>
 <p><strong>In summary:</strong> The C# code provides a more general-purpose ETW patching mechanism that can be used independently of PowerShell, while the PowerShell one-liner is specific to the PowerShell environment.</p>
+<hr />
+<h1><a class="header" href="#telemetrysourceror" id="telemetrysourceror">TelemetrySourceror</a></h1>
+<p>Make sure secure boot is disabled in VM</p>
+<pre><code class="language-powershell">bcdedit.exe -set TESTSIGNING ON
+</code></pre>
+<p>Reboot the machine</p>
+<p>Use PSEXEC to run as system and run Telemetry Sourceror</p>
 
                     </main>
 

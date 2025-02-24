@@ -254,3 +254,17 @@ public class EtwBypass
     * .net binary patch: Targets the event provider class, so it can target any .net application that uses that class.
 
 **In summary:** The C# code provides a more general-purpose ETW patching mechanism that can be used independently of PowerShell, while the PowerShell one-liner is specific to the PowerShell environment.
+
+---
+
+# TelemetrySourceror
+
+Make sure secure boot is disabled in VM
+
+```powershell
+bcdedit.exe -set TESTSIGNING ON
+```
+
+Reboot the machine
+
+Use PSEXEC to run as system and run Telemetry Sourceror

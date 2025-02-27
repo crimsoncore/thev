@@ -9,3 +9,5 @@ DLL Sideloading, powershellshell SharpDDL Proxy, DDLHijacks.net
 Cyphercon 6
 windows SKD Libraries - signed by MS (EDR's track default DLL's and their execution paths)
 use procmon to see DLL's not found
+
+Evading AV (signatures), by downloading the shellcode remotely, instead of embedded it might trigger behavioural detections (unsigned process, making a network connection). So maybe we can embed the encrypted shellcode in an .ico file, in a resource file.

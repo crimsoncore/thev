@@ -4,6 +4,8 @@ learn.micorosoft.com
 
 WIN32 api functions (slides)
 
+https://malapi.io/
+
 Api monitor
 
 

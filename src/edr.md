@@ -7,3 +7,5 @@ https://blog.deeb.ch/posts/how-edr-works/
 
 DLL Sideloading, powershellshell SharpDDL Proxy, DDLHijacks.net
 Cyphercon 6
+windows SKD Libraries - signed by MS (EDR's track default DLL's and their execution paths)
+use procmon to see DLL's not found

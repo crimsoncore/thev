@@ -4,6 +4,15 @@ MITRE Reference
 
 ![image](./images/uac_mitre.jpg)
 
+UAC Levels
+
+Screenshot etc...
+
+https://www.youtube.com/watch?v=ZhaZJ4Uipqk
+
+Fodhelper
+
+
 Demo with cmd.exe -> medium level even if admin
 runas 
 show whoami / groups

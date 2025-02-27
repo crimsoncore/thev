@@ -17,6 +17,7 @@
     - [Hooks](./hooks.md)
     - [ETW](./etw.md)
     - [SYSCALLS](./syscalls.md)
+    - [EDR Stuff](./edr.md)
   - [Evasion](./evasion.md)
     - [Forensics - Litterbox](./litterbox.md)
 - [ **Chapter 2** ](./chapter_2.md)

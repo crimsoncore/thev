@@ -1,4 +1,13 @@
 # SYSCALLS (Kernel mode)
+
+<https://hfiref0x.github.io/X86_64/NT10_syscalls.html>
+
+| System Call               | Windows 7 | Windows 8 | Windows 8.1 | Windows 10 | Windows 11 | Description                                                                                 |
+| ------------------------- | --------- | --------- | ----------- | ---------- | ---------- | ------------------------------------------------------------------------------------------- |
+| `NtCreateThread`          | 0x0052    | 0x0052    | 0x0052      | 0x0052     | 0x0052     | Creates a thread to execute within the virtual address space of the calling process.        |
+| `NtAllocateVirtualMemory` | 0x0015    | 0x0015    | 0x0015      | 0x0015     | 0x0015     | Allocates memory in the virtual address space of the calling process.                       |
+| `NtWaitForSingleObject`   | 0x003F    | 0x003F    | 0x003F      | 0x003F     | 0x003F     | Waits until the specified object is in the signaled state or the time-out interval elapses. |
+
 https://github.com/joshfinley/SyscallDumper
 
 https://passthehashbrowns.github.io/hiding-your-syscalls
@@ -33,3 +42,13 @@ In addition, the Event Tracing for Windows (ETW) structure offered by Microsoft 
 
 https://redops.at/en/blog/direct-syscalls-vs-indirect-syscalls
 https://github.com/Maldev-Academy/HellHall
+
+----
+
+regular virtualAlloc through win32api vs. direct syscall using SSN.
+
+--- 
+
+Syswhipers2 -> import in visual studio project to enumerate syscalls
+
+Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)

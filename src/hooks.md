@@ -108,3 +108,19 @@ Allocation Protect:     00000002          PAGE_READONLY
 
 Content source: 1 (target), length: 1000
 ```
+
+SylentStrike (Unhooking) custom EDR
+
+https://ethicalchaos.dev/2020/05/27/lets-create-an-edr-and-bypass-it-part-1/
+
+Unhooking by releading ntdll.dll into memory -> some EDR's detect loading NTDLL from disk...
+
+Bypass, create a suspended process (this will only load NTDLL, not the EDR dll) -> then copy the clean ntdll from the suspended process and overwrite it in the current process, unhooking the functions.
+
+PROCESS HOLLOWING (Freeze)
+
+https://hawk-eye.io/2023/06/freeze-a-payload-toolkit-for-bypassing-edrs-using-suspended-processes/
+
+This can also be used to enumerate syscalls without touching NTDLL!
+
+https://cymulate.com/blog/extracting-syscalls-from-a-suspended-process/

@@ -268,3 +268,7 @@ bcdedit.exe -set TESTSIGNING ON
 Reboot the machine
 
 Use PSEXEC to run as system and run Telemetry Sourceror
+
+---
+
+ETW USER LAND vs KERNEL MODE

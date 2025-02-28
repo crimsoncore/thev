@@ -18,6 +18,7 @@
     - [Hooks](./hooks.md)
     - [ETW](./etw.md)
     - [SYSCALLS](./syscalls.md)
+    - [Kernel Callbacks](.kernelcallbacks.md)
     - [EDR Stuff](./edr.md)
   - [Evasion](./evasion.md)
     - [Forensics - Litterbox](./litterbox.md)

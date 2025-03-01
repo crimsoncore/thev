@@ -24,6 +24,10 @@ In its simplest form, the direct system calls technique can be said to implement
 
 In this way, the program does not refer to ntdll.dll and uses the APIs it needs directly. Since ntdll.dll is not called, the EDR sensors will be blind because they do not inject themselves into the process. There are many PoCs for this technique, For example, Hells Gate, Halo's Gate, Syswhispers2 and 3 are successful studies that prove the application of direct syscall.
 
+> Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)
+> with memory forensics (i.e. volatilty) this can be detected, EDR's are in a tough spot since they need to do this in real time!
+
+<https://www.youtube.com/watch?v=PmqvBe1LSZc&t=2286s>
 
 ![Screenshot](./images/syscall_direct.jpg)
 
@@ -51,4 +55,3 @@ regular virtualAlloc through win32api vs. direct syscall using SSN.
 
 Syswhipers2 -> import in visual studio project to enumerate syscalls
 
-Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)

@@ -164,6 +164,11 @@
 <h1><a class="header" href="#a-direct-syscall" id="a-direct-syscall">A. Direct Syscall</a></h1>
 <p>In its simplest form, the direct system calls technique can be said to implement the APIs to be used in the malware with assembly commands in the code instead of getting them through ntdll.dll, in order to prevent EDR sensors from hooking.</p>
 <p>In this way, the program does not refer to ntdll.dll and uses the APIs it needs directly. Since ntdll.dll is not called, the EDR sensors will be blind because they do not inject themselves into the process. There are many PoCs for this technique, For example, Hells Gate, Halo's Gate, Syswhispers2 and 3 are successful studies that prove the application of direct syscall.</p>
+<blockquote>
+<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)
+with memory forensics (i.e. volatilty) this can be detected, EDR's are in a tough spot since they need to do this in real time!</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s">https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s</a></p>
 <p><img src="./images/syscall_direct.jpg" alt="Screenshot" /></p>
 <p>Unfortunately, this method, which was quite effective at first, can be detected by some EDR solutions through kernel callbacks, since the system calls are executed outside of ntdll.dll and the RET command is located directly in the memory area of the program to which the direct syscall is applied. Because normal programs do not behave like this. As you can see, it comes back to what we explained under the heading of normalization and reputation.</p>
 <h1><a class="header" href="#b-indirect-syscall" id="b-indirect-syscall">B. Indirect Syscall</a></h1>
@@ -179,7 +184,6 @@ https://github.com/Maldev-Academy/HellHall</p>
 <p>regular virtualAlloc through win32api vs. direct syscall using SSN.</p>
 <hr />
 <p>Syswhipers2 -&gt; import in visual studio project to enumerate syscalls</p>
-<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)</p>
 
                     </main>
 

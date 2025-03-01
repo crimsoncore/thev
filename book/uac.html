@@ -149,10 +149,44 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#uac---user-account-control-privilege-escalation" id="uac---user-account-control-privilege-escalation">UAC - User Account Control (Privilege Escalation)</a></h1>
-<p>MITRE Reference</p>
+<p>User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.</p>
+<h2><a class="header" href="#how-uac-works" id="how-uac-works">How UAC Works</a></h2>
+<ol>
+<li>
+<p><strong>Permissions and Elevation</strong>
+When you or an application tries to make changes that require administrative privileges, UAC prompts you to confirm or deny the action. This is known as elevation. Only an administrator account can provide the necessary permission to proceed.</p>
+</li>
+<li>
+<p><strong>Secure Desktop</strong>
+In higher UAC settings, the prompt appears on the secure desktop. This is a screen dimming feature that makes it difficult for malware to interact with or spoof the UAC prompt. Essentially, it ensures that the prompt is coming from Windows and not from a malicious program.</p>
+</li>
+<li>
+<p><strong>Levels of Notification</strong>
+UAC has different levels of notification settings, ranging from always notifying you of changes to never notifying you (effectively turning off UAC).</p>
+</li>
+</ol>
+<h2><a class="header" href="#user-account-control-uac-has-four-levels-of-notification-settings" id="user-account-control-uac-has-four-levels-of-notification-settings">User Account Control (UAC) has four levels of notification settings:</a></h2>
+<ol>
+<li>
+<p><strong>Always notify</strong>: This is the highest level of protection. It notifies you before any changes are made to your computer that require administrator permissions. It also freezes other tasks until you respond.</p>
+</li>
+<li>
+<p><strong>Notify me only when programs try to make changes to my computer</strong>: This is the <code>DEFAULT</code> level. It notifies you when programs try to make changes to your computer or install software.</p>
+</li>
+<li>
+<p><strong>Notify me only when programs try to make changes to my computer (do not dim my desktop)</strong>: Similar to the previous level, but it doesn't switch to the Secure Desktop with desktop locking.</p>
+</li>
+<li>
+<p><strong>Never notify</strong>: This is the lowest level of protection. UAC is disabled, and you won't be notified when changes are made to your computer.</p>
+</li>
+</ol>
+<p>You can adjust these settings by moving the slider in the User Account Control Settings window.</p>
 <p><img src="./images/uac_mitre.jpg" alt="image" /></p>
-<p>UAC Levels</p>
-<p>Screenshot etc...</p>
+<h1><a class="header" href="#mitre-reference" id="mitre-reference">MITRE Reference</a></h1>
+<p><img src="./images/uac_settings.jpg" alt="image" /></p>
+<p>Running a simple powershell command that add's a registry key with some values shows nicely what this actually means:</p>
+<p><img src="./images/uac_ps.jpg" alt="image" /> </p>
+<p><img src="./images/uac_prompt.jpg" alt="image" /></p>
 <p>https://www.youtube.com/watch?v=ZhaZJ4Uipqk</p>
 <p>Fodhelper</p>
 <p>Demo with cmd.exe -&gt; medium level even if admin

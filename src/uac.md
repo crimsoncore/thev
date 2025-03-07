@@ -25,10 +25,9 @@ UAC has different levels of notification settings, ranging from always notifying
 
 You can adjust these settings by moving the slider in the User Account Control Settings window.
 
-![image](./images/uac_mitre.jpg)
-
 # MITRE Reference
 
+![image](./images/uac_mitre.jpg)
 
 ![image](./images/uac_settings.jpg)
 
@@ -37,6 +36,27 @@ Running a simple powershell command that add's a registry key with some values s
 ![image](./images/uac_ps.jpg) 
 
 ![image](./images/uac_prompt.jpg)
+
+Check if UAC is enabled (1 = enabled, 0 is disabled)
+
+```powershell
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' |Select-object EnableLua
+```
+
+And to check which level it is :
+
+```powershell
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' |Select-object ConsentPromptBehaviorAdmin
+```
+| Value | Description                                  |
+| ----- | -------------------------------------------- |
+| 0     | No Prompt                                    |
+| 1     | Prompt for credential on the secure desktop  |
+| 2     | Prompt for CONSENT on the secure desktop     |
+| 3     | Prompt for Credentials on the normal desktop |
+| 4     | Prompt for CONSENT on the normal desktop     |
+| 5     | Prompt for CONSENT for non-windows binaries  |
+
 
 
 

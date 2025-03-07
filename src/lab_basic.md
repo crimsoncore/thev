@@ -1,4 +1,4 @@
-# Lab 1.3 - Basic Loader
+# Lab - Basic Loader
 Generate havoc shellcode
 
 Convert the shellcode to a CSharp array:

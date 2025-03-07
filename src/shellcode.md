@@ -178,3 +178,7 @@ modules\kull_m_process.c modules\kull_m_string.c lib\x64\ntdll.min.lib
 /entry:kuhl_m_misc_citrix_logonpasswords 
 /subsystem:console
 ```
+
+-----
+
+Staged vs Stageless

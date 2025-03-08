@@ -2,6 +2,10 @@
 
 ![Screenshot](./images/hooking.jpg)
 
+Explain hooking with ***FRIDA***
+
+x64dbg
+
 HookChecker mr. Un1c0d3r
 
 

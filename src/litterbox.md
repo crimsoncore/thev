@@ -125,3 +125,7 @@ nssm install Litterbox "C:\\Users\\threatadmin\\AppData\\Local\\Programs\\Python
 nssm set Litterbox AppDirectory "C:\\git\\litterbox\\"
 nssm.exe start litterbox
 ```
+
+----
+# BestEDROfTheMarket
+<https://github.com/Xacone/BestEdrOfTheMarket>

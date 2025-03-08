@@ -2,11 +2,12 @@
 
 <https://hfiref0x.github.io/X86_64/NT10_syscalls.html>
 
-| System Call               | Windows 7 | Windows 8 | Windows 8.1 | Windows 10 | Windows 11 | Description                                                                                 |
-| ------------------------- | --------- | --------- | ----------- | ---------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `NtCreateThread`          | 0x0052    | 0x0052    | 0x0052      | 0x0052     | 0x0052     | Creates a thread to execute within the virtual address space of the calling process.        |
-| `NtAllocateVirtualMemory` | 0x0015    | 0x0015    | 0x0015      | 0x0015     | 0x0015     | Allocates memory in the virtual address space of the calling process.                       |
-| `NtWaitForSingleObject`   | 0x003F    | 0x003F    | 0x003F      | 0x003F     | 0x003F     | Waits until the specified object is in the signaled state or the time-out interval elapses. |
+| System Call            | Windows 10 | Description                                                                                 |
+| ------------------------- | ------ | ------------------------------------------------------------------------------------------- |
+| `NtCreateThread`          | 0x004e | Creates a thread to execute within the virtual address space of the calling process.        |
+| `NtAllocateVirtualMemory` | 0x0018 | Allocates memory in the virtual address space of the calling process.    |
+| `NtWriteVirtualMemory`    | 0x003a ||
+| `NtWaitForSingleObject`   | 0x0004 | Waits until the specified object is in the signaled state or the time-out interval elapses. |
 
 https://github.com/joshfinley/SyscallDumper
 

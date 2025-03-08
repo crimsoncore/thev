@@ -7,6 +7,32 @@ WIN32 api functions (slides)
 https://malapi.io/
 
 Api monitor
+x64dbg
+
+![Screenshot](./images/functions_flow.jpg)
+<https://redops.at/en/blog/direct-syscalls-vs-indirect-syscalls>
+
+
+![Screenshot](./images/functions_virtualalloc.jpg)
+
+![Screenshot](./images/functions_createthread.jpg)
+
+![Screenshot](./images/functions_waitforsingleobject.jpg)
+
+
+Let's build a dummy shellcode:
+
+hello world dialog
+
+<https://github.com/hasherezade/pe_to_shellcode/releases/tag/v1.2>
+
+```bash
+sudo msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successful Execution :)" TITLE="CrimsonCORE"  -f exe -o msg.exe
+```
+
+https://www.youtube.com/watch?v=0PUZbgcIMzg
+create a dialogbox with metadata
+
 
 
 

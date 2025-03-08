@@ -4,6 +4,7 @@
 > OPSEC HINT : Let's apply some basic best practices when we compile the following code
 > 1. add and icon file to the dotnet app.
 > 2. add metadata
+> 4. Remove comments
 > 3. compile with CSC
 
 When compiling the dotnet code you can specify the .net version

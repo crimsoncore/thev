@@ -1,5 +1,5 @@
 # Lab - Basic Loader
-Generate havoc shellcode
+Generate havoc shellcode/helloworld dialog
 
 Convert the shellcode to a CSharp array:
 
@@ -19,4 +19,11 @@ Load this shellcode into you basic loader template:
 ```CSHARP
 
 ```
+
+To build our own shellcode loader we need 4 functions:
+
+VirtualAlloc (Kernel32.dll)
+CreateRemoteThread (Kernel32.dll)
+MarshallCopy
+WaitForSingleObject (Kernel32.dll)
 

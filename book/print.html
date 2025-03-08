@@ -752,6 +752,7 @@ class Program
 <ol>
 <li>add and icon file to the dotnet app.</li>
 <li>add metadata</li>
+<li>Remove comments</li>
 <li>compile with CSC</li>
 </ol>
 </blockquote>
@@ -821,7 +822,7 @@ Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
 <p>Hooka</p>
 <p>Donut</p>
 <h1><a class="header" href="#lab---basic-loader" id="lab---basic-loader">Lab - Basic Loader</a></h1>
-<p>Generate havoc shellcode</p>
+<p>Generate havoc shellcode/helloworld dialog</p>
 <p>Convert the shellcode to a CSharp array:</p>
 <pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
 $fileContent = [IO.File]::ReadAllBytes($fileName)
@@ -835,6 +836,11 @@ Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
 <p>Load this shellcode into you basic loader template:</p>
 <pre><code class="language-CSHARP">
 </code></pre>
+<p>To build our own shellcode loader we need 4 functions:</p>
+<p>VirtualAlloc (Kernel32.dll)
+CreateRemoteThread (Kernel32.dll)
+MarshallCopy
+WaitForSingleObject (Kernel32.dll)</p>
 <h1><a class="header" href="#lab---staged-loader" id="lab---staged-loader">Lab - Staged Loader</a></h1>
 <h1><a class="header" href="#chapter-01---windows-defender--mde-edr" id="chapter-01---windows-defender--mde-edr">Chapter 0.1 - Windows Defender / MDE (EDR)</a></h1>
 <blockquote>

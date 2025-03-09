@@ -78,6 +78,11 @@ Then attach `x64dbg` to the localloader.exe and check for those two memory locat
 
 ![image](./images/xdbg_string.jpg)
 
+![image](./images/procmon_dlls.jpg)
+
+![image](./images/procmon_rwx.jpg)
+
+![image](./images/procmon_shellcode.jpg)
 ----
 
     **What is AMSI/Dotnet (managed/unmanaged code)**

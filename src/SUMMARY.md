@@ -18,7 +18,7 @@
     - [AMSI](./amsi.md)
     - [Hooks](./hooks.md)
     - [ETW](./etw.md)
-    - [SYSCALLS](./syscalls.md)
+    - [Syscalls](./syscalls.md)
     - [Kernel Callbacks](.kernelcallbacks.md)
     - [EDR Stuff](./edr.md)
   - [Evasion](./evasion.md)

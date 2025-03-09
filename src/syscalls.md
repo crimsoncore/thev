@@ -54,5 +54,5 @@ regular virtualAlloc through win32api vs. direct syscall using SSN.
 
 --- 
 
-Syswhipers2 -> import in visual studio project to enumerate syscalls
+Syswhispers2 -> import in visual studio project to enumerate syscalls
 

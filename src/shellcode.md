@@ -47,6 +47,12 @@ unsigned char buf[] =
 "\xd5\x63\x61\x6c\x63\x2e\x65\x78\x65\x00";
 ```
 
+# USing DONUT to convert a PE to Shellcode
+
+```powershell
+donut.exe -e 1 -a x64 -o shellcode.donut -f 3 -i calcloader.exe -z 1 -b 1 -k 2
+```
+
 In a Portable Executable (PE) file, the `unsigned char shellcode[]` array is typically stored in the `.data` section. This section is used for storing initialized global and static variables. The `.data` section is marked as readable and writable.
 
 Here's a brief overview of the relevant sections in a PE file:
@@ -265,3 +271,31 @@ modules\kull_m_process.c modules\kull_m_string.c lib\x64\ntdll.min.lib
 -----
 
 Staged vs Stageless
+
+---
+
+# A note on compiling
+
+without code optimisation, all imported functions are show. With code optimization, only virtuallalloc and exitprocess.
+
+The command `cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c` is used to compile a C source file using the Microsoft Visual C++ (MSVC) compiler. Here's a breakdown of each part of the command:
+
+- `cl`: This is the command-line compiler for Microsoft Visual C++.
+
+- `/Od`: This flag disables optimization. It ensures that the compiler does not perform any optimizations that might remove or alter the code, which is useful for debugging and ensuring that all function calls are preserved.
+
+- `/Zi`: This flag generates complete debugging information. It creates a Program Database (PDB) file that contains debugging information, which is useful for debugging the executable with a debugger.
+
+- `/Fe:local_loader.exe`: This flag specifies the name of the output executable file. In this case, it sets the output file name to `local_loader.exe`.
+
+- Local_loader_C.c: This is the name of the C source file to be compiled.
+
+Putting it all together, the command compiles the Local_loader_C.c source file into an executable named `local_loader.exe`, with optimizations disabled and debugging information included.
+
+To run this command, you would typically open a Developer Command Prompt for Visual Studio and execute the command there. Here is an example of how you might run it:
+
+```sh
+cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c
+```
+
+After running this command, you can use tools like Dependency Walker to inspect the import table of `local_loader.exe` and verify that all the expected functions are listed.

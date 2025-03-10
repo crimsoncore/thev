@@ -2,6 +2,8 @@
 
 learn.micorosoft.com
 
+![Screenshot](./images/function_flow.jpg)
+
 WIN32 api functions (slides)
 
 https://malapi.io/

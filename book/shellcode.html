@@ -187,6 +187,9 @@ unsigned char buf[] =
 &quot;\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff&quot;
 &quot;\xd5\x63\x61\x6c\x63\x2e\x65\x78\x65\x00&quot;;
 </code></pre>
+<h1><a class="header" href="#using-donut-to-convert-a-pe-to-shellcode" id="using-donut-to-convert-a-pe-to-shellcode">USing DONUT to convert a PE to Shellcode</a></h1>
+<pre><code class="language-powershell">donut.exe -e 1 -a x64 -o shellcode.donut -f 3 -i calcloader.exe -z 1 -b 1 -k 2
+</code></pre>
 <p>In a Portable Executable (PE) file, the <code>unsigned char shellcode[]</code> array is typically stored in the <code>.data</code> section. This section is used for storing initialized global and static variables. The <code>.data</code> section is marked as readable and writable.</p>
 <p>Here's a brief overview of the relevant sections in a PE file:</p>
 <ul>
@@ -361,6 +364,32 @@ modules\kull_m_process.c modules\kull_m_string.c lib\x64\ntdll.min.lib
 </code></pre>
 <hr />
 <p>Staged vs Stageless</p>
+<hr />
+<h1><a class="header" href="#a-note-on-compiling" id="a-note-on-compiling">A note on compiling</a></h1>
+<p>without code optimisation, all imported functions are show. With code optimization, only virtuallalloc and exitprocess.</p>
+<p>The command <code>cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c</code> is used to compile a C source file using the Microsoft Visual C++ (MSVC) compiler. Here's a breakdown of each part of the command:</p>
+<ul>
+<li>
+<p><code>cl</code>: This is the command-line compiler for Microsoft Visual C++.</p>
+</li>
+<li>
+<p><code>/Od</code>: This flag disables optimization. It ensures that the compiler does not perform any optimizations that might remove or alter the code, which is useful for debugging and ensuring that all function calls are preserved.</p>
+</li>
+<li>
+<p><code>/Zi</code>: This flag generates complete debugging information. It creates a Program Database (PDB) file that contains debugging information, which is useful for debugging the executable with a debugger.</p>
+</li>
+<li>
+<p><code>/Fe:local_loader.exe</code>: This flag specifies the name of the output executable file. In this case, it sets the output file name to <code>local_loader.exe</code>.</p>
+</li>
+<li>
+<p>Local_loader_C.c: This is the name of the C source file to be compiled.</p>
+</li>
+</ul>
+<p>Putting it all together, the command compiles the Local_loader_C.c source file into an executable named <code>local_loader.exe</code>, with optimizations disabled and debugging information included.</p>
+<p>To run this command, you would typically open a Developer Command Prompt for Visual Studio and execute the command there. Here is an example of how you might run it:</p>
+<pre><code class="language-sh">cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c
+</code></pre>
+<p>After running this command, you can use tools like Dependency Walker to inspect the import table of <code>local_loader.exe</code> and verify that all the expected functions are listed.</p>
 
                     </main>
 

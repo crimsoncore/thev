@@ -12,7 +12,6 @@
         - [Lab - Remote Loader](./lab_staged.md)
   - [Windows Defender](./defender.md)
     - [Powershell](./powershell.md)
-    - [Static Analysis](./static.md)
     - [Heuristics](./heuristics.md)
     - [UAC](./uac.md)     
     - [AMSI](./amsi.md)

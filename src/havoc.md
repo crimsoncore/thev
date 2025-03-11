@@ -1,6 +1,6 @@
 # Havoc C2
 
-With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is *malleability/customizability*. Commonly known frameworks such as `metasploit`, `cobalt strike`, `Empire` (Sartkiller GUI), `Mythic C2` and `sliver` come to mind. In this training we'll be using a rather new, cobalt strike like framework called `Havoc C2`.
+With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is *malleability/customizability*. Commonly known frameworks such as `metasploit`, `cobalt strike`, `Empire` (Starkiller GUI), `BruteRatel`, `Mythic C2`, `covenant` and `sliver` come to mind. In this training we'll be using a rather new, cobalt strike like framework called `Havoc C2`.
 
 ![Screenshot](./images/havoc.jpg)
 

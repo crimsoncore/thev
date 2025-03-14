@@ -1,6 +1,11 @@
-# Chapter 1.2.1 - Functions
+# Chapter 1.2.1 - WIN32api, Functions, kernel and user mode
 
 learn.micorosoft.com
+
+Explain Kernel vs user mode (ntdll.dll, kernel32.dll, kernelbase.dll)
+
+Explain DLL's
+
 
 ![Screenshot](./images/function_flow.jpg)
 

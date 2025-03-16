@@ -163,3 +163,15 @@ Check output threatcheck/gocheck
 erase with 0x00's
 
 use visual studio find all/replace all (match word)
+
+-----
+# Notes
+install code 
+
+install sdk (<https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-9.0.201-windows-x64-installer>)
+
+install C# Dev Kit and .NET Install Tool extensions from the VS Code marketplace.
+
+![Screenshot](./images/code_csharpdev.jpg)
+
+![Screenshot](./images/code_csharinstalltool.jpg)

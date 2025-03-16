@@ -32,8 +32,10 @@ Students get access to a central `GUACAMOLE` server, from there they can `RDP` i
 
 The guacamole server is : [**GUACAMOLE**](https://guacamole.th.denarm.be/#/)  
 Credentials are : **studentXX**/WEWILLTELLYOU (where XX is a number from 01 to 15)   
-RDP credentials are : **studentXX**/WEWILLTELLYOU (where XX is a number from 01 to 15)  
+RDP credentials are : ***studentXX***/WEWILLTELLYOU (where XX is a number from 01 to 15)  
 
 ```code
 https://guacamole.th.denarm.be/
 ```
+
+> Example text box

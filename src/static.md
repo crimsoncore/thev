@@ -175,3 +175,12 @@ install C# Dev Kit and .NET Install Tool extensions from the VS Code marketplace
 ![Screenshot](./images/code_csharpdev.jpg)
 
 ![Screenshot](./images/code_csharinstalltool.jpg)
+
+How to make a new project:
+
+```csharp
+dotnet new console -n MyApp
+cd MyApp
+dotnet build
+dotnet run
+```

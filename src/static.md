@@ -1,6 +1,6 @@
 # Static Analysis
 
-> Visual Studio 2022 Components:
+> Visual Studio `2019` Components:
 
 
 ![Screenshot](./images/vs_sharpkatz.jpg)

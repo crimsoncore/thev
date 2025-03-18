@@ -1,5 +1,39 @@
 # Static Analysis
 
+> Visual Studio 2022 Components:
+
+
+![Screenshot](./images/vs_sharpkatz.jpg)
+
+
+
+> SysinternalsSuite (<https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite>)
+>
+> GoCheck (<https://github.com/gatariee/gocheck/releases/tag/v1.5.0>)
+> Move GoCheck to C:\Sysinternals
+> Add c:\SysinternalsSuite to PATH
+>
+> Install Python3x ?
+> Install Yara ? (<https://github.com/VirusTotal/yara/releases/download/v4.5.2/yara-v4.5.2-2326-win64.zip>)
+> Install Yara and Hex editor plugin *VS CODE*?
+
+```code
+For Yara Download and Install Visual C++ Redistributable:
+Go to the official Microsoft download page for the Visual C++ Redistributable
+(,https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170>)
+Download and install the Visual C++ Redistributable for Visual Studio 2015, 2017, 2019, and 2022:
+Visual C++ Redistributable x64
+```
+
+How to make a new project:
+
+```csharp
+dotnet new console -n MyApp
+cd MyApp
+dotnet build
+dotnet run
+```
+
 Let's take a common attack tool "Rubeus", compile it and see what Defender thinks of it.
 
 <https://www.youtube.com/watch?v=sP2XH8YI20c&t=1042s>

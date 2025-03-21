@@ -1,6 +1,16 @@
 # Havoc C2
 
-With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is *malleability/customizability*. Commonly known frameworks such as `metasploit`, `cobalt strike`, `Empire` (Starkiller GUI), `BruteRatel`, `Mythic C2`, `covenant` and `sliver` come to mind. In this training we'll be using a rather new, cobalt strike like framework called `Havoc C2`.
+With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is *malleability/customizability*. Commonly known frameworks such as `metasploit`, `cobalt strike`, `Empire` (Starkiller GUI), `BruteRatel`, `Mythic C2`, `Covenant` and `Sliver` come to mind. 
+
+![Screenshot](./images/c2matrix.jpg)
+
+
+(<https://c2matrix.webflow.io>)
+
+
+In this training we'll be using a rather new, cobalt strike like framework called `Havoc C2`.
+
+
 
 ![Screenshot](./images/havoc.jpg)
 
@@ -11,10 +21,10 @@ Attack frameworks typically all consist of the following elements
 1. ***Teamserver***
 The central C2 server that receives C2 traffic from implants on its listeners (i.e. `LHOST` in metasploit), management connections from the client as well as it typically also hosts payloads.
 
-2. ***Client***
+1. ***Client***
 This is the operater console that connects to the teamserver and allows the adversary to manage listeners, malleable profiles, payloads and implants.
 
-3. ***Implant, beacon, demon, ...*** 
+1. ***Implant, beacon, demon, ...*** 
 This is the actual malicious code that communicates back over a C2 channel to the teamserver, very often this is primarily a stager/loader (a tiny program that will download the actual malicious code and typically inject it in to memory of a current or remote process.) - attack frameworks will provide a `payload generator` that can build different types of payloads (Exe's, dll's, shellcode, etc...).
 
 The most known is probably MSFVenom from the `Metasploit Framework`.

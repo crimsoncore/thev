@@ -1,6 +1,6 @@
 # Chapter 0.1 - Windows Defender / MDE (EDR)
 
-> ***TL;DR :*** This chapter explains how most AV/EDR's work - in this case we'll foce on Microsoft Defender (the AV part), MDE (Microsoft Defender for Endpoint) which is the EDR component that we'll deal with later on.
+> ***TL;DR :*** This chapter explains how most AV/EDR's work - in this case we'll focus on Microsoft Defender (the AV part), MDE (Microsoft Defender for Endpoint) which is the EDR component that we'll deal with later on.
 
 ![Screenshot](./images/MDE.jpg)
 
@@ -53,8 +53,6 @@
 - **Centralized Management and Reporting:** MDE offers centralized management, reporting, and alerting for enterprise environments, making it easier to manage security across multiple endpoints. MDA has basic management and reporting features.
 
 These differences highlight the advanced capabilities that Microsoft Defender for Endpoint (MDE) provides, making it suitable for enterprise environments with complex security needs.
-
-If you have any further questions or need more details, feel free to ask!
 
 
 ![Screenshot](./images/howEDR.jpg)

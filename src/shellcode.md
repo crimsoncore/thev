@@ -104,7 +104,7 @@ Then attach `x64dbg` to the localloader.exe and check for those two memory locat
 
 Shelcode formats (shellcode formatter etc)
 
-> OPSEC HINT: Make sure your binaries loog legit, add metadata and and icon to the file!
+> OPSEC HINT: Make sure your binaries look legit, add metadata and and icon to the file!
 
 On Windows (requires SDK):
 <https://dotnet.microsoft.com/en-us/>

@@ -11,10 +11,37 @@ HookChecker mr. Un1c0d3r
 
 dump exported funtions ntdll.dll kernelbase.dll kernel32.dll
 
-command prompt visual studio 2022
+command prompt visual studio 2019
 
-dumpbin.exe /exports file.dll
+dumpbin.exe /exports file.dll (requires visual studio c++ and msvc v142)
 
+![Screenshot](./images/msvc142.jpg)
+
+![Screenshot](./images/msvc_vs_dumpbin.jpg)
+
+Open Developer `Command Prompt Visual studio 2019`
+
+```bash
+dumpbin c:\windows\system32\amsi.dll /exports
+```
+
+```bash
+ordinal hint RVA      name
+
+          1    0 00003860 AmsiCloseSession
+          2    1 000034E0 AmsiInitialize
+          3    2 00003800 AmsiOpenSession
+ [+]      4    3 00003880 AmsiScanBuffer
+ [+]      5    4 00003980 AmsiScanString
+          6    5 000039E0 AmsiUacInitialize
+          7    6 00003C60 AmsiUacScan
+          8    7 00003C00 AmsiUacUninitialize
+          9    8 000037A0 AmsiUninitialize
+         10    9 00001B00 DllCanUnloadNow
+         11    A 00001B40 DllGetClassObject
+         12    B 00001C80 DllRegisterServer
+         13    C 00001C80 DllUnregisterServer
+```
 
 Screenshot IDA JUMP
 

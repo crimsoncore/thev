@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.2.</strong> AMSI &amp; CLR</a></li><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.3.</strong> ETW</a></li><li><ol class="section"><li class="expanded "><a href="lab_powershell.html"><strong aria-hidden="true">1.3.1.</strong> Lab - Powershell</a></li></ol></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.4.</strong> Static Analysis</a></li><li><ol class="section"><li class="expanded "><a href="lab_havoc_dotnet.html"><strong aria-hidden="true">1.4.1.</strong> Lab - Havoc dotnet execute</a></li></ol></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.5.</strong> Metasploit Basics</a></li><li class="expanded "><a href="functions.html" class="active"><strong aria-hidden="true">1.6.</strong> WIN32api and Functions</a></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.7.</strong> Windows Defender</a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">1.7.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">1.7.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">1.7.3.</strong> Hooks</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">1.7.4.</strong> Syscalls</a></li><li class="expanded "><a href=".kernelcallbacks.html"><strong aria-hidden="true">1.7.5.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">1.7.6.</strong> EDR Stuff</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.8.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.8.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Chapter 1 : Intro </a></li><li><ol class="section"><li class="expanded "><a href="havoc.html"><strong aria-hidden="true">1.1.</strong> Havoc C2</a></li><li class="expanded "><a href="defender.html"><strong aria-hidden="true">1.2.</strong> Windows Defender</a></li><li class="expanded "><a href="amsi.html"><strong aria-hidden="true">1.3.</strong> AMSI &amp; CLR</a></li><li><ol class="section"><li class="expanded "><a href="etw.html"><strong aria-hidden="true">1.3.1.</strong> ETW</a></li><li class="expanded "><a href="lab_powershell.html"><strong aria-hidden="true">1.3.2.</strong> Lab - Powershell</a></li></ol></li><li class="expanded "><a href="static.html"><strong aria-hidden="true">1.4.</strong> Static Analysis</a></li><li><ol class="section"><li class="expanded "><a href="lab_static.html"><strong aria-hidden="true">1.4.1.</strong> Lab Static Analysis</a></li><li class="expanded "><a href="lab_havoc_dotnet.html"><strong aria-hidden="true">1.4.2.</strong> Lab - Havoc dotnet execute</a></li></ol></li><li class="expanded "><a href="chapter_1.1.html"><strong aria-hidden="true">1.5.</strong> Metasploit Basics</a></li><li class="expanded "><a href="functions.html" class="active"><strong aria-hidden="true">1.6.</strong> WIN32api and Functions</a></li><li class="expanded "><a href="shellcode.html"><strong aria-hidden="true">1.7.</strong> Shellcode</a></li><li><ol class="section"><li class="expanded "><a href="lab_shellcode.html"><strong aria-hidden="true">1.7.1.</strong> Lab - Shellcode</a></li><li class="expanded "><a href="lab_basic.html"><strong aria-hidden="true">1.7.2.</strong> Lab - Basic Loader</a></li><li class="expanded "><a href="lab_staged.html"><strong aria-hidden="true">1.7.3.</strong> Lab - Remote Loader</a></li></ol></li><li class="expanded "><a href="evasion.html"><strong aria-hidden="true">1.8.</strong> Evasion</a></li><li><ol class="section"><li class="expanded "><a href="litterbox.html"><strong aria-hidden="true">1.8.1.</strong> Forensics - Litterbox</a></li></ol></li></ol></li><li class="expanded "><a href="mdbooktricks.html"><strong aria-hidden="true">2.</strong> Chapter Extra </a></li><li><ol class="section"><li class="expanded "><a href="heuristics.html"><strong aria-hidden="true">2.1.</strong> Heuristics</a></li><li class="expanded "><a href="uac.html"><strong aria-hidden="true">2.2.</strong> UAC</a></li><li class="expanded "><a href="hooks.html"><strong aria-hidden="true">2.3.</strong> Hooks</a></li><li class="expanded "><a href="syscalls.html"><strong aria-hidden="true">2.4.</strong> Syscalls</a></li><li class="expanded "><a href="kernelcallbacks.html"><strong aria-hidden="true">2.5.</strong> Kernel Callbacks</a></li><li class="expanded "><a href="edr.html"><strong aria-hidden="true">2.6.</strong> EDR Stuff</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,7 +148,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#chapter-121---win32api-functions-kernel-and-user-mode" id="chapter-121---win32api-functions-kernel-and-user-mode">Chapter 1.2.1 - WIN32api, Functions, kernel and user mode</a></h1>
+                        <h1><a class="header" href="#chapter-15---win32api-functions-kernel-and-user-mode" id="chapter-15---win32api-functions-kernel-and-user-mode">Chapter 1.5 - &quot;WIN32api, Functions, kernel and user mode&quot;</a></h1>
+<p>Let's start with the basics, user-mode and kernel-mode:</p>
+<p><img src="./images/userandkernelmode.jpg" alt="Screenshot" /></p>
+<h1><a class="header" href="#user-mode-vs-kernel-mode-in-windows" id="user-mode-vs-kernel-mode-in-windows">User Mode vs Kernel Mode in Windows</a></h1>
+<h2><a class="header" href="#1-kernel-mode" id="1-kernel-mode"><strong>1. Kernel Mode</strong></a></h2>
+<ul>
+<li><strong>What it is</strong>: Kernel mode is the privileged mode of operation in which code has unrestricted access to all system resources, including hardware and memory. It operates at the core of the operating system.</li>
+<li><strong>Who uses it</strong>: The Windows kernel, device drivers, and other low-level system processes operate in kernel mode.</li>
+<li><strong>Capabilities</strong>:
+<ul>
+<li>Direct access to the hardware (e.g., CPU, memory, storage devices).</li>
+<li>Ability to execute critical system-level instructions.</li>
+</ul>
+</li>
+<li><strong>Risks</strong>: Errors in kernel-mode processes can lead to system crashes or instability (commonly referred to as a &quot;blue screen&quot;).</li>
+</ul>
+<h2><a class="header" href="#2-user-mode" id="2-user-mode"><strong>2. User Mode</strong></a></h2>
+<ul>
+<li><strong>What it is</strong>: User mode is the restricted mode in which applications and processes run. Code executed in user mode cannot directly access hardware or system resources and relies on the kernel for such operations.</li>
+<li><strong>Who uses it</strong>: Regular applications (e.g., browsers, text editors) and user-level processes operate in user mode.</li>
+<li><strong>Capabilities</strong>:
+<ul>
+<li>Processes in user mode interact with hardware indirectly through system calls provided by the kernel.</li>
+<li>Memory and resources are isolated, minimizing the impact of an application crash.</li>
+</ul>
+</li>
+<li><strong>Benefits</strong>: User mode enhances system stability by isolating applications from the core system operations. If a user-mode application crashes, it typically does not affect the operating system itself.</li>
+</ul>
+<h2><a class="header" href="#switching-between-modes" id="switching-between-modes"><strong>Switching Between Modes</strong></a></h2>
+<ul>
+<li>In Windows, switching between user mode and kernel mode happens when a user-mode application requests system resources (e.g., file I/O or network access). These requests are performed using <strong>system calls</strong>. The operating system processes these calls in kernel mode and returns the results to the user-mode application.</li>
+</ul>
+<hr />
+<h3><a class="header" href="#summary" id="summary"><strong>Summary</strong></a></h3>
+<ul>
+<li><strong>Kernel mode</strong> = Power and responsibility.</li>
+<li><strong>User mode</strong> = Safety and isolation.</li>
+</ul>
+<p>This separation is crucial for maintaining security and stability in modern operating systems.</p>
+<hr />
 <p>learn.micorosoft.com</p>
 <p>Explain Kernel vs user mode (ntdll.dll, kernel32.dll, kernelbase.dll)</p>
 <p>Explain DLL's</p>
@@ -228,7 +267,7 @@ class Program
                         
 
                         
-                            <a rel="next" href="defender.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="shellcode.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -246,7 +285,7 @@ class Program
                 
 
                 
-                    <a href="defender.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="shellcode.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

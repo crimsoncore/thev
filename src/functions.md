@@ -1,4 +1,40 @@
-# Chapter 1.2.1 - WIN32api, Functions, kernel and user mode
+# Chapter 1.5 - "WIN32api, Functions, kernel and user mode"
+
+Let's start with the basics, user-mode and kernel-mode:
+
+![Screenshot](./images/userandkernelmode.jpg)
+
+# User Mode vs Kernel Mode in Windows
+
+## **1. Kernel Mode**
+- **What it is**: Kernel mode is the privileged mode of operation in which code has unrestricted access to all system resources, including hardware and memory. It operates at the core of the operating system.
+- **Who uses it**: The Windows kernel, device drivers, and other low-level system processes operate in kernel mode.
+- **Capabilities**:
+  - Direct access to the hardware (e.g., CPU, memory, storage devices).
+  - Ability to execute critical system-level instructions.
+- **Risks**: Errors in kernel-mode processes can lead to system crashes or instability (commonly referred to as a "blue screen").
+
+## **2. User Mode**
+- **What it is**: User mode is the restricted mode in which applications and processes run. Code executed in user mode cannot directly access hardware or system resources and relies on the kernel for such operations.
+- **Who uses it**: Regular applications (e.g., browsers, text editors) and user-level processes operate in user mode.
+- **Capabilities**:
+  - Processes in user mode interact with hardware indirectly through system calls provided by the kernel.
+  - Memory and resources are isolated, minimizing the impact of an application crash.
+- **Benefits**: User mode enhances system stability by isolating applications from the core system operations. If a user-mode application crashes, it typically does not affect the operating system itself.
+
+## **Switching Between Modes**
+- In Windows, switching between user mode and kernel mode happens when a user-mode application requests system resources (e.g., file I/O or network access). These requests are performed using **system calls**. The operating system processes these calls in kernel mode and returns the results to the user-mode application.
+
+---
+
+### **Summary**
+- **Kernel mode** = Power and responsibility.
+- **User mode** = Safety and isolation.
+
+This separation is crucial for maintaining security and stability in modern operating systems.
+
+----
+
 
 learn.micorosoft.com
 

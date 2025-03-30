@@ -19,6 +19,7 @@
     - [Forensics - Litterbox](./litterbox.md)
 - [ **Chapter Extra** ](./mdbooktricks.md)
   - [Heuristics](./heuristics.md)
+  - [Privilege Escalation](./privesc.md)
   - [UAC](./uac.md)     
   - [Hooks](./hooks.md)
   - [Syscalls](./syscalls.md)

@@ -1,6 +1,11 @@
 # Lab - Basic Loader
 Generate havoc shellcode/helloworld dialog
 
+
+Note on compiling:
+
+![Screenshot](./images/assemblyinformation.jpg)
+
 Convert the shellcode to a CSharp array:
 
 ```powershell

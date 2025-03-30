@@ -18,6 +18,11 @@ Languages
 
 ![dotnet](./images/dotnet.jpeg)
 
+Here's a simplified diagram:
+
+![dotnet](./images/amsi_clr.jpg)
+
+
 AMSI
 -- -
 

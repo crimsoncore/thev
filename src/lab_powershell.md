@@ -1,7 +1,7 @@
 # Powershell Lab - Bypassing AMSI and ETW
 
 > ***IMPORTANT*** : Please do not send submit samples to `Virus Total` or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
-> Make sure at all times that sample submussion in Microsoft Defender is turned off, and if for some reason you get prompted to submit a sample, deny the request.
+> **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
 
 Make exceptions in Windows Defender:
 
@@ -31,7 +31,7 @@ Turning off various modules of Microsoft Defender using powershell:
 ### Real-Time Protection
 `Real-Time Protection`: This is a feature of Microsoft Defender that continuously monitors your system for threats (e.g., malware, viruses) in real-time. It scans files, apps, and processes as they are accessed or executed. Setting DisableRealtimeMonitoring to $true turns off real-time protection, meaning files and processes are no longer automatically scanned.
 
-This does not disable Microsoft Defender entirely—it only disables real-time scanning. Other features like ***scheduled scans and manual scans will still work***.
+This does not disable Microsoft Defender entirely — it only disables real-time scanning. Other features like ***scheduled scans and manual scans will still work***.
 
 ```powershell
 Set-MpPreference -DisableRealtimeMonitoring $true
@@ -59,25 +59,47 @@ Set-MpPreference -SubmitSamplesConsent NeverSend
 | 1             | Send Safe Samples Automatically   |
 | 2             | Never Send                        |
 
+### Periodic Scanning
+The `DisableScanningNetworkFiles` setting in Microsoft Defender controls whether network files are scanned. When you set DisableScanningNetworkFiles to $true, it disables the scanning of files located on network drives
 
+```Powershell
+Set-MpPreference -DisableScanningNetworkFiles $true
+```
 
 # LAB - Evading AMSI
 
 > For this lab we will enable ``Microsoft Defender`` - in order to demonstrate how AMSI works, and how to bypass it.
 
-Check if Defender is turned on by either using the powershell commands, or the GUI:
+Check if Defender is turned on by either pasting the powershell commands below, or by running the checkav.ps1 script:
+
+Open a powershell prompt:
+
+```powershell
+cd \thev\labs\powershell
+.\checkav.ps1
+```
+
+The script contains the following code:
 
 ```powershell
 [PSCustomObject]@{
-    "Real-Time Protection"        = (Get-MpComputerStatus).RealTimeProtectionEnabled
-    "Cloud-Delivered Protection"  = if ((Get-MpPreference).MAPSReporting -eq 2) { $true } else { $false }
-    "Automatic Sample Submission" = if ((Get-MpPreference).SubmitSamplesConsent -eq 1) { $true } else { $false }
+    "Real-Time Protection"        = if ((Get-MpComputerStatus).RealTimeProtectionEnabled -eq $false) {"disabled"} else {"enabled"}
+    "Cloud-Delivered Protection"  = if ((Get-MpPreference).MAPSReporting -eq 0) { "disabled" } else { "enabled" }
+    "Automatic Sample Submission" = if ((Get-MpPreference).SubmitSamplesConsent -eq 2) { "disabled" } else { "enabled" }
+    "Periodic File Scanning"      = if ((Get-MpPreference).DisableScanningNetworkFiles -eq $true) {"disabled"} else {"enabled"}
 } | Format-Table -AutoSize
 ```
 
 The output should be like this :
 
 ![image](./images/ps_defsettings.jpg)
+
+>**IMPORTANT**: Make sure Real-Time Protection is `enabled` and the rest is `disabled` - if this is not the case just run the following script, it will configure the right settings.
+
+```powershell
+cd \thev\labs\powershell
+.\enableav.ps1
+```
 
 Before we start let's clear the powershell event logs, so there's no noise from before in there. You can do this by opening a powershell console and typing the following command:
 

@@ -1,5 +1,15 @@
 # Shellcode
 
+![Screenshot](./images/PEFormat.jpg)
+
+The shellcode is initially stored as a byte[] array in the .rdata section of the PE file on disk (as read-only data).
+At runtime, the shellcode is copied to a dynamically allocated memory region (created by VirtualAlloc) that is not part of the PE file’s section structure.
+
+The shellcode is executed from this dynamically allocated memory, not from a PE section like .text or a custom section.
+This approach avoids modifying the PE file on disk, making it harder to detect through static analysis. However, it relies on runtime memory allocation, which may be flagged by modern security mechanisms.
+
+.rdata = readonly data
+
 ## [-] What is Position Independent Code (Shellcode)?
 Position Independent Code is code that is designed to execute regardless of where it resides in memory. This is in contrast to most programs, which might need to be loaded at a specific address to function correctly. Shellcode is a type of PIC, often written for exploits and payloads in hacking.
 

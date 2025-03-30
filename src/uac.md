@@ -2,6 +2,12 @@
 
 User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.
 
+# Process and integrity levels
+
+screenshot admin user medium integrity
+
+![image](./images/uac_adminprivs.jpg)
+
 ## How UAC Works
 
 1. **Permissions and Elevation**

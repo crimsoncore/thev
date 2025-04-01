@@ -6,6 +6,8 @@ User Account Control (UAC) is a security feature in Windows that helps prevent u
 
 screenshot admin user medium integrity
 
+> ***IMPORTANT***: `UAC Bypasses` only work for users that are in the administrator group on the local machine.
+
 ![image](./images/uac_adminprivs.jpg)
 
 ## How UAC Works

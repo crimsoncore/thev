@@ -153,6 +153,17 @@
 <p><img src="./images/c2matrix.jpg" alt="Screenshot" /></p>
 <p>(<a href="https://c2matrix.webflow.io">https://c2matrix.webflow.io</a>)</p>
 <p>In this training we'll be using a rather new, cobalt strike like framework called <code>Havoc C2</code>.</p>
+<blockquote>
+<p>HAVOC Requires <code>sudo apt install mingw-w64 -y</code> on your kali !!! In case of compile errors, download this : https://github.com/troglobit/misc/releases/download/11-20211120/x86_64-w64-mingw32-cross.tgz extract to /usr/bin (#~$ sudo tar -xzvf [compilerZip].tgz -C /usr/bin)</p>
+<p>Then modify your /usr/share/havoc/profiles/havoc.yaotl file and change both the
+Compiler64 &amp; Compiler86 variables to point to: &quot;usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc&quot;</p>
+</blockquote>
+<pre><code class="language-yaml">Build {
+        Compiler64 = &quot;/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc&quot;
+        Compiler86 = &quot;/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc&quot;
+        Nasm = &quot;/usr/bin/nasm&quot;
+    }
+</code></pre>
 <p><img src="./images/havoc.jpg" alt="Screenshot" /></p>
 <p><a href="https://github.com/HavocFramework/Havoc?tab=readme-ov-file">https://github.com/HavocFramework/Havoc?tab=readme-ov-file</a></p>
 <p>Attack frameworks typically all consist of the following elements</p>

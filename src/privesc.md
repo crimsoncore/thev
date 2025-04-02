@@ -1,6 +1,6 @@
 # Privilege Escalation / Persistence
 
-In order to escalate privilege from a regular user to a higher level account (Administrator/System Authority), you ned either a misconfiguration or an exploit (Remote Potato etc..)
+In order to escalate privilege from a regular user to a higher level account (Administrator/System Authority), you need either a misconfiguration or an exploit (Remote Potato etc..) - a properly patched and configured system will provide challenges to escalte privileges from a standard user to a administrator user. That being said, there are numerous techniques to obtain hashes/passwords, that don't requite administrator privileges - such as kerberoasting, ntlm relaying and password spraying.
 
 - AlwaysInstallElevated (MSI)
 - Unquoted Service Path (Services)
@@ -14,9 +14,12 @@ In order to escalate privilege from a regular user to a higher level account (Ad
 
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
 
-Create folders "C:\MyPrograms\Vulnerable Service
+Create folders "C:\MyPrograms\Vulnerable Service\service.exe
 create pingservice in vs2019
 
+-> C:\MyPrograms\`vulnerable.exe`  arguments `Service\service.exe`
+
+By placing a malicious service exe in c:\MyPrograms\ named `vulnerable.exe`, we'll escalate privileges wo NT SYSTEM AUHTORITY (if the service is running with those privileges)
 
 sc create VulnService binPath= "C:\MyPrograms\Vulnerable Service\VulnService.exe"
 sc qc VulnService
@@ -28,7 +31,9 @@ Then drop metasploit payload (renamed to Vulnerable.exe) in C:\MyPrograms.
 
 ---
 
-> - [+] SharpUp
+Run the following tools as a regular unprivileged user (`runas /user:student powershell.exe`)
+
+> - [+] SharpUp/Powerup
 > - [+] WinPeas
 
 DLL Hijack

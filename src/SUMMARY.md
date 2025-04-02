@@ -2,6 +2,7 @@
 
 - [ **Chapter 1 : Intro** ](./intro.md)
   - [Havoc C2](./havoc.md)
+  - [Privilege Escalation](./privesc.md)
   - [Windows Defender](./defender.md)
   - [AMSI & CLR](./amsi.md)
     - [ETW](./etw.md)
@@ -19,7 +20,6 @@
     - [Forensics - Litterbox](./litterbox.md)
 - [ **Chapter Extra** ](./mdbooktricks.md)
   - [Heuristics](./heuristics.md)
-  - [Privilege Escalation](./privesc.md)
   - [UAC](./uac.md)     
   - [Hooks](./hooks.md)
   - [Syscalls](./syscalls.md)

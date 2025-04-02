@@ -13,3 +13,7 @@ Welcome to the **"Threathunting Academy - Evasion"**  this is the official lab g
 - What Shellcode is, how to build and use shellcode
 - Build your own evasive shellcode loader
 - Build your own Forensics Lab
+
+> In this training we'll be using an ***Adminstrator*** account, this training is not about privilege escalation, but to show you how you can elevate a regular user to an Admin/System user, we'll have a brief lab doing just that.
+
+With that out of the way we'll run all other labs with and admin user.

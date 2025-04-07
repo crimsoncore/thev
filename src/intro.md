@@ -8,7 +8,7 @@ Welcome to the **"Threathunting Academy - Evasion"**  this is the official lab g
 - How attack frameworks work
 - AV and EDR internals and how to evade them
   - Windows Defender, AMSI and ETW basics and evasion
-- Powershell based attacks (in-mempry) 
+- Powershell based attacks (in-memory) 
 - How signature based detection works and how to evade
 - What Shellcode is, how to build and use shellcode
 - Build your own evasive shellcode loader

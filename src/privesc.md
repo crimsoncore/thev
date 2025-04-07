@@ -4,6 +4,16 @@ In order to escalate privilege from a regular user to a higher level account (Ad
 
 That being said, there are numerous techniques to obtain hashes/passwords, that don't requite administrator privileges - such as `kerberoasting`, `ntlm relaying` and `password spraying`.
 
+Running as a regular unprivileged user:
+
+![image](./images/priv_whoamimed.jpg)
+
+![image](./images/priv_med.jpg)
+
+Runnins as an administrator:
+
+![image](./images/priv_whoami.jpg)
+
 # What is SeDebugPrivilege?
 
 SeDebugPrivilege is a special privilege in Windows that allows a user or process to debug other processes, even those running under different security contexts or with higher privileges, such as system services. This privilege is part of Windows' security model, which uses privileges to control what actions a user or process can perform on the system.
@@ -24,8 +34,13 @@ SeDebugPrivilege is a special privilege in Windows that allows a user or process
   - Obtaining a handle to the process token.
   - Enabling the privilege.
 
-> **Default Settings**: On many Windows versions (e.g., Windows 10), it’s assigned to the Administrators group by default, which can be risky if not properly managed. Even with SeDebugPrivilege, some actions (like injecting into a SYSTEM process) may still fail if other security mechanisms, such as User Account Control (UAC) or additional restrictions, are in place. Administrators can control SeDebugPrivilege through the Local Security Policy editor (secpol.msc) or Group Policy Management Editor. It is listed under "User Rights Assignment" as "Debug programs". To enable or disable it, an administrator can modify the security policy to add or remove user groups (e.g., Administrators) from having this privilege.
+> **Default Settings**: On many Windows versions (e.g., Windows 10), it’s assigned to the `Administrators group by default`, which can be risky if not properly managed. Even with SeDebugPrivilege, some actions (like injecting into a SYSTEM process) may still fail if other security mechanisms, such as ***User Account Control (UAC)*** or additional restrictions, are in place.
+> 
+> **Note**: Administrators can control SeDebugPrivilege through the Local Security Policy editor (secpol.msc) or Group Policy Management Editor. It is listed under "User Rights Assignment" as "Debug programs". To enable or disable it, an administrator can modify the security policy to add or remove user groups (e.g., Administrators) from having this privilege.
 
+Escalating from unprivileged user to ***SYSTEM*** in 3 steps:
+
+![image](./images/priv_chain.jpg)
 
 # UNQUOTED SERVICE PATH
 

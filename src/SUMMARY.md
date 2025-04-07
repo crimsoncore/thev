@@ -1,8 +1,12 @@
 # Summary
 
-- [ **Chapter 1 : Intro** ](./intro.md)
+- [ **Training** ](./training.md)
+  - [Intro](./intro.md)
   - [Havoc C2](./havoc.md)
   - [Privilege Escalation](./privesc.md)
+    - [Unquoted Service Path](./unquoted.md)
+    - [UAC](./uac.md)
+    - [Steal Token](stealtoken.md)   
   - [Windows Defender](./defender.md)
   - [AMSI & CLR](./amsi.md)
     - [ETW](./etw.md)
@@ -20,7 +24,6 @@
     - [Forensics - Litterbox](./litterbox.md)
 - [ **Chapter Extra** ](./mdbooktricks.md)
   - [Heuristics](./heuristics.md)
-  - [UAC](./uac.md)     
   - [Hooks](./hooks.md)
   - [Syscalls](./syscalls.md)
   - [Kernel Callbacks](./kernelcallbacks.md)

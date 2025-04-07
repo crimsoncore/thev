@@ -14,6 +14,15 @@ Welcome to the **"Threathunting Academy - Evasion"**  this is the official lab g
 - Build your own evasive shellcode loader
 - Build your own Forensics Lab
 
-> In this training we'll be using an ***Adminstrator*** account, this training is not about privilege escalation, but to show you how you can elevate a regular user to an Admin/System user, we'll have a brief lab doing just that.
+> In this training we'll be using an ***Administrator*** account, this training is not about privilege escalation, but to show you how you can elevate a regular user to an Admin/System user, we'll have a brief lab doing just that.
 
 With that out of the way we'll run all other labs with and admin user.
+
+**At the End of this training**
+- You will know how to set up your own malware analysis lab
+- Have learned how privilege escalation, persistence, code-execution, evasion and other tehniques work.
+- Modify existing attack tools to bypass defenses
+- Learn how to analyze malware (static/dynamic)
+- Work with attack frameworks, customize them with your own toolset and apply evasion techniques
+- Build your own evasive shellcode loader using memory injection, remote payloads, obfuscation, encryption and other evasion techniques
+- Understand how AV/EDR solutions work, where their telemetry comes from and how to bypass

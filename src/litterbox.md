@@ -1,5 +1,7 @@
 # Litterbox / Avred (Forensics)
 
+## 0. Qu1ckSc0pe
+
 ## 1. AVRed-Server
 > This is the scanning engine that sends requests to the antivirus API configured, in our training that is "Defender".
 

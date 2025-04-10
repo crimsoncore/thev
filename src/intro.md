@@ -24,5 +24,5 @@ With that out of the way we'll run all other labs with and admin user.
 - Modify existing attack tools to bypass defenses
 - Learn how to analyze malware (static/dynamic)
 - Work with attack frameworks, customize them with your own toolset and apply evasion techniques
-- Build your own evasive shellcode loader using memory injection, remote payloads, obfuscation, encryption and other evasion techniques
+- Build your own evasive `shellcode loader` using memory injection, remote payloads, obfuscation, encryption and other evasion techniques
 - Understand how AV/EDR solutions work, where their telemetry comes from and how to bypass

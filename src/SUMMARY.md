@@ -32,3 +32,4 @@
   - [Kernel Callbacks](./kernelcallbacks.md)
   - [EDR Stuff](./edr.md)
   - [Additional PrivEsc](./privesc_extra.md)
+  - [Additional Havoc](./havoc_extra.md)

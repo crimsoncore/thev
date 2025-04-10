@@ -331,22 +331,14 @@ We can now interact with this implant by right-clicking the icon and selecting `
 
 ![Screenshot](./images/havoc_interact2.jpg)
 
-# Havoc Modules
-***dotnet***
-    inline-execute
-    execute
+Let's check if our demon is actually running with the student account in medium integrity.
 
-***Inline - execute (BOF Loader!!!)***
-
-
->OPSEC Hint : When running the shell command, the process hosting your beacon/implant will spawn a child process, run the command and exit the child process. This is quite noisy compared to running everything in memory in the same process. Also command-line logging (eventlogs, sysmon and EDR's will log the commands.)
-
-***shell***
-
-***shellcode*** 
-```code
-shellcode inject x64 6556 /opt/havoc/payloads/demon.x64.bin
+```powershell
+whoami 
 ```
 
-> Explain sacrificial process - advatages/disadvantages (command line logging, stability, patching, not touching other processes)
+![Screenshot](./images/havoc_medbeacon.jpg)
+
+We now have a simple Havoc demon payload running on the victim client, of course this would have been detected by AV, and as a regular user we can't do all the cool stuff - so let's continue and see how we can elevate privileges.
+
 

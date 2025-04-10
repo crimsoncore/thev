@@ -19,6 +19,7 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
 
 ```powershell
 sc create VulnService binPath= "C:\MyPrograms\Vulnerable Service\VulnService.exe"
+sc config VulnService obj= ".\Threatadmin" password= "password"
 sc qc VulnService
 sc start VulnService
 ```

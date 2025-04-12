@@ -1,5 +1,12 @@
 # UAC - User Account Control (Privilege Escalation)
 
+>***TL;DR***:
+>UAC splits the Administrative user’s token into a medium and a high integrity token. When that user tries to run something as an administrator, a prompt is shown which they must accept, which then the high integrity token is then applied to that process or thread.
+
+![image](./images/uac_prompt.jpg)
+
+>A UAC bypass is going from the Administrative user’s medium integrity token to high integrity token without having to interact with the prompt.
+
 User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.
 
 # Process and integrity levels

@@ -149,6 +149,14 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#uac---user-account-control-privilege-escalation" id="uac---user-account-control-privilege-escalation">UAC - User Account Control (Privilege Escalation)</a></h1>
+<blockquote>
+<p><em><strong>TL;DR</strong></em>:
+UAC splits the Administrative user’s token into a medium and a high integrity token. When that user tries to run something as an administrator, a prompt is shown which they must accept, which then the high integrity token is then applied to that process or thread.</p>
+</blockquote>
+<p><img src="./images/uac_prompt.jpg" alt="image" /></p>
+<blockquote>
+<p>A UAC bypass is going from the Administrative user’s medium integrity token to high integrity token without having to interact with the prompt.</p>
+</blockquote>
 <p>User Account Control (UAC) is a security feature in Windows that helps prevent unauthorized changes to your computer. These changes can be initiated by applications, viruses, or other forms of malware. UAC ensures that such changes cannot be made without your knowledge or consent, adding an extra layer of security.</p>
 <h1><a class="header" href="#process-and-integrity-levels" id="process-and-integrity-levels">Process and integrity levels</a></h1>
 <p>screenshot admin user medium integrity</p>

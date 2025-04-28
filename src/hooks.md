@@ -4,6 +4,11 @@
 
 Explain hooking with ***FRIDA***
 
+# SYLANTSTRIKE
+<https://github.com/CCob/SylantStrike>
+
+
+
 x64dbg
 
 HookChecker mr. Un1c0d3r
@@ -111,9 +116,12 @@ Allocation Protect:     00000002          PAGE_READONLY
 Content source: 1 (target), length: 1000
 ```
 
-SylentStrike (Unhooking) custom EDR
+# SylentStrike (Unhooking) custom EDR
 
 https://ethicalchaos.dev/2020/05/27/lets-create-an-edr-and-bypass-it-part-1/
+
+# BestEDROfTheMarket
+<https://github.com/Xacone/BestEdrOfTheMarket>
 
 Unhooking by releading ntdll.dll into memory -> some EDR's detect loading NTDLL from disk...
 

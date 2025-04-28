@@ -151,3 +151,7 @@ cd MyApp
 dotnet build
 dotnet run
 ```
+
+> INCLUDE SCREENSHOT of CLR info of sharkpatz/rubeus
+>
+![Screenshot](./images/sharpkatz_clr.jpg)

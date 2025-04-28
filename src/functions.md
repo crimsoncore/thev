@@ -80,7 +80,7 @@ sudo msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successf
 https://www.youtube.com/watch?v=0PUZbgcIMzg
 create a dialogbox with metadata
 
-
+> ***IMPORTANT:*** The closer you can work to the kernel (ntdll.dll), the least chance on detection, since kernel32 and kernelbase all eventually translate into an ntdll.dll function. NTDLL.dll is basically a wrapper for syscalls to kernel mode.
 
 
 

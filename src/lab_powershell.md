@@ -162,6 +162,9 @@ And let's try that Invoke-SharpKatz again, if all goes well, AMSI should be patc
 
 Success!!!
 
+> ***DETECTIONS***
+> Eventlog 800, 4103, 4104
+> 
 ----
 
 However bypassing AMSI doesn't disable eventlogs - which are useful telemetry for EDR's, SIEM's and UEBA's. Let's open Eventviewer again and see what was logged.

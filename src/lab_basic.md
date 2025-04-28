@@ -31,6 +31,14 @@
 
 Generate havoc shellcode/helloworld dialog
 
+>***EXPLAIN P/INVOKE - D/INVOKE:***
+PINVOKE 
+> 
+> https://pinvoke.net/
+> 
+> https://github.com/TheWover/DInvoke
+
+
 On Kali
 ```
 msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successful Execution :)" TITLE="CrimsonCORE"  -f csharp -b '\x00\x0a\x0d\x20' 

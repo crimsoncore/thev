@@ -22,6 +22,7 @@
   - [Shellcode](./shellcode.md)
     - [Lab - Shellcode](./lab_shellcode.md)
     - [Lab - Basic Loader](./lab_basic.md)
+    - [Lab - XOR Loader](./lab_xor.md)
     - [Lab - Remote Loader](./lab_staged.md)
   - [Evasion](./evasion.md)
     - [Forensics - Litterbox](./litterbox.md)

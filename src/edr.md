@@ -32,3 +32,9 @@ How EDR's do their thing
 | ETW                    | System events                                                     |
 | AMSI                   | Jscript, vbscript, dotnet, powershell -> scanning with signatures |
 | System call Monitoring | Hooking API's in process memory                                   |
+
+> 1. https://frida.re/docs/frida-trace/
+> 2. https://github.com/CCob/SylantStrike
+> 3. https://www.vaadata.com/blog/antivirus-and-edr-bypass-techniques/
+> 4. https://github.com/Xacone/BestEdrOfTheMarket
+> 

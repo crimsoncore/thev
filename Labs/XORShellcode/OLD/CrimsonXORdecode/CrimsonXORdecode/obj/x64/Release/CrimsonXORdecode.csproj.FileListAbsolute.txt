@@ -1,0 +1,6 @@
+C:\THEV\Labs\XORShellcode\CrimsonXORdecode\CrimsonXORdecode\bin\x64\Release\CrimsonXORdecode.exe.config
+C:\THEV\Labs\XORShellcode\CrimsonXORdecode\CrimsonXORdecode\bin\x64\Release\CrimsonXORdecode.exe
+C:\THEV\Labs\XORShellcode\CrimsonXORdecode\CrimsonXORdecode\bin\x64\Release\CrimsonXORdecode.pdb
+C:\THEV\Labs\XORShellcode\CrimsonXORdecode\CrimsonXORdecode\obj\x64\Release\CrimsonXORdecode.csproj.CoreCompileInputs.cache
+C:\THEV\Labs\XORShellcode\CrimsonXORdecode\CrimsonXORdecode\obj\x64\Release\CrimsonXORdecode.exe
+C:\THEV\Labs\XORShellcode\CrimsonXORdecode\CrimsonXORdecode\obj\x64\Release\CrimsonXORdecode.pdb

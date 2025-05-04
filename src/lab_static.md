@@ -163,5 +163,6 @@ dotnet run
 ```
 
 > INCLUDE SCREENSHOT of CLR info of sharkpatz/rubeus
+> SHOW dotpeek - disadvantages of C#
 >
 ![Screenshot](./images/sharpkatz_clr.jpg)

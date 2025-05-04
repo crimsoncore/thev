@@ -9,6 +9,25 @@ g { color: Green }
 > ***IMPORTANT*** : Please do not send submit samples to <r>Virus Total</r> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
 > **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
 
+> ***ENABLE POWERSHELL LOGGING*** : For this lab and all future labs, turn on powershell logging on your windows machine.
+
+![image](./images/ps_gpol.jpg)
+
+Go to Local Computer Policy - Computer Configuration - Administrative Templates - Windows Components.
+
+![image](./images/ps_gpol1.jpg)
+
+Scroll down to Microsoft Powershell and enable `MODULE LOGGING` and `SCRIPT BLOCK LOGGING`.
+
+![image](./images/ps_gpol2.jpg)
+
+This will log any powershell commands and script contents run in a powershell console - using eventviewer we can have a look for Event ID 800, 4103 and 4104. Open Eventviewer and go to `Applications and Services Logs` - `MICROSOFT` - `POWERSHELL` - `OPERATIONAL`.
+
+![image](./images/ps_evt.jpg)
+
+![image](./images/ps_evt1.jpg)
+
+
 Make exceptions in Windows Defender:
 
 ```bash

@@ -1,0 +1,7 @@
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\bin\x64\Release\XOR_ENC_DEC.exe.config
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\bin\x64\Release\XOR_ENC_DEC.exe
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\bin\x64\Release\XOR_ENC_DEC.pdb
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\obj\x64\Release\XOR_ENC_DEC.csproj.AssemblyReference.cache
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\obj\x64\Release\XOR_ENC_DEC.csproj.CoreCompileInputs.cache
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\obj\x64\Release\XOR_ENC_DEC.exe
+C:\THEV\Labs\XORShellcode\XOR_ENC_DEC\XOR_ENC_DEC\obj\x64\Release\XOR_ENC_DEC.pdb

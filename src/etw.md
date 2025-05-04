@@ -33,101 +33,89 @@ To see which ETW providers are running on the system
 logman query -ets
 ```
 
-logman  query providers | select-string "defender"
+![Screenshot](./images/etw_logmanets.jpg)
 
-Notice sysmon, Windows Defender...
+But there are a lot more ETW providers available:
 
-```code
-logman query providers Microsoft-Windows-Kernel-Process
-```
-|Provider|                                 GUID|
-|----------------------------------|---------------------------------------------|
-|Microsoft-Windows-Kernel-Process|         {22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716}|
+![Screenshot](./images/etw_logmanproviders.jpg)
 
-```code
-logman start mysession -p {22FB2CD6-0E7B-422B-A0C7-2FAD1FD0E716} -o mytest.etl -ets
-logman start mysession -p Microsoft-Windows-Kernel-Process -o mytest.etl -ets
-logman stop mysession -ets
-tracerpt mytest.etl
-```
-
-
-https://github.com/Microsoft/perfview/releases
-
-
-logman create trace MyETWSession -p "Microsoft-Windows-Kernel-Process" 0x8 -o "C:\temp\kernel-process.etl" -ets
-
-.\filebeat.exe -e -c filebeat.yml -d "*"
+# Interesting ETW providers
 
 
 
------
 
-```powershell 
-logman start Microsoft-Windows-Kernel-Memory -p Microsoft-Windows-Kernel-Memory 0xffffffffffffffff win:informational -ets
-logman stop Microsoft-Windows-Kernel-Memory -ets 
+
+> - Microsoft-Windows-Kernel-Process
+> - Microsoft-Windows-DotNETRuntime
+> - Microsoft-Windows-Threat-Intelligence
+> - Microsoft-Windows-Defender
+> - Microsoft-Windows-PowerShell
+> 
+So let's do a deep dive on what ETW can see in powershell by using logman to collect events to PowerShellTrace.etl.
+
+You can search the available ETW providers like this:
+
+``` powershell
+logman  query providers | select-string "powershell"
 ```
 
-tracerpt .\Microsoft-Windows-Kernel-Memory.etl -o Microsoft-Windows-Kernel-Memory.evtx -of evtx -lr
+![Screenshot](./images/etw_logmanqueryps.jpg)
 
-Microsoft-Windows-DotNETRuntime
-Microsoft-Windows-Threat-Intelligence
+And get detailed information like this:
 
+```powershell
+logman query providers Microsoft-Windows-PowerShell
+```
 
-Provider                                 GUID
--------------------------------------------------------------------------------
-Microsoft-Windows-Threat-Intelligence    {F4E1897C-BB5D-5668-F1D8-040F4D8DD344}
+![Screenshot](./images/etw_logmanquery.jpg)
 
------
+We'll set up an ETW tracing session for the powershell provider like this:
 
-| Value              | Keyword                                                        | Description                                                                                           |
-| ------------------ | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| 0x0000000000000001 | KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL                         | Allocates virtual memory in the local process.                                                        |
-| 0x0000000000000002 | KERNEL_THREATINT_KEYWORD_ALLOCVM_LOCAL_KERNEL_CALLER           | Allocates virtual memory in the local process, called from kernel mode.                               |
-| 0x0000000000000004 | KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE                        | Allocates virtual memory in a remote process.                                                         |
-| 0x0000000000000008 | KERNEL_THREATINT_KEYWORD_ALLOCVM_REMOTE_KERNEL_CALLER          | Allocates virtual memory in a remote process, called from kernel mode.                                |
-| 0x0000000000000010 | KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL                       | Changes the protection on a region of virtual memory in the local process.                            |
-| 0x0000000000000020 | KERNEL_THREATINT_KEYWORD_PROTECTVM_LOCAL_KERNEL_CALLER         | Changes the protection on a region of virtual memory in the local process, called from kernel mode.   |
-| 0x0000000000000040 | KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE                      | Changes the protection on a region of virtual memory in a remote process.                             |
-| 0x0000000000000080 | KERNEL_THREATINT_KEYWORD_PROTECTVM_REMOTE_KERNEL_CALLER        | Changes the protection on a region of virtual memory in a remote process, called from kernel mode.    |
-| 0x0000000000000100 | KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL                         | Maps a view of a file mapping into the address space of the local process.                            |
-| 0x0000000000000200 | KERNEL_THREATINT_KEYWORD_MAPVIEW_LOCAL_KERNEL_CALLER           | Maps a view of a file mapping into the address space of the local process, called from kernel mode.   |
-| 0x0000000000000400 | KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE                        | Maps a view of a file mapping into the address space of a remote process.                             |
-| 0x0000000000000800 | KERNEL_THREATINT_KEYWORD_MAPVIEW_REMOTE_KERNEL_CALLER          | Maps a view of a file mapping into the address space of a remote process, called from kernel mode.    |
-| 0x0000000000001000 | KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE                   | Queues an asynchronous procedure call (APC) to a thread in a remote process.                          |
-| 0x0000000000002000 | KERNEL_THREATINT_KEYWORD_QUEUEUSERAPC_REMOTE_KERNEL_CALLER     | Queues an asynchronous procedure call (APC) to a thread in a remote process, called from kernel mode. |
-| 0x0000000000004000 | KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE               | Sets the context of a thread in a remote process.                                                     |
-| 0x0000000000008000 | KERNEL_THREATINT_KEYWORD_SETTHREADCONTEXT_REMOTE_KERNEL_CALLER | Sets the context of a thread in a remote process, called from kernel mode.                            |
-| 0x0000000000010000 | KERNEL_THREATINT_KEYWORD_READVM_LOCAL                          | Reads virtual memory in the local process.                                                            |
-| 0x0000000000020000 | KERNEL_THREATINT_KEYWORD_READVM_REMOTE                         | Reads virtual memory in a remote process.                                                             |
-| 0x0000000000040000 | KERNEL_THREATINT_KEYWORD_WRITEVM_LOCAL                         | Writes to virtual memory in the local process.                                                        |
-| 0x0000000000080000 | KERNEL_THREATINT_KEYWORD_WRITEVM_REMOTE                        | Writes to virtual memory in a remote process.                                                         |
-| 0x0000000000100000 | KERNEL_THREATINT_KEYWORD_SUSPEND_THREAD                        | Suspends a thread.                                                                                    |
-| 0x0000000000200000 | KERNEL_THREATINT_KEYWORD_RESUME_THREAD                         | Resumes a suspended thread.                                                                           |
-| 0x0000000000400000 | KERNEL_THREATINT_KEYWORD_SUSPEND_PROCESS                       | Suspends all threads in a process.                                                                    |
-| 0x0000000000800000 | KERNEL_THREATINT_KEYWORD_RESUME_PROCESS                        | Resumes all threads in a suspended process.                                                           |
-| 0x0000000001000000 | KERNEL_THREATINT_KEYWORD_FREEZE_PROCESS                        | Freezes a process, preventing it from executing.                                                      |
-| 0x0000000002000000 | KERNEL_THREATINT_KEYWORD_THAW_PROCESS                          | Thaws a frozen process, allowing it to execute.                                                       |
-| 0x0000000004000000 | KERNEL_THREATINT_KEYWORD_CONTEXT_PARSE                         | Parses the context of a process or thread.                                                            |
-| 0x0000000008000000 | KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_VAD_PROBE           | Probes the virtual address descriptor (VAD) for an execution address.                                 |
-| 0x0000000010000000 | KERNEL_THREATINT_KEYWORD_EXECUTION_ADDRESS_MMF_NAME_PROBE      | Probes the memory-mapped file (MMF) name for an execution address.                                    |
-| 0x0000000020000000 | KERNEL_THREATINT_KEYWORD_READWRITEVM_NO_SIGNATURE_RESTRICTION  | Reads or writes virtual memory without signature restrictions.                                        |
-| 0x0000000040000000 | KERNEL_THREATINT_KEYWORD_DRIVER_EVENTS                         | Logs events related to kernel-mode drivers.                                                           |
-| 0x0000000080000000 | KERNEL_THREATINT_KEYWORD_DEVICE_EVENTS                         | Logs events related to device operations.                                                             |
-| 0x8000000000000000 | Microsoft-Windows-Threat-Intelligence/Analytic                 | Logs analytic events for threat intelligence.                                                         |
+```powershell
+logman create trace PowerShellTrace -p Microsoft-Windows-PowerShell -o PowerShellTrace.etl -ets
+logman -ets
+```
+![Screenshot](./images/etw_logmancreate.jpg)
 
-| Value | Level             | Description |
-| ----- | ----------------- | ----------- |
-| 0x04  | win:Informational | Information |
+This will create an event trace log (.etl file), which we can then convert to txt, csv or even evtx (windows event log format), any commands we run will be collected. In the same powershell console you just ran the create trace command, run some powershell commands:
 
-| PID        | Image |
-| ---------- | ----- |
-| 0x00000000 |       |
+```powershell
+$pid
+get-process
+```
 
-https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haunt/agent_code/etw.ps1
-https://github.com/MHaggis/PowerShell-Hunter
+> ***IMPORTANT:*** After running our commands, stop the powershell event trace session and remove it (otherwise this keep collecting logs)
 
-https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/
+```powershell
+logman stop PowerShellTrace -ets
+Remove-EtwTraceSession -Name PowerShellTrace
+```
+
+We have now collected ETW Telemetry on powershell, we could ship this of to an Elastic stack, but for now let's just convert the trace file to an EVTX log that we can view with Windows Eventviewer.
+
+```powershell
+tracerpt PowerShellTrace.etl -o PowershellTrace.evtx -of evtx -lr
+```
+![Screenshot](./images/etw_logmantrace1.jpg)
+
+Now open Windows Eventviewer and load the saved log by going to `ACTION` and then `SAVED LOG`, browse to your PowerShellTrace.evtx file and click `OK`.:
+
+![Screenshot](./images/etw_evt1.jpg)
+
+We see a whole bunch of logs here, but let's see if we can find the commands we typed ($pid and get-process), by filtering for event ID 4104
+
+![Screenshot](./images/etw_evt2.jpg)
+
+Click on `Filter Current Log` in the right pane of eventviewer and enter `4104
+
+![Screenshot](./images/etw_evt4104.jpg)
+
+And yes we can find both commands:
+
+![Screenshot](./images/etw_evtpid.jpg)
+
+![Screenshot](./images/etw_evtgetproc.jpg)
+# MINI LAB - BYPASSING ETW in Powershell
 
 run after amsi bypass:
 

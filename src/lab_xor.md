@@ -34,9 +34,18 @@ updog2
 Let's check the emtropy of our XORLoader. We can use sigcheck from the `systeminternals suite`.
 
 ```powershell
-sigcheck64.exe -a .\XLoader.exe
+sigcheck64.exe -a -h .\XLoader.exe
+```
+
+or 
+
+```powershell
+sigcheck64.exe -a XLoader.exe | FINDSTR /I entropy
 ```
 
 ![Screenshot](./images/labxor_sigcheck.jpg)
 
 Our Entropy here is "5" - which is pretty low and shouldn't flag AV/EDR.
+
+# Fixing Entropy
+<https://github.com/gmh5225/shellcode-EntropyFix>

@@ -1,0 +1,2 @@
+C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\obj\x64\Debug\CrimsonXORencode.csproj.AssemblyReference.cache
+C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\obj\x64\Debug\CrimsonXORencode.csproj.CoreCompileInputs.cache

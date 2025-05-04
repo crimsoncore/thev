@@ -13,6 +13,8 @@
 
 ## 3. Litterbox
 
+Install Python 3.x
+
 ```powershell
 cd git
 git clone https://github.com/BlackSnufkin/LitterBox.git

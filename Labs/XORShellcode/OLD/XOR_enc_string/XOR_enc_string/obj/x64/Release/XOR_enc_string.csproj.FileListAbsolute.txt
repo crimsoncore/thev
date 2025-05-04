@@ -1,0 +1,14 @@
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\bin\x64\Release\XOR_enc_string.exe.config
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\bin\x64\Release\XOR_enc_string.exe
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\bin\x64\Release\XOR_enc_string.pdb
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.csproj.AssemblyReference.cache
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.csproj.CoreCompileInputs.cache
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.exe
+C:\Users\Threatadmin\source\repos\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.pdb
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\bin\x64\Release\XOR_enc_string.exe.config
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\bin\x64\Release\XOR_enc_string.exe
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\bin\x64\Release\XOR_enc_string.pdb
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.csproj.AssemblyReference.cache
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.csproj.CoreCompileInputs.cache
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.exe
+C:\THEV\Labs\XORShellcode\XOR_enc_string\XOR_enc_string\obj\x64\Release\XOR_enc_string.pdb

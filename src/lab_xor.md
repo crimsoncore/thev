@@ -31,7 +31,7 @@ updog2
 
 ![Screenshot](./images/labxor_loader.jpg)
 
-Let's check the emtropy of our XORLoader. We can use sigcheck from the `systeminternals suite`.
+Let's check the entropy of our XORLoader. We can use sigcheck from the `systeminternals suite`.
 
 ```powershell
 sigcheck64.exe -a -h .\XLoader.exe
@@ -47,5 +47,19 @@ sigcheck64.exe -a XLoader.exe | FINDSTR /I entropy
 
 Our Entropy here is "5" - which is pretty low and shouldn't flag AV/EDR.
 
+- LOGIC.NET / BABEL
+
 # Fixing Entropy
-<https://github.com/gmh5225/shellcode-EntropyFix>
+- <https://github.com/gmh5225/shellcode-EntropyFix>
+- <https://github.com/AnErrupTion/LoGiC.NET>
+-<https://www.youtube.com/watch?v=Q2vazB6SYfg&t=4042s>
+
+
+# KLEENSCAN
+<https://kleenscan.com/scan_result/f76da10390c0a2c03755cde6f26a242c525589e15534c60d612a62aa27d2c9d9>
+
+
+![Screenshot](./images/labxor_klean.jpg)
+
+# LAZYSIGN + TIMESTOMP
+<https://captmeelo.com//redteam/maldev/2022/11/07/cloning-signing.html>

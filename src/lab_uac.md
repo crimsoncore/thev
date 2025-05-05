@@ -9,7 +9,7 @@ g { color: Green }
 > ***IMPORTANT*** : Please do not send submit samples to <r>Virus Total</r> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
 > **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
 
-> ***IMPORTANT***: For this lab we will ***<r>TURN OFF Windows Defender</r>***. We will deal with AV evasion techniques later, for now let's focus on making sure we can escalate to the highest level of privileges (SYSTEM).
+> ***IMPORTANT***: For this lab we will ***<r>TURN OFF Windows Defender</r>***. We will deal with AV evasion techniques later, for now let's focus on making sure we can escalate to the highest level of privileges (***NT AUTHORITY\SYSTEM***).
 
 On kali :
 

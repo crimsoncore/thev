@@ -1,0 +1,3 @@
+# Forensics
+strings
+dnspy

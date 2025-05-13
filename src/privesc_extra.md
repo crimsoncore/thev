@@ -36,6 +36,8 @@ x86_64-w64-mingw32-gcc windows_dll.c -shared -o hijack.dll
 # DLL Hijacking
 onedrive -> Appdata -> cscapi.dll
 
+<https://hijacklibs.net/>
+
 https://juggernaut-sec.com/dll-hijacking/#Hijacking_the_Service_DLL_to_get_a_SYSTEM_Shell
 
 ![image](./images/dllsearch.jpg)

@@ -262,5 +262,3 @@ Use PSEXEC to run as system and run Telemetry Sourceror
 ETW USER LAND vs KERNEL MODE
 
 ![Screenshot](./images/etw_passive.jpg)
-
----

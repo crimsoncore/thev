@@ -3,6 +3,7 @@
 - [ **Training** ](./training.md)
   - [Intro](./intro.md)
   - [Havoc C2](./havoc.md)
+  - [Evasion Code Execution](./codeexec.md)
   - [Privilege Escalation](./privesc.md)
     - [Unquoted Service Path](./unquoted.md)
       - [Lab - PrivEsc](./lab_privesc.md) 

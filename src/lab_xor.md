@@ -47,6 +47,9 @@ sigcheck64.exe -a XLoader.exe | FINDSTR /I entropy
 
 Our Entropy here is "5" - which is pretty low and shouldn't flag AV/EDR.
 
+
+![Screenshot](./images/die_entropy.jpg)
+
 - LOGIC.NET / BABEL
 
 # Fixing Entropy

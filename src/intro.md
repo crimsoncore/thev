@@ -1,4 +1,4 @@
-# Intro : Threathunting Academy - Evasion
+# Intro : Threathunting Academy - EVASION
 ![image](./images/cr_hackers.jpg)
 
 Welcome to the **"Threathunting Academy - Evasion"**  this is the official lab guide that will guide you through the infrastructure. Students will all have their own **Windows 10 client machine**, a shared central `Domain Controller` and a **Kali** `Red Team server and Forensics machine`. All logs are centrally collected on and Ubuntu server running Elasticsearch and Kibana.
@@ -26,3 +26,21 @@ With that out of the way we'll run all other labs with and admin user.
 - Work with attack frameworks, customize them with your own toolset and apply evasion techniques
 - Build your own evasive `shellcode loader` using memory injection, remote payloads, obfuscation, encryption and other evasion techniques
 - Understand how AV/EDR solutions work, where their telemetry comes from and how to bypass
+
+# INSERT MITRE GRAPH HERE
+
+# RECOMMENDED BOOKS
+
+| ![screenshot](./images/book1.jpg) | ![screenshot](./images/book2.jpg) |
+| :-------------------------------: | :-------------------------------: |
+
+<table>
+  <tr>
+    <td align="center" style="background: #fff;">
+      <img src="./images/book1.jpg" alt="screenshot" />
+    </td>
+    <td align="center" style="background: #fff;">
+      <img src="./images/book2.jpg" alt="screenshot" />
+    </td>
+  </tr>
+</table>

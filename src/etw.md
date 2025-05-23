@@ -39,11 +39,13 @@ But there are a lot more ETW providers available:
 
 ![Screenshot](./images/etw_logmanproviders.jpg)
 
-# Interesting ETW providers
+# Interesting ETW providers (USER-MODE/KERNEL-MODE)
+
+> USER MODE providers log very detailed information, scriptblock logging. Processes in user land will use `ETWEventWrite` and ... to write to the user mode ETW Provider (`Microsoft-Windows-Powershell`), the windows eventlog service subscribes to this ETW provider and writes the events to the event-log. This can be tampered with.
 
 
 
-
+> KERNEL MODE Providers have limitations on what they can log, they focus more on process creation, network connection, command line parameters (like SYSMON telemetry), but are harder to bypass.
 
 > - Microsoft-Windows-Kernel-Process
 > - Microsoft-Windows-DotNETRuntime

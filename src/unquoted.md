@@ -81,4 +81,4 @@ sc.exe start VulnService
 You'll now have a 2nd beacon with `NT AUHORITY\SYSTEM` privileges.
 
 
-> ***IMPORTANT***: We achieve not only `Privilege Escalation`, but also `code-execution` and `persistence`!!!
+> ***IMPORTANT***: We achieve not only `Privilege Escalation`, but also `Code-Execution` and `Persistence`!!!

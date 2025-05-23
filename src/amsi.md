@@ -112,7 +112,15 @@ Invoke-Mimikatz
 
 ![image](./images/amsimimi.jpg)
 
-> **Bypassing AMSI and how it works**
+Or the EICAR test string will also trigger:
+
+```powershell
+X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+```
+
+**Bypassing AMSI and how it works**
+
+> AMSI works on 2 levels, in powershill (scanning scripts etc, and through the CLR for csharp/.net binaries). When later on we will be patching/bypassing AMSI it is IMPORTANT to understand this!
 
 As a first check, let's see in which process AMSI.dll has been loaded. Open a powershell prompt:
 
@@ -142,7 +150,7 @@ Open the "Developer Command Prompt for Visual Studio 2019"
 
 ![image](./images/ps_devprompt.jpg)
 
-If we have a look at the amsi.dll's exported functions using dumpbin we see the forllowing functions are avaiable:
+If we have a look at the amsi.dll's exported functions using dumpbin (use the Visual Studio 2019 Developer Command Prompt for ths!) we see the forllowing functions are avaiable:
 
 ```bash
 dumpbin c:\windows\system32\amsi.dll /exports
@@ -166,6 +174,27 @@ ordinal hint RVA      name
          13    C 00001C80 DllUnregisterServer
 ```
 
+> HINT : These tools are super useful for analyzing basic functionality of binary files (exports for dll's, imports for exe's - to get an idea of the functions being used by the program.)
+
+```bash
+dumpbin c:\windows\system32\notepad.exe /imports
+```
+You'll also notice that you won't find any IMPORTS on a .dotnet (compiled csharp) binary - which is a nice bonus for evasion (IAT function hooking...). The reason for this is :
+
+- ***.NET Executables Use Managed Code:***
+A .NET EXE is primarily composed of managed code, which runs in the .NET runtime (CLR). Unlike native PE files, .NET executables don’t directly import functions from DLLs in the traditional PE import table. Instead, they rely on the .NET runtime to handle interactions with native APIs.
+The import table in a .NET EXE is often minimal or empty because most dependencies are resolved through the CLR, which dynamically loads native APIs (e.g., via P/Invoke) at runtime.
+- ***Minimal Import Table:***
+A typical .NET EXE only has a small stub in its PE import table, often limited to basic dependencies like mscoree.dll (the .NET runtime loader). For example, the import table might only include _CorExeMain from mscoree.dll, which initializes the CLR.
+If you run dumpbin /IMPORTS, you might see only this entry (or nothing if the tool skips trivial imports), as the actual function calls to native APIs are managed by the .NET runtime.
+- ***P/Invoke for Native Calls:***
+When a .NET application calls native functions (e.g., from kernel32.dll), it uses Platform Invoke (P/Invoke). These calls are not statically listed in the PE import table but are resolved dynamically at runtime by the CLR, which loads the required DLLs and functions.
+As a result, dumpbin /IMPORTS cannot see these dynamic imports because they aren’t part of the static PE structure.
+- ***Metadata-Driven Dependencies:***
+.NET executables rely on metadata (stored in the .NET assembly) to describe dependencies, including references to other .NET assemblies or native DLLs via P/Invoke. This metadata is not part of the PE import table, so dumpbin doesn’t display it.
+
+> Managed vs. Unmanaged: If your .NET EXE is purely managed, IAT hooking is ineffective due to the CLR’s dynamic resolution. For mixed-mode assemblies, check the IAT with dumpbin /IMPORTS to see if native imports are present.
+
 We can see here the AmsiScanBuffer and AmsiScanString functions we talked about earlier. So the question is, how to we bypass this functionality?
 
 Luckily there are a ton of AMSI bypasses publicly available : (<https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell>)
@@ -187,6 +216,11 @@ In our next lab we'll be using "Matt Graebers Reflection method", it's a simple 
 2. **Targeting `amsiInitFailed`:** The code specifically targets the `amsiInitFailed` static field within the `System.Management.Automation.AmsiUtils` class. This field is used to indicate whether the AntiMalware Scan Interface (AMSI) initialization has failed.
 3. **Setting to `$true`:** By setting this field to `$true`, the code effectively tells the .NET runtime that AMSI initialization has failed, causing AMSI scans to be skipped.
 
+![image](./images/amsi_arch.jpg)
+<https://pentestlaboratories.com/2021/05/17/amsi-bypass-methods/>
+
+![image](./images/amsi_ps.jpg)
+
 **How it Works in `.NET Binaries`:**
 
 1.  **Locating `AmsiUtils`:** Just like in PowerShell, you can use reflection in C# (or other .NET languages) to locate the `System.Management.Automation.AmsiUtils` class.
@@ -194,6 +228,30 @@ In our next lab we'll be using "Matt Graebers Reflection method", it's a simple 
 3.  **Setting the Value:** Finally, you can use reflection to set the value of the `amsiInitFailed` field to `true`.
 
 > **NOTE**: Modern `EDR` solutions are designed to detect such reflection-based attacks. They often monitor for suspicious memory modifications and code behavior. `EDR`'s will hook functions and rely heavily on telemtry such as `ETW providers` (***hint*** ***hint***), of course these can also be bypassed. For now we focus on AV bypassing. 
+>
+
+# INSERT SYSMON PROOF of AMSI.DLL being loaded
+
+CLR Being loaded:
+
+![image](./images/amsi_sharpclr.jpg)
+
+CLR Loading AMSI.dll on-demand into the shaprkatz_lo.exe binary
+
+![image](./images/amsi_sharpamsi.jpg)
+
+![image](./images/amsi_assembly.jpg)
+
+ProcessExplorer (Sysinternals) - shows a more structured output for the loaded assemblies, here you see that powershell loaded a .net assembly in its own memory, named Rubeus
+
+![image](./images/amsi_assembly_exp.jpg)
+
+![image](./images/amsi_assembly_info.jpg)
+
+> HINT : This ss why you should modify existing tools, as they are signatured and could ne easily detected (yara rules, memory scanners looking for those strings)
+
+> DETECTION TIP: Processes that are not .NET/Powershell and that load clr.dll/mscoree.dll are very suspicious and might point to C2 features that allow inline-execute assembly. Or a valid process (non .net) injected with shellcode, that then tries to execute .net assemblies in memory.
 
 In the next chapter we will briefly go over ETW and then we'll apply our knowledge on how to bypass `AMSI` and `ETW` in our next lab!
 
+<https://shaquibizhar.github.io/Amsi-bypass-generator/>

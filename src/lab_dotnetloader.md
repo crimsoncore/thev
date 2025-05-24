@@ -35,3 +35,12 @@ public class RubeusLoader
     }
 }
 ```
+
+```powershell
+logman query providers dotnet-runtime
+```
+
+show event trace, then patch ETW, check again - no events should be there
+
+>
+> <https://github.com/nullsection/SharpETW-Patch/blob/main/PatchInMemory.cs>

@@ -83,3 +83,7 @@ namespace ShellcodePayload
     }
 }
 ```
+
+> IMPORTANT: When adding sandbox evasion modules, make sure they do their checks first before execution any other code. Stay away from AES, RC encryption as this is easily detected - use XOR-encoding instead
+>
+> <https://github.com/nullsection/SharpETW-Patch/blob/main/PatchInMemory.cs>

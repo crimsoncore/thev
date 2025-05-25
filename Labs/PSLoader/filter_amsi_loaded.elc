@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ELEX_Filter version="5.0">
+	<Filter>
+		<EVT_VERBOSE>1</EVT_VERBOSE>
+		<EVT_INFORMATION>1</EVT_INFORMATION>
+		<EVT_WARNING>1</EVT_WARNING>
+		<EVT_ERROR>1</EVT_ERROR>
+		<EVT_CRITICAL>1</EVT_CRITICAL>
+		<EVT_AUDIT_SUCCESS>1</EVT_AUDIT_SUCCESS>
+		<EVT_AUDIT_FAILURE>1</EVT_AUDIT_FAILURE>
+		<Sources>
+			<Source>Microsoft-Windows-Sysmon</Source>
+		</Sources>
+		<SourcesExclude>0</SourcesExclude>
+		<Categories>
+			<Category>Image loaded (rule: ImageLoad)</Category>
+		</Categories>
+		<CategoriesExclude>0</CategoriesExclude>
+		<Users/>
+		<UsersExclude>0</UsersExclude>
+		<Computers/>
+		<ComputersExclude>0</ComputersExclude>
+		<IDs></IDs>
+		<IDsExclude>0</IDsExclude>
+		<DescrText>amsi.dll</DescrText>
+		<DescrRegExp>0</DescrRegExp>
+		<DescrTextExclude>0</DescrTextExclude>
+		<ByDate>0</ByDate>
+		<ByTime>0</ByTime>
+		<Separately>0</Separately>
+		<FromTime>0.0000000000</FromTime>
+		<ToTime>0.0000000000</ToTime>
+		<DateTimeExclude>0</DateTimeExclude>
+		<LastDays>0</LastDays>
+		<LastHours>0</LastHours>
+		<LastHoursExclude>0</LastHoursExclude>
+		<CustomCol/>
+		<DescrParams/>
+	</Filter>
+</ELEX_Filter>

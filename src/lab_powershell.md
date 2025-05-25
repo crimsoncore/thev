@@ -90,49 +90,44 @@ The `DisableScanningNetworkFiles` setting in Microsoft Defender controls whether
 ```Powershell
 Set-MpPreference -DisableScanningNetworkFiles $true
 ```
-### AMSI Settings
-```powershell
-Get-MpPreference | Select-Object DisableRealtimeMonitoring, DisableScriptScanning
-
-DisableRealtimeMonitoring DisableScriptScanning
-------------------------- ---------------------
-                    False                 False
-```
-
 # LAB - Evading AMSI
 
 > For this lab we will enable ``Microsoft Defender`` - in order to demonstrate how AMSI works, and how to bypass it.
 
-Check if Defender is turned on by either pasting the powershell commands below, or by running the checkav.ps1 script:
+Check if Defender is turned `ON` by running the checkav.ps1 script:
 
 Open a powershell prompt:
 
 ```powershell
 cd \thev\labs\powershell
-.\checkav.ps1
+.\av_check.ps1
 ```
 
 The script contains the following code:
 
 ```powershell
 [PSCustomObject]@{
-    "Real-Time Protection"        = if ((Get-MpComputerStatus).RealTimeProtectionEnabled -eq $false) {"disabled"} else {"enabled"}
-    "Cloud-Delivered Protection"  = if ((Get-MpPreference).MAPSReporting -eq 0) { "disabled" } else { "enabled" }
-    "Automatic Sample Submission" = if ((Get-MpPreference).SubmitSamplesConsent -eq 2) { "disabled" } else { "enabled" }
-    "Periodic File Scanning"      = if ((Get-MpPreference).DisableScanningNetworkFiles -eq $true) {"disabled"} else {"enabled"}
+    "Real-Time Prot."        = if ((Get-MpComputerStatus).RealTimeProtectionEnabled -eq $false) {"disabled"} else {"enabled"}
+    "Behavioral Monitoring"  = if ((Get-MpComputerStatus).BehaviorMonitorEnabled -eq $false) {"disabled"} else {"enabled"}
+    "AMSI Script scan"       = if ((Get-MpPreference).DisableScriptScanning -eq $true) {"disabled"} else {"enabled"}
+    "Cloud-Delivered Prot."  = if ((Get-MpPreference).MAPSReporting -eq 0) { "disabled" } else { "enabled" }
+    "Sample Submission"      = if ((Get-MpPreference).SubmitSamplesConsent -eq 2) { "disabled" } else { "enabled" }
+    "Periodic File Scan"     = if ((Get-MpPreference).DisableScanningNetworkFiles -eq $true) {"disabled"} else {"enabled"}
 } | Format-Table -AutoSize
 ```
 
-The output should be like this :
-
-![image](./images/ps_defsettings.jpg)
+![image](./images/ps_avcheck.jpg)
 
 >**IMPORTANT**: Make sure Real-Time Protection is `enabled` and the rest is `disabled` - if this is not the case just run the following script, it will configure the right settings.
 
 ```powershell
 cd \thev\labs\powershell
-.\enableav.ps1
+.\av_enable.ps1
 ```
+
+The output should be like this :
+
+![image](./images/ps_defsettings.jpg)
 
 Before we start let's clear the powershell event logs, so there's no noise from before in there. You can do this by opening a powershell console and typing the following command:
 

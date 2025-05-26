@@ -116,7 +116,7 @@ The script contains the following code:
 } | Format-Table -AutoSize
 ```
 
-![image](./images/ps_avcheck.jpg)
+![image](./images/ps_avoff.jpg)
 
 >**IMPORTANT**: Make sure Real-Time Protection is `enabled` and the rest is `disabled` - if this is not the case just run the following script, it will configure the right settings.
 
@@ -127,7 +127,7 @@ cd \thev\labs\powershell
 
 The output should be like this :
 
-![image](./images/ps_defsettings.jpg)
+![image](./images/ps_avon.jpg)
 
 Before we start let's clear the powershell event logs, so there's no noise from before in there. You can do this by opening a powershell console and typing the following command:
 

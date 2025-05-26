@@ -48,10 +48,29 @@ We won't be using this in the lab, but in real world scenarios these functies as
 
 Havoc C2 is the framework we will be using in this training, however the techniques we'll be using can be utilized in each of beforementioned frameworks.
 
-> On Kali we can simply install Havoc C2 with the following command (this is already done)
+> On Kali we can simply install Havoc C2 like this, DON'T use apt install havoc (this is already done)
 > 
 ```bash
-apt install havoc
+
+sudo chown -R Threatadmin:Threatadmin Havoc
+
+sudo apt install -y git build-essential apt-utils cmake libfontconfig1 libglu1-mesa-dev libgtest-dev libspdlog-dev libboost-all-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev mesa-common-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5 libqt5websockets5-dev qtdeclarative5-dev golang-go qtbase5-dev libqt5websockets5-dev python3-dev libboost-all-dev mingw-w64 nasm
+
+cd teamserver
+go mod download golang.org/x/sys
+cd ..
+
+# Install musl Compiler & Build Binary (From Havoc Root Directory)
+make ts-build
+
+# Run the teamserver
+./havoc server --profile ./profiles/havoc.yaotl -v –debug
+
+# Build the client Binary (From Havoc Root Directory)
+make client-build
+
+# Run the client
+./havoc client
 ```
 
 # Creating a custom profile

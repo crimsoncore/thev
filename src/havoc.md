@@ -10,19 +10,6 @@ With a phletora of attack frameworks available (https://howto.thec2matrix.com), 
 
 In this training we'll be using a rather new, cobalt strike like framework called `Havoc C2`.
 
-> HAVOC Requires `sudo apt install mingw-w64 -y` on your kali !!! In case of compile errors, download this : https://github.com/troglobit/misc/releases/download/11-20211120/x86_64-w64-mingw32-cross.tgz extract to /usr/bin (#~$ sudo tar -xzvf [compilerZip].tgz -C /usr/bin)
->
-> Then modify your /usr/share/havoc/profiles/havoc.yaotl file and change both the
-> Compiler64 & Compiler86 variables to point to: "usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
-
-```yaml
-Build {
-        Compiler64 = "/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
-        Compiler86 = "/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
-        Nasm = "/usr/bin/nasm"
-    }
-```
-
 ![Screenshot](./images/havoc.jpg)
 
 <https://github.com/HavocFramework/Havoc?tab=readme-ov-file>
@@ -51,6 +38,7 @@ Havoc C2 is the framework we will be using in this training, however the techniq
 > On Kali we can simply install Havoc C2 like this, DON'T use apt install havoc (this is already done)
 > 
 ```bash
+git clone https://github.com/voidvxvt/Havoc.git
 
 sudo chown -R Threatadmin:Threatadmin Havoc
 

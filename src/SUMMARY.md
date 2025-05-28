@@ -34,6 +34,7 @@
     - [Lab - Remote Loader](./lab_staged.md)
   - [Forensics](./evasion.md)
     - [Malware Analysis Lab](./litterbox.md)
+    - [Velcoriraptor](./velociraptor.md)
 - [ **Chapter Extra** ](./mdbooktricks.md)
   - [Frameworks](./frameworks.md)
   - [Heuristics](./heuristics.md)

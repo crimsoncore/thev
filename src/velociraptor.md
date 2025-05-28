@@ -17,10 +17,16 @@ Creating a service client (MSI)
 
 check yaml config under `c:\program files\velociraptor`
 
+
+# Collect powershell logs
 ![Screenshot](./images/veloci_pwsh.jpg)
 ![Screenshot](./images/veloci_param.jpg)
 ![Screenshot](./images/veloci_result.jpg)
 
-Find files
+# Find files
 ![Screenshot](./images/veloci_files.jpg)
 ![Screenshot](./images/veloci_filesresult.jpg)
+
+# Fetch files
+![Screenshot](./images/veloci_fetchresult.jpg)
+![Screenshot](./images/veloci_filefetch.jpg)

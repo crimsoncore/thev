@@ -11,3 +11,16 @@ sudo nano /etc/velociraptor/server.config.yaml
 systemctl restart velociraptor_server.service
 systemctl status velociraptor_server.service
 ```
+
+Creating a service client (MSI)
+<https://docs.velociraptor.app/docs/deployment/clients/#option-1-obtaining-the-client-config-from-the-gui>
+
+check yaml config under `c:\program files\velociraptor`
+
+![Screenshot](./images/veloci_pwsh.jpg)
+![Screenshot](./images/veloci_param.jpg)
+![Screenshot](./images/veloci_result.jpg)
+
+Find files
+![Screenshot](./images/veloci_files.jpg)
+![Screenshot](./images/veloci_filesresult.jpg)

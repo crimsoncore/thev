@@ -54,6 +54,7 @@
 
 These differences highlight the advanced capabilities that Microsoft Defender for Endpoint (MDE) provides, making it suitable for enterprise environments with complex security needs.
 
+<https://www.youtube.com/watch?v=3sPb9d9WIG0>
 
 ![Screenshot](./images/howEDR.jpg)
 ![Screenshot](./images/static.jpg)

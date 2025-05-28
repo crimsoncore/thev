@@ -30,3 +30,17 @@ check yaml config under `c:\program files\velociraptor`
 # Fetch files
 ![Screenshot](./images/veloci_fetchresult.jpg)
 ![Screenshot](./images/veloci_filefetch.jpg)
+
+# Hunting Eventlogs
+
+![Screenshot](./images/veloci_evtxhunt.jpg)
+![Screenshot](./images/veloci_evtxwhoami.jpg)
+
+# Save your hunts (Favorites)
+
+![Screenshot](./images/veloci_favs.jpg)
+
+# Create a Standalone Artifact collector
+
+
+![Screenshot](./images/veloci_standalone.jpg)

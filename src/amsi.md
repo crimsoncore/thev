@@ -1,30 +1,6 @@
 # AMSI (Anti-Malware Scanning Interface)
 
-> WARNING : Amsi.dll is loaded into every powershell.exe process, but when running dotnet (csharp) binaries, amsi integrates directly with the clr which loads AMSI on demand. Amsi Bypasses that work in powershell don't necessariy work for the CLR integration.
-
-AmsiScanBuffer
-AmsiScanString
-AssemblyLoad
-
-Show api calls made (user to kernel/syscall)
-
-Languages
--- -
-- powershell (scripting)
-- vb.net (scripting)
-- c# (compiled)
-- f# (compiled)
-
-
-![dotnet](./images/dotnet.jpeg)
-
-Here's a simplified diagram:
-
-![dotnet](./images/amsi_clr.jpg)
-
-
-AMSI
--- -
+![image](./images/amsi7archi.jpg)
 
 Introduced in June 2015.
 
@@ -64,7 +40,7 @@ In its default configuration, macros are scanned at runtime via AMSI except in t
 >
 >**LINK** : [https://en.wikipedia.org/wiki/.NET_Framework_version_history](https://en.wikipedia.org/wiki/.NET_Framework_version_history)
 
-![image](./images/amsi7archi.jpg)
+
 
 Supported OS
 ---

@@ -1,4 +1,7 @@
 # Velcoriraptor
+
+> Velociraptor is already installed on your kali host (you're welcome) - below you can find the installation instructions - `DON'T` run these again, it's only for reference.
+
 ```bash
 mkdir ~/velociraptor_setup && cd ~/velociraptor_setup\n
 wget -O velociraptor https://github.com/Velocidex/velociraptor/releases/download/v0.74/velociraptor-v0.74.1-linux-amd64\n
@@ -11,6 +14,10 @@ sudo nano /etc/velociraptor/server.config.yaml
 systemctl restart velociraptor_server.service
 systemctl status velociraptor_server.service
 ```
+
+From your windows machine you can connect to your Velociraptor server, using Chrome at the following address: <https://kali:8889/app/index.html#/>
+
+![Screenshot](./images/veloci_web.jpg)
 
 Creating a service client (MSI)
 <https://docs.velociraptor.app/docs/deployment/clients/#option-1-obtaining-the-client-config-from-the-gui>

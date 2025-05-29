@@ -52,7 +52,7 @@ cd ..
 make ts-build
 
 # Run the teamserver
-./havoc server --profile ./profiles/havoc.yaotl -v –debug
+./havoc server --profile ./profiles/havoc.yaotl -v –-debug
 
 # Build the client Binary (From Havoc Root Directory)
 make client-build

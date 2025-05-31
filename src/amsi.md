@@ -126,7 +126,11 @@ Open the "Developer Command Prompt for Visual Studio 2019"
 
 ![image](./images/ps_devprompt.jpg)
 
-If we have a look at the amsi.dll's exported functions using dumpbin (use the Visual Studio 2019 Developer Command Prompt for ths!) we see the forllowing functions are avaiable:
+If we have a look at the amsi.dll's exported functions using dumpbin (use the Visual Studio 2019 Developer Command Prompt for this!) we see the forllowing functions are avaiable:
+
+Open a visual studio developer prompt:
+
+![image](./images/dll_devprompt.jpg)
 
 ```bash
 dumpbin c:\windows\system32\amsi.dll /exports

@@ -29,6 +29,14 @@ With that out of the way we'll run all other labs with and admin user.
 
 # INSERT MITRE GRAPH HERE
 
+# Detection, Forensics and Incident Response
+
+1. Windows Event Logs
+2. Sysmon
+3. ETW
+4. Multiple binary forensic tools (static/dynamic)
+5. Incident Responce - artifact/evidence collection
+
 # RECOMMENDED BOOKS
 
 | ![screenshot](./images/book1.jpg) | ![screenshot](./images/book2.jpg) |

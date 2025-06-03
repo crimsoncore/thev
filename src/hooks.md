@@ -4,6 +4,8 @@
 
 Explain hooking with ***FRIDA***
 
+<https://github.com/GetRektBoy724/SharpUnhooker>
+
 # SYLANTSTRIKE
 <https://github.com/CCob/SylantStrike>
 

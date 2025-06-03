@@ -9,6 +9,8 @@
 | `NtWriteVirtualMemory`    | 0x003a ||
 | `NtWaitForSingleObject`   | 0x0004 | Waits until the specified object is in the signaled state or the time-out interval elapses. |
 
+![image](./images/syscalls_x64dbg.jpg)
+
 https://github.com/joshfinley/SyscallDumper
 
 https://passthehashbrowns.github.io/hiding-your-syscalls

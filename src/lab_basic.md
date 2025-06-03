@@ -9,7 +9,7 @@ g { color: Green }
 > **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
 
 
-> When building a shellcode loader, you can use any coding language, c, c++, c#, powershell, rust, golang and so on. In general, detection rates for languages like golang, rust and nim are lower, they are much harder to analyze and reverse than standard c or c# code. In this training we''l be using C as our language, as it is a low level programming language (no CLR that does JIT compiling like with C# or powershell), remember most windows API functions are written in C/C++ as well.
+> When building a shellcode loader, you can use any coding language, `c`, `c++`, `c#`, `powershell`, `rust`, `golang`, `nim` and so on. In general, detection rates for languages like golang, rust and nim are lower, they are much harder to analyze and reverse than standard c or c# code. In this training we''l be using C# as our language for writing our code.
 
 ## Advantages of Using C on Windows
 

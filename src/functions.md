@@ -132,3 +132,14 @@ class Program
     }
 }
 ```
+
+# AV and EDR's hooking functions
+
+![image](./images/functions_hooking.jpg)
+
+Use
+
+- DINVOKE
+- SYSCALLS 
+- 
+To avoid hooke win32api functions

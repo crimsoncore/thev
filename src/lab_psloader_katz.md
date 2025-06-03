@@ -56,6 +56,14 @@ cd \THEV\Labs\PSLoader
 .\b64encoder.ps1
 ```
 
+> Bypassing Proxies and NG-Firewalls is bette with XOR-Encoding or encryption.
+
+# ROSFUSCATOR
+flagged on "thekey"
+<https://github.com/Flangvik/RosFuscator.git>
+
+
+
 ![image](./images/lab_psload_sharp_b64.jpg)
 
 # 3. SharpKatz Remote Powershell Loader

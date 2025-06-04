@@ -21,3 +21,5 @@ We have seen once we are in high ingrity level, we can get system by
 - spawn a child process from a system process
 - steal (duplicate) a token from a system process
 - dll sideload / Unquoted Service Path using a process runnin as SYSTEM.
+- 
+> If for some reason we can't get from medium to high integrity - we can still use kerberoasting (Rubeus, Invoke-Kerberoast) or capture NTLM hashes (Responder) and re-use the NTLM hash, crack the password of the account of the Kerberos ticket, these techniques require no elevated privileges, any regular user can perform these.

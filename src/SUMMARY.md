@@ -13,7 +13,7 @@
     - [Token Manipulation](./stealtoken.md)
       - [Lab - Token theft](./lab_token.md)
       - [Lab - Injection](./lab_tokeninjection.md)    
-      - [Lab - GetSystem](./lab_getsystem.md)   
+      - [Lab - GetSUPERSystem](./lab_getsystem.md)   
   - [Windows Defender](./defender.md)
   - [.NET & CLR](./dotnet.md)
     - [AMSI](./amsi.md)

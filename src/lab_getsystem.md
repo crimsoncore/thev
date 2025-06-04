@@ -12,3 +12,12 @@ dotnet inline-execute /opt/Havoc/assemblies/GetTrustedInstaller.exe "c:\temp\dem
 ```
 ![image](./images/lab_getsystem_trusted.jpg)
 ![image](./images/lab_getsystem_si.jpg)
+
+
+We have seen once we are in high ingrity level, we can get system by
+
+- injecting into a system process
+- named pipe race condition (not in the training)
+- spawn a child process from a system process
+- steal (duplicate) a token from a system process
+- dll sideload / Unquoted Service Path using a process runnin as SYSTEM.

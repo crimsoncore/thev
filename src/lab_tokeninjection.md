@@ -10,5 +10,5 @@ More sophisticated samples may perform multiple process injections to segment mo
 ![Screenshot](./images/labinject_mitre.jpg)
 
 ```powershell
-shellcode inject x64 684 /opt/havoc/payloads/demon.x64.bin
+shellcode inject x64 <PID with System privs> /opt/havoc/payloads/demon.x64.bin
 ```

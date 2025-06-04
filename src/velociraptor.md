@@ -3,11 +3,11 @@
 > Velociraptor is already installed on your kali host (you're welcome) - below you can find the installation instructions - `DON'T` run these again, it's only for reference.
 
 ```bash
-mkdir ~/velociraptor_setup && cd ~/velociraptor_setup\n
-wget -O velociraptor https://github.com/Velocidex/velociraptor/releases/download/v0.74/velociraptor-v0.74.1-linux-amd64\n
-chmod +x velociraptor\n
-./velociraptor config generate -i\n
-./velociraptor debian server --config ./server.config.yaml\n
+mkdir ~/velociraptor_setup && cd ~/velociraptor_setup
+wget -O velociraptor https://github.com/Velocidex/velociraptor/releases/download/v0.74/velociraptor-v0.74.1-linux-amd64
+chmod +x velociraptor
+./velociraptor config generate -i
+./velociraptor debian server --config ./server.config.yaml
 sudo dpkg -i velociraptor_server_0.74.1_amd64.deb
 systemctl status velociraptor_server.service
 sudo nano /etc/velociraptor/server.config.yaml

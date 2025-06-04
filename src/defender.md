@@ -62,3 +62,5 @@ These differences highlight the advanced capabilities that Microsoft Defender fo
 ![Screenshot](./images/behavior.jpg)
 
 <https://www.edr-telemetry.com/windows.html>
+
+>MEDR does not use hooking of functions !!!

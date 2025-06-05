@@ -3,7 +3,7 @@
 - [ **Training** ](./training.md)
   - [Intro](./intro.md)
   - [Havoc C2](./havoc.md)
-  - [Evasion Code Execution](./codeexec.md)
+  - [Processes & DLL's](./processes.md)
   - [Privilege Escalation](./privesc.md)
     - [DLL Hijacking/Sideloading](./dll_hijack.md)
     - [Unquoted Service Path](./unquoted.md)

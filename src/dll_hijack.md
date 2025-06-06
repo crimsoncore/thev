@@ -122,118 +122,70 @@ Use sysmon to look for loading of known system32/syswow dll's that are :
 <https://github.com/TactiKoolSec/SideLoadHunter>
 
 ```yaml
-<Sysmon schemaversion="4.32">
-   <!-- Capture all hashes -->
-   <HashAlgorithms>*</HashAlgorithms>
-   <DnsLookup>False</DnsLookup>
-   <ArchiveDirectory>Archive</ArchiveDirectory>
-   <EventFiltering>
-		<RuleGroup name="onedrivestandaloneupdater_sideload" groupRelation="and">
-			<!-- Log only image loads where modules match these conditions -->
-			<ImageLoad onmatch="include">
-				<Image condition="contains">onedrivestandaloneupdater.exe</Image>
-				<ImageLoaded condition="contains">wofutil.dll</ImageLoaded>
-				<Signature condition="is not">Microsoft Windows</Signature>
-			</ImageLoad>
-		</RuleGroup>
-  </EventFiltering>
-</Sysmon>
+  <RuleGroup name="OneDrive_Sideload_Attempt" groupRelation="or">
+    <ImageLoad onmatch="include">
+      <Image condition="contains">onedrive.exe</Image>
+      <ImageLoaded condition="contains">version.dll</ImageLoaded>
+      <Signature condition="is not">Microsoft Windows</Signature>
+    </ImageLoad>
+  </RuleGroup>
 ```
+
+Open ELEX (or eventviewer):
+
+![image](./images/dll_hijack_elex.jpg)
+
+
 >Custom detection rules for known Windows DLLs being loaded from non Windows path’s such as System32 could also be used to identify DLL Sideloading attacks. Doing this for non Windows DLLs however is not that easy, as there are too many different vendors and binaries/DLLs to track all of them.
 
-# Building your Csharp sideload DLL
+OK Great - but ***are you collecting all those noisy logs*** (dll load events are super noisy) in your SIEM, probobly not as they are already in your EDR logs, hopefully.
 
-- Make C# dll project
-- create functions
-- install ddlexport nuget
-- Mutex
+SO now we need to write queries for SentinelOne, Crowdstrike, PAN Cortex etc... This can be very annoying, so let's standardize our signatures, so we can use them on any platform.
 
-![image](./images/dll_hijack_library.jpg)
+SIGMA!!!
 
-DLL without Exports
+```yaml
+title: OneDrive Version.dll Sideload Attempt
+id: a9ab91a8-f50c-48e8-8478-17e119eed9c0 # can be generated with https://www.uuidgenerator.net/version4
+author: Threathunting Academy
+date: 2025/06/06
+modified: 2025/06/06
+status: experimental 
+logsource:
+  product: windows
+  category: image_load
+  service: sysmon
+detection:
+  selection_image:
+    Image|contains: 'onedrive.exe'
+  selection_loaded_dll:
+    ImageLoaded|contains: 'version.dll'
+  selection_signature:
+    Signature|contains: -'Microsoft Windows'
+  condition: all of them
+falsepositives:
+  - Unknown. This rule is designed to be highly specific.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1574.001 # DLL Side-Loading
+  - attack.t1574.002 # DLL Search Order Hijacking
+  ```
 
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+<https://sigconverter.io/>
 
-namespace SharpSideloadDLL
-{
-    public class Class1
-    {
-        public static void GetFileVersionInfoW()
-        {
-            sideload();
-        }
-        public static void VerQueryValueW()
-        {
-            sideload();
-        }
-        public static void GetFileVersionInfoSizeW()
-        {
-            sideload();
-        }
-        public static void sideload(
-            string message = "Sideloaded!", // Default message
-            string title = "Sideload Test", // Default title
-            MessageBoxIcon icon = MessageBoxIcon.Information) // Default icon
-        {
-            MessageBox.Show(message, title, MessageBoxButtons.OK, icon);
-        }
+Here's our ELASTIC query (as an example backend)
 
 
-    }
-}
-```
-
-![image](./images/dll_hijack_noexports.jpg)
-
-Now use ildasm from a VS Command Prompt
+![image](./images/dll_hijack_sigma.jpg)
 
 ```powershell
-C:\THEV\Labs\CsharpSideload\SharpSideloadDLL\SharpSideloadDLL\bin\x64\Release
-ildasm.exe /out:noexports.il SharpSideloadDLL.dll
+from * metadata _id, _index, _version | where Image like "*onedrive.exe*" and ImageLoaded like "*version.dll*" and Signature like "*-'Microsoft Windows'*"
 ```
 
-Open the noexports.il and add `.export [0]` to one of the functions, save as `exports.il`
+> UHOH : We don't have the logs in our SIEM, nor in our EDR solution's datalake - now what? Well we can still find logs on the endpoint (if the logs haven't rolled over), how do we get those logs remotely off of that endpoint (and preferably without exporting ALL eventlogs)?
 
-![image](./images/dll_hijack_editil.jpg)
+VELOCIRAPTOR can do this, and integrates with Sigma
 
-![image](./images/dll_hijack_ildasm.jpg)
+<https://sigma.velocidex.com/docs/sigma_in_velociraptor/customize/>
 
-Then reassemble with ilasm (not ilDasm)
-
-```powershell
-ilasm.exe Exports.il /out:SharpSideloadDLL.dll /DLL
-```
-
-You can test with rundll32:
-
-```powershell
-rundll32.exe ManualExports.dll,GetFileVersionInfoW
-```
-![image](./images/dll_hijack_rundll.jpg)
-
-
-And check in CFF Explorer - you will see the export directory with 1 exported function: `GetFileVersionInfoW`
-![image](./images/dll_hijack_cffexports.jpg)
-
-
-
-
-
-
-
-
-
-
-Add nuget Unmanaged Export
-
-edit .csproj and replace the nuget line
-
-```xml
-<Import Project="$(MSBuildProjectDirectory)\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets" Condition="Exists('$(MSBuildProjectDirectory)\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets')" />
-```

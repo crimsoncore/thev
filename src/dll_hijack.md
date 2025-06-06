@@ -115,6 +115,8 @@ OLEVIEW
 
 # DETECTION
 
+<https://github.com/wietze/windows-dll-hijacking/tree/master>
+
 Use sysmon to look for loading of known system32/syswow dll's that are :
 - not signed
 - not loaded from their usual locaction (system32/syswow)
@@ -153,18 +155,17 @@ modified: 2025/06/06
 status: experimental 
 logsource:
   product: windows
-  category: image_load
   service: sysmon
 detection:
   selection_image:
     Image|contains: 'onedrive.exe'
   selection_loaded_dll:
     ImageLoaded|contains: 'version.dll'
-  selection_signature:
-    Signature|contains: -'Microsoft Windows'
-  condition: all of them
+  filter:
+    Signature|contains: 'Microsoft Windows'
+  condition: selection_image and selection_loaded_dll and not filter
 falsepositives:
-  - Unknown. This rule is designed to be highly specific.
+  - Unknown
 level: high
 tags:
   - attack.defense_evasion
@@ -180,12 +181,14 @@ Here's our ELASTIC query (as an example backend)
 ![image](./images/dll_hijack_sigma.jpg)
 
 ```powershell
-from * metadata _id, _index, _version | where Image like "*onedrive.exe*" and ImageLoaded like "*version.dll*" and Signature like "*-'Microsoft Windows'*"
+from * metadata _id, _index, _version | where Image like "*onedrive.exe*" and ImageLoaded like "*version.dll*" and not Signature like "*Microsoft Windows*"
 ```
 
 > UHOH : We don't have the logs in our SIEM, nor in our EDR solution's datalake - now what? Well we can still find logs on the endpoint (if the logs haven't rolled over), how do we get those logs remotely off of that endpoint (and preferably without exporting ALL eventlogs)?
 
-VELOCIRAPTOR can do this, and integrates with Sigma
+# VELOCIRAPTOR can do this, and integrates with Sigma
+
+> Velociraptor doesn't like "CATEGORY" in sigma - so avoid using that!
 
 <https://sigma.velocidex.com/docs/sigma_in_velociraptor/customize/>
 

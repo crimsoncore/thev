@@ -19,6 +19,8 @@ systemctl status velociraptor_server.service
 
 > Velociraptor server config : /etc/velociraptor/server.config.yaml
 
+![Screenshot](./images/veloci_servercfg.jpg)
+
 From your windows machine you can connect to your Velociraptor server, using Chrome at the following address: <https://kali:8889/app/index.html#/>
 
 ![Screenshot](./images/veloci_web.jpg)

@@ -143,3 +143,9 @@ Use
 - SYSCALLS 
 - 
 To avoid hooke win32api functions
+
+# Using PINVOKE (CSharp importing unmanaged code like c/c++)
+
+![image](./images/functions_pinvoke.jpg)
+
+<https://learn.microsoft.com/en-us/dotnet/framework/interop/consuming-unmanaged-dll-functions>

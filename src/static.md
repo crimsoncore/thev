@@ -59,7 +59,7 @@ Let's first install YARA support in VSCODE
 
 ![Screenshot](./images/yaracode.jpg)
 
-```yara
+```yaml
 rule PE_Detected
 {
     meta:
@@ -71,10 +71,47 @@ rule PE_Detected
         uint16(0) == 0x5a4d
 }
 ```
-
+```powershell
+yara64.exe PE_Detected.yar <target exe>
+```
 <mark>Marked text</mark>
 
+### Detect Havoc C2 Payload in MEMORY
 
+<https://www.immersivelabs.com/resources/blog/havoc-c2-framework-a-defensive-operators-guide>
+
+```yaml
+rule HavocC2Init
+{
+
+    meta:
+        description = "Detects Havoc C2 Demon Init requests in memory"
+        reference = "https://immersivelabs.com"
+        author = "@kevthehermit"
+        date = "2024-02-07"
+        
+    strings:
+        $DEMON_INIT = { 00 00 ?? ?? de ad be ef ?? ?? ?? ?? 00 00 00 63 00 00 00 00 }
+
+    condition:
+        $DEMON_INIT
+}
+```
+
+
+```powershell
+yara64.exe havoc-c2-memory.yar 7188
+```
+
+![Screenshot](./images/yara_pwsh.jpg)
+
+Using System Informer we can see OneNote talking over HTTPS (TCP 443) to our Kali host (Havoc C2 Teamserver).
+
+![Screenshot](./images/yara_netw.jpg)
+
+> TIP: We could use VELOCIRAPTOR to run a yara scan on certain files and processes!
+
+---
 
 LitterBox
 

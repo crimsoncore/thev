@@ -188,7 +188,16 @@ from * metadata _id, _index, _version | where Image like "*onedrive.exe*" and Im
 
 # VELOCIRAPTOR can do this, and integrates with Sigma
 
-> Velociraptor doesn't like "CATEGORY" in sigma - so avoid using that!
+> CAVEAT : Velociraptor doesn't like "CATEGORY" in sigma - so avoid using that! Other sigma backends do support that, such as ESQL and Splunk. If you have a sigma rule that has the `category` just delete it.
+
+Velociraptor's Sigma implementation does not officially support the category: field in the logsource section of Sigma rules in the same way that traditional Sigma backends (like Elastic or Splunk) do.
+
+Why category: Might Not Work in Velociraptor
+Velociraptor uses a custom Sigma backend that maps logsource fields to VQL artifacts.
+While product: and service: are commonly supported and mapped, the category: field is not consistently implemented or recognized.
+If you include category: image_load, and there's no explicit mapping for that category in Velociraptor’s backend, the rule will silently fail to match any events.
+
+<https://sigma.velocidex.com/docs/models/windows_base/>
 
 <https://sigma.velocidex.com/docs/sigma_in_velociraptor/customize/>
 

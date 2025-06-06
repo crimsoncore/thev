@@ -198,7 +198,7 @@ C:\THEV\Labs\CsharpSideload\SharpSideloadDLL\SharpSideloadDLL\bin\x64\Release
 ildasm.exe /out:noexports.il SharpSideloadDLL.dll
 ```
 
-Open the noexports.il and add `.export [0]` to one of the functions, save as exports.il
+Open the noexports.il and add `.export [0]` to one of the functions, save as `exports.il`
 
 ![image](./images/dll_hijack_editil.jpg)
 
@@ -207,8 +207,7 @@ Open the noexports.il and add `.export [0]` to one of the functions, save as exp
 Then reassemble with ilasm (not ilDasm)
 
 ```powershell
-copy original to SharpSideloadDLLnoexports.dll
-ilasm.exe Exports.il /out:ManualExports.dll /DLL
+ilasm.exe Exports.il /out:SharpSideloadDLL.dll /DLL
 ```
 
 You can test with rundll32:

@@ -55,3 +55,7 @@ procdump -ma [Name or PID]
 <https://dnspy.org>
 
 <https://www.jetbrains.com/decompiler/download/#section=web-installer>
+
+## Strings, dumpbin, Elex, Yara, PEStudio
+
+## Velociraptor

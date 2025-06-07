@@ -6,6 +6,7 @@
   - [Processes, Tokens & DLL's](./processes.md)
   - [Privilege Escalation](./privesc.md)
     - [DLL Hijacking/Sideloading](./dll_hijack.md)
+      - [Lab DLL Hijacking](./lab_dll_hijack.md) 
     - [Unquoted Service Path](./unquoted.md)
       - [Lab - PrivEsc](./lab_privesc.md) 
     - [UAC Bypass](./uac.md)

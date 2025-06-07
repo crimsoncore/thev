@@ -59,3 +59,11 @@ procdump -ma [Name or PID]
 ## Strings, dumpbin, Elex, Yara, PEStudio
 
 ## Velociraptor
+
+https://github.com/digitalsleuth/WIN-FOR
+
+## ProcMon, API-Monitor, System Informer
+
+6. Memory Dumping Tools
+   - procdump (sysinternals)
+   - Magnet Process Capture (<https://www.magnetforensics.com/resources/magnet-process-capture/>)

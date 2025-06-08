@@ -267,7 +267,7 @@ On your windows machine when we browse with Chrome to the HTTPs listener (https:
 
 ![Screenshot](./images/havoc_certswin.jpg)
 
-We'll create a vanilla demon payload as an executable, make sure all settings are like in the screenshot below (we'll go into the advanced evasion settings later on), save the payload in ***"/opt/havoc/payloads"*** directory:
+We'll create a vanilla demon payload as an executable, make sure all settings are like in the screenshot below (we'll go into the advanced evasion settings later on), save the payload in ***"/opt/Havoc/payloads"*** directory:
 
 ![Screenshot](./images/havoc_payload.jpg)
 
@@ -280,13 +280,17 @@ updog2
 
 ![Screenshot](./images/havoc_kaliupdog.jpg)
 
-Now, on your windows machine use `Chrome` and go to <http:\\kali:9090\> and download the Havoc demon ("**demon.x64.exe**") to "C:\Temp" - right-click on demon.x64.exe, save link as
+Now, on your windows machine use `Chrome` and go to <http:\\kali:9090\> and download the Havoc demon ("**demon.x64.exe**") to "C:\Temp" - right-click on demon.x64.exe, "save link as" and point it to your C:\Temp directory.
 
-> ***NOTE***: "C:\Temp" is is whitelisted in MS Defender, we will deal with AV Evasion later on, for now we just want to make sure our code executes and sets up a c2 connection.
+> ***NOTE***: "C:\Temp" is is whitelisted in MS Defender so your defender won't trigger, we will deal with AV Evasion later on, for now we just want to make sure our code executes and sets up a c2 connection.
 
 ![Screenshot](./images/havoc_updog.jpg)
 
-> IMPORTANT: For the time being turn your Windows Defender `OFF`.
+> ***NOTE***: Chrome `safe browsing` will block potentially harmful files (exe's, dlls') when downloading with a ***browser*** - so don't forget to click "keep" in chrome, so the files is allowed to download. Even if you turn safe browsing off...
+
+![Screenshot](./images/havoc_chromedownload.jpg)
+
+![Screenshot](./images/havoc_chromekeep.jpg)
 
 We want to start with regular user privileges, so open a command prompt running as the unprivileged user `student`.
 

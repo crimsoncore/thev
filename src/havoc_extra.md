@@ -30,3 +30,36 @@ Build {
         Nasm = "/usr/bin/nasm"
     }
 ```
+
+----
+Let's set thsis up as a service:
+
+```bash
+sudo nano /lib/systemd/system/havocservice.service
+```
+
+```yaml
+[Unit]
+Description=HavocServer
+After=network.target
+
+[Service]
+Type=idle
+Restart=on-failure
+User=root
+ExecStart="/usr/bin/havoc" "server" "--profile" "/opt/havoc/profiles/https.yaotl"
+
+[Install]
+
+```
+
+Change the file permisions, enable and start the service:
+
+```
+sudo chmod 644 /lib/systemd/system/
+sudo systemctl daemon-reload
+enable havocserver.service
+sudo systemctl start havocserver.service 
+systemctl status havocserver.service
+"
+```

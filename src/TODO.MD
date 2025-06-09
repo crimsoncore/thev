@@ -8,6 +8,7 @@ TODO WINDOWS
 - Student, Student_adm, ThreatAdmin (password = Threathunt25)
 - copy VulnService.exe to C:\MyPrograms\Vulnerable Service
 - [PJ] directory permissions /opt subdirectories -> sudo chown -R Threatadmin:Threatadmin /opt/msf
+- [luks] cheat cheat commando's (havoc,credentials)
 
 TODO KALI
 

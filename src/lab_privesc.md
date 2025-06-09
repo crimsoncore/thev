@@ -7,9 +7,32 @@ g { color: Green }
 </style>
 
 > ***IMPORTANT*** : Please do not send submit samples to <r>Virus Total</r> or any other public virus-scanning services, unless specifically instructed. We don't want to burn our payloads for this training.
-> **Make sure at all times that sample submussion in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
+> **Make sure at all times that `sample submussion` in Microsoft Defender is `turned off`, and if for some reason you get prompted to submit a sample, deny the request.**
 
-> IMPORTANT : Make sure Windows Defender is turned OFF!!!
+> IMPORTANT : Make sure Windows Defender is turned `OFF`!!!
+
+Check if Defender is turned `ON` by running the checkav.ps1 script:
+
+Open a powershell prompt:
+
+```powershell
+c:\thev\labs\powershell\av_check.ps1
+```
+
+If Defender is turned on - run the following script to turn it off:
+
+```powershell
+c:\thev\labs\powershell\av_disable.ps1
+```
+
+From the same `powershell` console use `runas` as "student" (an unprivileged user) to start a new powershell:
+
+![image](./images/labunq_unpriv.jpg)
+
+If you still have your previous Havoc demon running, you can use that session, if not just run your demon.x64.exe from the C:\temp directory from the unprivileged powershell console:
+
+
+Use the Havoc session to upload a demonsvc.x64.exe renamed to `vulnerable.exe` to the `C:\MyPrograms\Vulnerable Service\` path, and then start the VulnService, using the havoc `shell` command.
 
 First of all, we need to find if there are any misconfigurations on the Windows victime - we can use several tools.
 

@@ -1,7 +1,7 @@
 # Summary
 
 - [ **Training** ](./training.md)
-  - [Infrastructure](./TODO.md)
+  - [Infrastructure](./todo.md)
   - [Intro](./intro.md)
   - [Havoc C2](./havoc.md)
   - [Processes, Tokens & DLL's](./processes.md)

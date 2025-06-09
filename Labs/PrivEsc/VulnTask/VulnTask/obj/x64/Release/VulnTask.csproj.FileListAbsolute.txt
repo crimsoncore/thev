@@ -1,0 +1,7 @@
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\bin\x64\Release\VulnTask.exe.config
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\bin\x64\Release\VulnTask.exe
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\bin\x64\Release\VulnTask.pdb
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\obj\x64\Release\VulnTask.csproj.AssemblyReference.cache
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\obj\x64\Release\VulnTask.csproj.CoreCompileInputs.cache
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\obj\x64\Release\VulnTask.exe
+C:\THEV\Labs\PrivEsc\VulnTask\VulnTask\obj\x64\Release\VulnTask.pdb

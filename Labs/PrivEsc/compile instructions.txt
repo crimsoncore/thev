@@ -1,0 +1,3 @@
+Compile instructions:
+Visual Studio Developer Prompt (x64)
+cl sedebug_interactive.c /link advapi32.lib

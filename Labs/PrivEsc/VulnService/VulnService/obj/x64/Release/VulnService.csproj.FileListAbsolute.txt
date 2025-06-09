@@ -1,0 +1,7 @@
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\obj\x64\Release\VulnService.csproj.CoreCompileInputs.cache
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\bin\x64\Release\VulnService.exe.config
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\bin\x64\Release\VulnService.exe
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\bin\x64\Release\VulnService.pdb
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\obj\x64\Release\VulnService.exe
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\obj\x64\Release\VulnService.pdb
+C:\THEV\Labs\PrivEsc\VulnService\VulnService\obj\x64\Release\VulnService.csproj.AssemblyReference.cache

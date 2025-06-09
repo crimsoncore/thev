@@ -11,6 +11,7 @@ TODO WINDOWS
 - [luks] cheat cheat commando's (havoc,credentials)
 - [Luk] tamper protection disable with registry?
 - [PJ] create vulnservice + folders
+- [PJ] remove DNS 10.0.0.4 on windows!
 
 TODO KALI
 

@@ -72,9 +72,17 @@
   </DriverLoad>
 
 <!-- SYSMON EVENT ID 7 == DLL (IMAGE) LOADED BY PROCESS [ImageLoad] -->
+  <RuleGroup name="OneDrive_Sideload_Attempt" groupRelation="or">
+    <ImageLoad onmatch="include">
+      <Image condition="contains">onedrive.exe</Image>
+      <ImageLoaded condition="contains">version.dll</ImageLoaded>
+      <Signature condition="is not">Microsoft Windows</Signature>
+    </ImageLoad>
+  </RuleGroup>
 
   <ImageLoad onmatch="include">
     <ImageLoaded condition="end with">mscoree.dll</ImageLoaded> <!--Loaded by Injected .Net Assemblies-->
+    <ImageLoaded condition="end with">cscapi.dll</ImageLoaded> <!--Hijackable DLL Onedrive and others-->
     <ImageLoaded condition="end with">amsi.dll</ImageLoaded> <!--Loaded by Injected .Net Assemblies on demand-->
     <ImageLoaded condition="end with">clr.dll</ImageLoaded> <!--Loaded by Injected .Net Assemblies-->
     <ImageLoaded condition="end with">cryptdll.dll</ImageLoaded> <!--Loaded by Mimikatz-->

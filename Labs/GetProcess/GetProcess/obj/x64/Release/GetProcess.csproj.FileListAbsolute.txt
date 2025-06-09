@@ -1,6 +1,0 @@
-C:\Git\code\GetProcess\GetProcess\bin\x64\Release\GetProcess.exe
-C:\Git\code\GetProcess\GetProcess\bin\x64\Release\GetProcess.pdb
-C:\Git\code\GetProcess\GetProcess\obj\x64\Release\GetProcess.csproj.AssemblyReference.cache
-C:\Git\code\GetProcess\GetProcess\obj\x64\Release\GetProcess.csproj.CoreCompileInputs.cache
-C:\Git\code\GetProcess\GetProcess\obj\x64\Release\GetProcess.exe
-C:\Git\code\GetProcess\GetProcess\obj\x64\Release\GetProcess.pdb

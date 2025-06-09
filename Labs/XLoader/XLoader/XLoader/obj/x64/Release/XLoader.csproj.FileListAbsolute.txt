@@ -1,7 +1,0 @@
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\bin\x64\Release\XLoader.exe.config
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\bin\x64\Release\XLoader.exe
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\bin\x64\Release\XLoader.pdb
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\obj\x64\Release\XLoader.csproj.CoreCompileInputs.cache
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\obj\x64\Release\XLoader.exe
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\obj\x64\Release\XLoader.pdb
-C:\THEV\Labs\XORShellcode\XLoader\XLoader\obj\x64\Release\XLoader.csproj.AssemblyReference.cache

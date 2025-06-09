@@ -1,7 +1,0 @@
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\bin\x64\Release\CrimsonXORencode.exe.config
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\bin\x64\Release\CrimsonXORencode.exe
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\bin\x64\Release\CrimsonXORencode.pdb
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\obj\x64\Release\CrimsonXORencode.csproj.AssemblyReference.cache
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\obj\x64\Release\CrimsonXORencode.csproj.CoreCompileInputs.cache
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\obj\x64\Release\CrimsonXORencode.exe
-C:\THEV\Labs\XORShellcode\CrimsonXORencode\CrimsonXORencode\obj\x64\Release\CrimsonXORencode.pdb

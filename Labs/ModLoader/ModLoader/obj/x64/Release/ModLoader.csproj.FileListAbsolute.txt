@@ -1,7 +1,0 @@
-C:\THEV\Labs\ModLoader\ModLoader\bin\x64\Release\ModLoader.exe.config
-C:\THEV\Labs\ModLoader\ModLoader\bin\x64\Release\ModLoader.exe
-C:\THEV\Labs\ModLoader\ModLoader\bin\x64\Release\ModLoader.pdb
-C:\THEV\Labs\ModLoader\ModLoader\obj\x64\Release\ModLoader.csproj.CoreCompileInputs.cache
-C:\THEV\Labs\ModLoader\ModLoader\obj\x64\Release\ModLoader.exe
-C:\THEV\Labs\ModLoader\ModLoader\obj\x64\Release\ModLoader.pdb
-C:\THEV\Labs\ModLoader\ModLoader\obj\x64\Release\ModLoader.csproj.AssemblyReference.cache

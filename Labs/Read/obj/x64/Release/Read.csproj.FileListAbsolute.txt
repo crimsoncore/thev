@@ -1,6 +1,0 @@
-C:\Git\code\Read\obj\x64\Release\Read.csproj.CoreCompileInputs.cache
-C:\Git\code\Read\bin\x64\Release\Read.exe.config
-C:\Git\code\Read\bin\x64\Release\Read.exe
-C:\Git\code\Read\bin\x64\Release\Read.pdb
-C:\Git\code\Read\obj\x64\Release\Read.exe
-C:\Git\code\Read\obj\x64\Release\Read.pdb

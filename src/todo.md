@@ -10,6 +10,7 @@ TODO WINDOWS
 - [PJ] directory permissions /opt subdirectories -> sudo chown -R Threatadmin:Threatadmin /opt/msf
 - [luks] cheat cheat commando's (havoc,credentials)
 - [Luk] tamper protection disable with registry?
+- [PJ] create vulnservice + folders
 
 TODO KALI
 
@@ -23,6 +24,18 @@ Get-WinUserLanguageList
 $LangList = Get-WinUserLanguageList
 $LangList.Add("nl-BE")
 Set-WinUserLanguageList $LangList -Force
+```
+
+[-] VulnService creation
+
+```command
+Create folders "C:\MyPrograms\Vulnerable Service"
+copy pingservice (C:\THEV\Labs\PrivEsc\VulnService\VulnService\bin\x64\Release\VulnService.exe) as "VulnService.exe" to "C:\MyPrograms\Vulnerable Service"
+
+sc create VulnService binPath= "C:\MyPrograms\Vulnerable Service\VulnService.exe"
+sc config VulnService obj= ".\Threatadmin" password= "Threathunt25"
+sc qc VulnService
+sc start VulnService
 ```
 
 [-] Registry keys autoupdate, process and commandline logging, powershell logging

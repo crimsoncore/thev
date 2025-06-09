@@ -13,7 +13,9 @@ g { color: Green }
 
 Check if Defender is turned `ON` by running the checkav.ps1 script:
 
-Open a powershell prompt:
+![image](./images/av_disable.jpg)
+
+Open a `powershell` prompt:
 
 ```powershell
 c:\thev\labs\powershell\av_check.ps1
@@ -25,11 +27,30 @@ If Defender is turned on - run the following script to turn it off:
 c:\thev\labs\powershell\av_disable.ps1
 ```
 
+If you still have your previous Havoc demon running, you can use that session, if not just run your demon.x64.exe from the C:\temp directory from the unprivileged powershell console:
+
+```powershell
+runas /user:student cmd.exe
+```
+
+Enter the password, and in the new command prompt you are now running as a regular user with medium integrity.
+
+![Screenshot](./images/havoc_clistudent.jpg)
+
+Now from this new command prompt running as unprivileged user, execute the payload:
+
+```powershell
+cd \temp
+demon.x64.exe
+```
+
+![Screenshot](./images/havoc_demon.jpg)
+
 From the same `powershell` console use `runas` as "student" (an unprivileged user) to start a new powershell:
 
 ![image](./images/labunq_unpriv.jpg)
 
-If you still have your previous Havoc demon running, you can use that session, if not just run your demon.x64.exe from the C:\temp directory from the unprivileged powershell console:
+
 
 
 Use the Havoc session to upload a demonsvc.x64.exe renamed to `vulnerable.exe` to the `C:\MyPrograms\Vulnerable Service\` path, and then start the VulnService, using the havoc `shell` command.

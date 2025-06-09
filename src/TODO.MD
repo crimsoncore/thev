@@ -73,7 +73,7 @@ sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ```bash
 sudo nano ~/.xprofile
 setxkbmap -layout be,us -option grp:alt_shift_toggle
-``
+```
 
 [-] Updog 2 Install
 ```bash

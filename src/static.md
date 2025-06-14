@@ -74,6 +74,12 @@ rule PE_Detected
 ```powershell
 yara64.exe PE_Detected.yar <target exe>
 ```
+
+![image](./images/static_yaratoolkit.jpg)
+
+<https://yaratoolkit.securitybreak.io/>
+
+
 <mark>Marked text</mark>
 
 ### Detect Havoc C2 Payload in MEMORY

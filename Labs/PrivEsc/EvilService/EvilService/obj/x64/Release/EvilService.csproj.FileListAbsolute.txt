@@ -1,0 +1,7 @@
+C:\Temp\EvilService\EvilService\bin\x64\Release\EvilService.exe.config
+C:\Temp\EvilService\EvilService\bin\x64\Release\EvilService.exe
+C:\Temp\EvilService\EvilService\bin\x64\Release\EvilService.pdb
+C:\Temp\EvilService\EvilService\obj\x64\Release\EvilService.csproj.AssemblyReference.cache
+C:\Temp\EvilService\EvilService\obj\x64\Release\EvilService.csproj.CoreCompileInputs.cache
+C:\Temp\EvilService\EvilService\obj\x64\Release\EvilService.exe
+C:\Temp\EvilService\EvilService\obj\x64\Release\EvilService.pdb

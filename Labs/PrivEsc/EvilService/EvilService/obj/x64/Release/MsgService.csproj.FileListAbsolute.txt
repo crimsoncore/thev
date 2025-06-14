@@ -1,0 +1,7 @@
+C:\Temp\VulnService\VulnService\obj\x64\Release\MsgService.csproj.AssemblyReference.cache
+C:\Temp\VulnService\VulnService\obj\x64\Release\MsgService.csproj.CoreCompileInputs.cache
+C:\Temp\VulnService\VulnService\obj\x64\Release\VulnService.exe
+C:\Temp\VulnService\VulnService\obj\x64\Release\VulnService.pdb
+C:\Temp\VulnService\VulnService\bin\x64\Release\VulnService.exe.config
+C:\Temp\VulnService\VulnService\bin\x64\Release\VulnService.exe
+C:\Temp\VulnService\VulnService\bin\x64\Release\VulnService.pdb

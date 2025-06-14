@@ -21,7 +21,7 @@ https://github.com/gatariee/gocheck/releases
 On your windows machine:
 
 ```powershell
-cd git
+cd c:\git
 git clone https://github.com/GhostPack/Rubeus.git
 ```
 

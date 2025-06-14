@@ -332,3 +332,9 @@ whoami
 We now have a simple Havoc demon payload running on the victim client, of course this would have been detected by AV, and as a regular user we can't do all the cool stuff - so let's continue and see how we can elevate privileges.
 
 
+# CLEANUP
+In order to properly clean up our session - in the Havoc GUI, right-click on the session, "Mark as dead", then "Exit-> Process" and finally "Remove".
+
+![Screenshot](./images/gen/havoc_dead.jpg)
+![Screenshot](./images/gen/havoc_term.jpg)
+![Screenshot](./images/gen/havoc_remove.jpg)
